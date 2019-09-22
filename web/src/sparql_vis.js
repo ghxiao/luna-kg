@@ -4,18 +4,17 @@ import {Parser as N3Parser} from "n3";
 
 import {DataSet, Network} from "vis-network";
 
-function drawRDFGraph(g, container) {
+function drawRDFGraph(g, container, prefixes) {
     //N3Parser.parse(g);
     const parser = new N3Parser();
     const parsedGraph = parser.parse(g);
 
     const subjects = parsedGraph.map(dp => dp.subject.id);
-    const predicates = parsedGraph.map(dp => dp.predicate.id);
     const objects = parsedGraph.map(dp => dp.object.id);
     const subjectsAndObjects = _.uniqBy(_.union(subjects, objects));
 
-    const nodes = new DataSet(subjectsAndObjects.map(t => createNode(t, {})));
-    const edges = new DataSet(parsedGraph.map(tp => createGraphEdge(tp, {})));
+    const nodes = new DataSet(subjectsAndObjects.map(t => createNode(t, prefixes)));
+    const edges = new DataSet(parsedGraph.map(tp => createGraphEdge(tp, prefixes)));
 
     const data = {
         nodes: nodes,

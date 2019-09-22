@@ -1,3 +1,4 @@
+import {SPARQLClient} from "./sparql";
 import {drawRDFGraph, drawSparqlGraph} from "./sparql_vis";
 
 const qPrefix = "PREFIX geosparql: <http://www.opengis.net/ont/geosparql#>\n" +
@@ -74,11 +75,34 @@ const q = 'PREFIX : <http://www.semanticweb.org/ding/ontologies/2017/10/untitled
 // drawSparqlGraph(qMunicipality, document.getElementById("mynetwork2"));
 // drawSparqlGraph(qStreet, document.getElementById("mynetwork3"));
 
+const constructQuery = 'PREFIX : <http://noi.example.org/ontology/odh#>\n' +
+    'PREFIX schema: <http://schema.org/>\n' +
+    '\n' +
+    'CONSTRUCT \n' +
+    '  {\n' +
+    '<http://noi.example.org/ontology/odh#data/accommodation/745EB990148B974EBB057DF103E5D7D3>  ?p ?o .\n' +
+    '}\n' +
+    'WHERE {\n' +
+    '<http://noi.example.org/ontology/odh#data/accommodation/745EB990148B974EBB057DF103E5D7D3> \n' +
+    '?p ?o .\n' +
+    '}';
 
-drawRDFGraph('@prefix c: <http://example.org/cartoons#>.\n' +
-    'c:Tom a c:Cat.\n' +
-    'c:Jerry a c:Mouse;\n' +
-    '        c:smarterThan c:Tom.', document.getElementById("mynetwork3"));
+const prefixes = {"" : "http://noi.example.org/ontology/odh#",
+"schema": "<http://schema.org/>"};
+
+new SPARQLClient('http://localhost:8080/sparql').construct(constructQuery).then(
+    result => {
+        //debugger;
+        drawRDFGraph(result, document.getElementById("mynetwork3"), prefixes)
+    }
+);
+
+// drawRDFGraph('@prefix c: <http://example.org/cartoons#>.\n' +
+//     'c:Tom a c:Cat.\n' +
+//     'c:Jerry a c:Mouse;\n' +
+//     '        c:smarterThan c:Tom.', document.getElementById("mynetwork3"))
+
+
 const g = drawSparqlGraph(qAll, document.getElementById("mynetwork4"));
 
 window.g = g;
