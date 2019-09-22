@@ -1,0 +1,220 @@
+{
+  "Id": "745EB990148B974EBB057DF103E5D7D3",
+  "Beds": 2,
+  "HgvId": null,
+  "Units": 1,
+  "Active": false,
+  "Gpstype": "position",
+  "HasRoom": false,
+  "SmgTags": [
+    "christkindlmarkt"
+  ],
+  "Altitude": 0.0,
+  "BadgeIds": [],
+  "BoardIds": [],
+  "Features": [
+    {
+      "Id": "8B808C230FE34263BE3787680DA253C7",
+      "Name": "Families",
+      "HgvId": null,
+      "OtaCodes": null,
+      "RoomAmenityCodes": null
+    },
+    {
+      "Id": "828CA68E3ABC4BA69587ACCB728E8858",
+      "Name": "Coach tours",
+      "HgvId": null,
+      "OtaCodes": null,
+      "RoomAmenityCodes": null
+    },
+    {
+      "Id": "8068941DF6F34B9D955965062614A3C2",
+      "Name": "Cycling",
+      "HgvId": null,
+      "OtaCodes": null,
+      "RoomAmenityCodes": null
+    },
+    {
+      "Id": "0A6193AD6EBC4BC18E83D7CEEEF53E45",
+      "Name": "Hiking",
+      "HgvId": null,
+      "OtaCodes": null,
+      "RoomAmenityCodes": null
+    },
+    {
+      "Id": "9F05BA64D6614894A89FFE23A4A0F20B",
+      "Name": "Bank card/Maestro",
+      "HgvId": null,
+      "OtaCodes": null,
+      "RoomAmenityCodes": null
+    },
+    {
+      "Id": "C0D482D69BCD4C2FB4F7AC46CECEF7D9",
+      "Name": "Washing machine",
+      "HgvId": null,
+      "OtaCodes": null,
+      "RoomAmenityCodes": null
+    },
+    {
+      "Id": "FC80F2ECCE5A40AA8EDE458CBECC3D45",
+      "Name": "Small pets allowed",
+      "HgvId": null,
+      "OtaCodes": null,
+      "RoomAmenityCodes": null
+    }
+  ],
+  "Latitude": 46.499543,
+  "TVMember": false,
+  "ThemeIds": [
+    "Wein",
+    "Städtisches Flair",
+    "Mediterran",
+    "Kleine Betriebe",
+    "Christkindlmarkt"
+  ],
+  "IsCamping": false,
+  "Longitude": 11.358798,
+  "Shortname": "Appartamento Conciapelli",
+  "SmgActive": false,
+  "AccoDetail": {
+    "de": {
+      "Fax": "",
+      "Zip": "39100",
+      "City": "Bozen",
+      "Name": "Appartamento Conciapelli",
+      "Email": "p.risa@tiscali.it",
+      "Phone": "+39 348 2891561",
+      "Mobile": "+39 348 2891561",
+      "Street": "Gerbergasse 36",
+      "Website": null,
+      "Language": "de",
+      "Lastname": "Risa",
+      "Longdesc": null,
+      "Firstname": "Patrizia",
+      "Shortdesc": null,
+      "NameAddition": "Risa Patrizia"
+    },
+    "en": {
+      "Fax": "",
+      "Zip": "39100",
+      "City": "Bolzano - Bozen",
+      "Name": "Appartamento Conciapelli",
+      "Email": "p.risa@tiscali.it",
+      "Phone": "+39 348 2891561",
+      "Mobile": "+39 348 2891561",
+      "Street": "Via Conciapelli - Gerbergasse 36",
+      "Website": null,
+      "Language": "en",
+      "Lastname": "Risa",
+      "Longdesc": null,
+      "Firstname": "Patrizia",
+      "Shortdesc": null,
+      "NameAddition": ""
+    },
+    "it": {
+      "Fax": "",
+      "Zip": "39100",
+      "City": "Bolzano",
+      "Name": "Appartamento Conciapelli",
+      "Email": "p.risa@tiscali.it",
+      "Phone": "+39 348 2891561",
+      "Mobile": "+39 348 2891561",
+      "Street": "Via Conciapelli 36",
+      "Website": null,
+      "Language": "it",
+      "Lastname": "Risa",
+      "Longdesc": "Monolocale in pieno centro storico a Bolzano",
+      "Firstname": "Patrizia",
+      "Shortdesc": "Luminoso, ampio monolocale in pieno centro storico, a due passi da Piazza Walther, dai Portici e dalla stazione ferroviaria. Si trova in zona pedonale ma  nei pressi della strada carrabile: ottima posizione per chi viene in treno o in auto e per muoversi sia a piedi che in bici.",
+      "NameAddition": ""
+    }
+  },
+  "AccoTypeId": "Notdefined",
+  "DistrictId": "79CBD66151C911D18F1400A02427D15E",
+  "IsBookable": false,
+  "LastChange": "2019-05-01T02:35:44.9482433",
+  "TrustYouID": null,
+  "FirstImport": "2015-07-23T02:05:15.6799277",
+  "HasLanguage": [
+    "de",
+    "it",
+    "en"
+  ],
+  "GastronomyId": "",
+  "HasApartment": true,
+  "ImageGallery": [],
+  "IsGastronomy": false,
+  "LocationInfo": {
+    "TvInfo": {
+      "Id": "5228229451CA11D18F1400A02427D15E",
+      "Name": {
+        "cs": "Bozen/Bolzano",
+        "de": "Bozen",
+        "en": "Bolzano/Bozen",
+        "fr": "Bolzano/Bozen",
+        "it": "Bolzano",
+        "nl": "Bolzano/Bozen",
+        "pl": "Bolzano/Bozen",
+        "ru": "Больцано/Bozen"
+      }
+    },
+    "AreaInfo": null,
+    "RegionInfo": {
+      "Id": "D2633A1CC24E11D18F1B006097B8970B",
+      "Name": {
+        "cs": "Bozen/Bolzano a okolí",
+        "de": "Bozen und Umgebung",
+        "en": "Bolzano/Bozen and environs",
+        "fr": "Bolzano/Bozen et environs",
+        "it": "Bolzano e dintorni",
+        "nl": "Bolzano/Bozen en omgeving",
+        "pl": "Bolzano/Bozen i okolice",
+        "ru": "Больцано/Bozen и окрестности"
+      }
+    },
+    "DistrictInfo": {
+      "Id": "79CBD66151C911D18F1400A02427D15E",
+      "Name": {
+        "cs": "Bozen Zentrum/Bolzano Centro",
+        "de": "Bozen Zentrum",
+        "en": "Bolzano Centro/Bozen Zentrum",
+        "fr": "Bolzano Centro/Bozen Zentrum",
+        "it": "Bolzano Centro",
+        "nl": "Bolzano Centro/Bozen Zentrum",
+        "pl": "Bolzano Centro/Bozen Zentrum",
+        "ru": "Больцано Чентро"
+      }
+    },
+    "MunicipalityInfo": {
+      "Id": "50FCFD4334A04DB087C1FD10ED864018",
+      "Name": {
+        "cs": "Bozen/Bolzano",
+        "de": "Bozen",
+        "en": "Bolzano/Bozen",
+        "fr": "Bolzano/Bozen",
+        "it": "Bolzano",
+        "nl": "Bolzano/Bozen",
+        "pl": "Bolzano/Bozen",
+        "ru": "Больцано"
+      }
+    }
+  },
+  "MainLanguage": "IT",
+  "TrustYouScore": 0.0,
+  "TrustYouState": 0,
+  "AccoCategoryId": "Not categorized",
+  "Representation": 2,
+  "TrustYouActive": false,
+  "IndependentData": null,
+  "IsAccommodation": false,
+  "TourismVereinId": "5228229451CA11D18F1400A02427D15E",
+  "TrustYouResults": 0,
+  "MssResponseShort": [],
+  "MarketingGroupIds": [],
+  "AccoBookingChannel": null,
+  "SpecialFeaturesIds": [
+    "Kleine Haustiere",
+    "Gruppenfreundlich"
+  ],
+  "AltitudeUnitofMeasure": "m"
+}
