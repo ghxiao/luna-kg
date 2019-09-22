@@ -285,3 +285,4 @@ typings/
 # DynamoDB Local files
 .dynamodb/
 
+html/

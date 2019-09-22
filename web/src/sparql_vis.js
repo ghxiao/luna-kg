@@ -1,31 +1,21 @@
-const Parser = SparqlParser.Parser;
-Parser.options = {};
-const parser = new Parser();
+import {Parser as SparqlParser} from "sparqljs";
+import _ from 'lodash';
+import {Parser as N3Parser} from "n3";
+
+import {DataSet, Network} from "vis-network";
 
 function drawRDFGraph(g, container) {
+    //N3Parser.parse(g);
+    const parser = new N3Parser();
+    const parsedGraph = parser.parse(g);
 
-}
-
-function drawSparqlGraph(q, container) {
-    const parsedQuery = parser.parse(q);
-
-    const prefixes = parsedQuery.prefixes;
-
-    prefixes['xsd'] = 'http://www.w3.org/2001/XMLSchema#';
-
-    const subjects = parsedQuery.where[0].triples.map(tp => tp.subject);
-
-    const objects = parsedQuery.where[0].triples.map(tp => tp.object);
-
+    const subjects = parsedGraph.map(dp => dp.subject.id);
+    const predicates = parsedGraph.map(dp => dp.predicate.id);
+    const objects = parsedGraph.map(dp => dp.object.id);
     const subjectsAndObjects = _.uniqBy(_.union(subjects, objects));
 
-    const nodes = subjectsAndObjects.map(t => createNode(t, prefixes));
-
-    const edges = parsedQuery.where[0].triples.map(function (tp) {
-        return createEdge(tp, prefixes)
-    });
-
-//    const container = document.getElementById('graphSector');
+    const nodes = new DataSet(subjectsAndObjects.map(t => createNode(t, {})));
+    const edges = new DataSet(parsedGraph.map(tp => createGraphEdge(tp, {})));
 
     const data = {
         nodes: nodes,
@@ -40,7 +30,54 @@ function drawSparqlGraph(q, container) {
             //inheritColors: false
         }
     };
-    const network = new vis.Network(container, data, options);
+    return new Network(container, data, options);
+}
+
+function createGraphEdge(tp, prefixes) {
+    return {
+        from: tp.subject.id,
+        to: tp.object.id,
+        label: getShortIriForm(tp.predicate.id, prefixes),
+        arrows: 'to',
+        color: 'black'
+    };
+}
+
+function drawSparqlGraph(q, container) {
+    const sparqlParser = new SparqlParser();
+    const parsedQuery = sparqlParser.parse(q);
+
+    const prefixes = parsedQuery.prefixes;
+
+    prefixes['xsd'] = 'http://www.w3.org/2001/XMLSchema#';
+
+    const subjects = parsedQuery.where[0].triples.map(tp => tp.subject);
+
+    const objects = parsedQuery.where[0].triples.map(tp => tp.object);
+
+    const subjectsAndObjects = _.uniqBy(_.union(subjects, objects));
+
+    const nodes = new DataSet(subjectsAndObjects.map(t => createNode(t, prefixes)));
+
+    const edges = new DataSet(parsedQuery.where[0].triples.map(function (tp) {
+        return createEdge(tp, prefixes)
+    }));
+
+    const data = {
+        nodes: nodes,
+        edges: edges
+    };
+
+    const options = {
+        edges: {
+            color: 'black'
+        },
+        nodes: {
+            //inheritColors: false
+        }
+    };
+    const network = new Network(container, data, options);
+    return network;
 }
 
 
@@ -89,7 +126,7 @@ function getShortIriForm(iri, prefixes) {
         // skip loop if the property is from prototype
         if (!prefixes.hasOwnProperty(key)) continue;
 
-        value = prefixes[key];
+        const value = prefixes[key];
         if (iri.startsWith(value)) {
             return key + ":" + iri.substring(value.length)
         }
@@ -101,7 +138,7 @@ function getLabel(rdfTerm, prefixes) {
     if (rdfTerm.startsWith("\"")) {
         // literal
         if (rdfTerm.indexOf("^^") > 0) {
-            idx = rdfTerm.indexOf("^^");
+            const idx = rdfTerm.indexOf("^^");
             return rdfTerm.substring(0, idx) + "^^" + getShortIriForm(rdfTerm.substring(idx + 2), prefixes);
         } else {
             return rdfTerm;
@@ -123,6 +160,7 @@ function createEdge(tp, prefixes) {
         label: getShortIriForm(tp.predicate, prefixes),
         arrows: 'to',
         color: 'black'
-
     };
 }
+
+export {drawRDFGraph, drawSparqlGraph}
