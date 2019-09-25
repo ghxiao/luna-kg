@@ -1,5 +1,6 @@
 import {SPARQLClient} from "./sparql";
 import {drawRDFGraph, drawSparqlGraph} from "./sparql_vis";
+import Vue from "vue";
 
 const qPrefix = "PREFIX geosparql: <http://www.opengis.net/ont/geosparql#>\n" +
     "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
@@ -75,7 +76,7 @@ const q = 'PREFIX : <http://www.semanticweb.org/ding/ontologies/2017/10/untitled
 // drawSparqlGraph(qMunicipality, document.getElementById("mynetwork2"));
 // drawSparqlGraph(qStreet, document.getElementById("mynetwork3"));
 
-const constructQuery = 'PREFIX : <http://noi.example.org/ontology/odh#>\n' +
+let constructQuery = 'PREFIX : <http://noi.example.org/ontology/odh#>\n' +
     'PREFIX schema: <http://schema.org/>\n' +
     '\n' +
     'CONSTRUCT \n' +
@@ -87,15 +88,89 @@ const constructQuery = 'PREFIX : <http://noi.example.org/ontology/odh#>\n' +
     '?p ?o .\n' +
     '}';
 
-const prefixes = {"" : "http://noi.example.org/ontology/odh#",
-"schema": "<http://schema.org/>"};
+constructQuery = `
+PREFIX : <http://noi.example.org/ontology/odh#>
+PREFIX dc: <http://purl.org/dc/terms/>
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xml: <http://www.w3.org/XML/1998/namespace>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX obda: <https://w3id.org/obda/vocabulary#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <http://schema.org/>
 
-new SPARQLClient('http://localhost:8080/sparql').construct(constructQuery).then(
-    result => {
-        //debugger;
-        drawRDFGraph(result, document.getElementById("mynetwork3"), prefixes)
+CONSTRUCT {
+?s a schema:SkiResort ; rdfs:label ?name ; schema:elevation ?el .
+}
+WHERE {
+?s a schema:SkiResort ; rdfs:label ?name ; geo:asWKT ?pos ; schema:elevation ?el .
+}
+#ORDER BY DESC(?el)
+#LIMIT 10 
+`
+
+const prefixes = {
+    "schema": "http://schema.org/",
+    dc: "http://purl.org/dc/terms/",
+    geo: "http://www.opengis.net/ont/geosparql#",
+    owl: "http://www.w3.org/2002/07/owl#",
+    rdf: "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    xml: "http://www.w3.org/XML/1998/namespace",
+    xsd: "http://www.w3.org/2001/XMLSchema#",
+    obda: "https://w3id.org/obda/vocabulary#",
+    rdfs: "http://www.w3.org/2000/01/rdf-schema#",
+    "": "http://noi.example.org/ontology/odh#",
+};
+
+
+let quiz = [
+    {
+        question: "How many Ski Resorts are in Suedtirol?",
+        answers: {
+            'A': '1 -10',
+            'B': '11 - 20',
+            'C': '21 - 30',
+            'D': '31 - 40'
+        },
+        correctAnswer: 'C',
+        sparql: `PREFIX : <http://noi.example.org/ontology/odh#>
+PREFIX dc: <http://purl.org/dc/terms/>
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xml: <http://www.w3.org/XML/1998/namespace>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX obda: <https://w3id.org/obda/vocabulary#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <http://schema.org/>
+
+CONSTRUCT {
+?s a schema:SkiResort ; rdfs:label ?name ; schema:elevation ?el .
+}
+WHERE {
+?s a schema:SkiResort ; rdfs:label ?name ; geo:asWKT ?pos ; schema:elevation ?el .
+}`,
+        selected: "",
     }
-);
+];
+
+
+// <script src="http://unpkg.com/vue"></script>
+
+const app = new Vue({
+    el: '#app',
+    data: quiz[0]
+});
+
+
+new SPARQLClient('http://localhost:8080/sparql')
+    .construct(constructQuery)
+    .then(
+        result => {
+            drawRDFGraph(result, document.getElementById("kg"), prefixes)
+        }
+    );
 
 // drawRDFGraph('@prefix c: <http://example.org/cartoons#>.\n' +
 //     'c:Tom a c:Cat.\n' +
@@ -103,7 +178,7 @@ new SPARQLClient('http://localhost:8080/sparql').construct(constructQuery).then(
 //     '        c:smarterThan c:Tom.', document.getElementById("mynetwork3"))
 
 
-const g = drawSparqlGraph(qAll, document.getElementById("mynetwork4"));
+//const g = drawSparqlGraph(qAll, document.getElementById("mynetwork4"));
 
-window.g = g;
+//window.g = g;
 

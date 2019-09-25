@@ -45,16 +45,21 @@
 <!--<div id="mynetwork1"></div>-->
 <!--<div id="mynetwork2"></div>-->
 <div id="mynetwork3"></div>
-<div id="mynetwork4"></div>
+<!--<div id="mynetwork4"></div>-->
 
 <script src="index.js"></script>
 
-<script type="text/javascript">
-//import {g} from './index'
+<div id="app">
+    <h2> {{product}} are in stock.</h2>
+</div>
 
-
+<script src="http://unpkg.com/vue"></script>
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {product: 'Boots'}
+    });
 </script>
-
 
 </body>
 </html>

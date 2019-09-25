@@ -138,7 +138,8 @@ function getLabel(rdfTerm, prefixes) {
         // literal
         if (rdfTerm.indexOf("^^") > 0) {
             const idx = rdfTerm.indexOf("^^");
-            return rdfTerm.substring(0, idx) + "^^" + getShortIriForm(rdfTerm.substring(idx + 2), prefixes);
+            return rdfTerm.substring(1, idx-1);
+            //return rdfTerm.substring(0, idx) + "^^" + getShortIriForm(rdfTerm.substring(idx + 2), prefixes);
         } else {
             return rdfTerm;
         }
@@ -147,8 +148,12 @@ function getLabel(rdfTerm, prefixes) {
         // BNodes
         return rdfTerm;
     } else {
-        // iri
-        return getShortIriForm(rdfTerm, prefixes);
+        let shortIriForm = getShortIriForm(rdfTerm, prefixes);
+        // HACK
+        if(shortIriForm.startsWith(":data")){
+            return "";
+        } else
+        return shortIriForm;
     }
 }
 

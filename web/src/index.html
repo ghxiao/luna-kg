@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Network | Basic usage</title>
+
+    <link href="../node_modules/vis-network/dist/vis-network.min.css" rel="stylesheet" type="text/css"/>
+
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        .container {
+            height: 100%;
+            display: grid;
+            grid-gap: 3px;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: 40px auto 40px;
+        }
+
+        #header {
+            grid-column: 1 / -1;
+        }
+
+        #qa {
+            min-width: 300px;
+            grid-column: 1 / 2;
+        }
+
+        #kg {
+            grid-column: 2 / -1;
+            border: 1px solid lightgray;
+        }
+
+        #footer {
+            grid-column: 1 / -1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="app">
+    <div id="header">Header</div>
+    <div id="qa">
+        <div id="question">{{ question }}</div>
+        <div id="answers">
+            <input id="answer.a" type="radio" name="answer" class="answer" value="A" v-model='selected'>
+            <label for="answer.a"> A. {{ answers.A}} </label> <br/>
+            <input id="answer.b" type="radio" name="answer" class="answer" value="B" v-model='selected'>
+            <label for="answer.b"> B. {{ answers.B}} </label> <br/>
+            <input id="answer.c" type="radio" name="answer" class="answer" value="C" v-model='selected'>
+            <label for="answer.c"> C. {{ answers.C}} </label> <br/>
+            <input id="answer.d" type="radio" name="answer" class="answer" value="D" v-model='selected'>
+            <label for="answer.d"> D. {{ answers.D}} </label>
+            <br>
+        </div>
+        Selected: {{ selected }}
+
+        <button>Check</button>
+
+        {{ selected === correctAnswer}}
+    </div>
+    <div id="kg"></div>
+    <div id="footer">Footer</div>
+</div>
+
+<script src="index.js"></script>
+
+
+</body>
+</html>

@@ -84,7 +84,137 @@ SELECT (COUNT(DISTINCT ?h) AS ?count) WHERE {
 }
 ]]
 
-[QueryGroup="Ski"] @collection [[
-[QueryItem="ski"]
+[QueryGroup="POI"] @collection [[
+[QueryItem="poi"]
+PREFIX : <http://noi.example.org/ontology/odh#>
+PREFIX dc: <http://purl.org/dc/terms/>
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xml: <http://www.w3.org/XML/1998/namespace>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX obda: <https://w3id.org/obda/vocabulary#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <http://schema.org/>
 
+SELECT * {
+?x a schema:Place ; rdfs:label ?posLabel ; geo:asWKT ?pos; schema:elevation ?posHeight.
+}
+LIMIT 50
+
+[QueryItem="poi_area"]
+PREFIX : <http://noi.example.org/ontology/odh#>
+PREFIX dc: <http://purl.org/dc/terms/>
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xml: <http://www.w3.org/XML/1998/namespace>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX obda: <https://w3id.org/obda/vocabulary#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <http://schema.org/>
+
+SELECT * {
+?x a schema:Place ; rdfs:label ?posLabel ; geo:asWKT ?pos; schema:elevation ?posHeight ; schema:isPartOf ?area. ?area rdfs:label ?areaName .
+}
+LIMIT 50
+
+[QueryItem="poi_area_count"]
+PREFIX : <http://noi.example.org/ontology/odh#>
+PREFIX dc: <http://purl.org/dc/terms/>
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xml: <http://www.w3.org/XML/1998/namespace>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX obda: <https://w3id.org/obda/vocabulary#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <http://schema.org/>
+
+SELECT (COUNT(?x) AS ?n_poi) ?areaName {
+?x a schema:Place ; rdfs:label ?posLabel ; geo:asWKT ?pos; schema:elevation ?posHeight ; schema:isPartOf ?area. ?area rdfs:label ?areaName .
+}
+GROUP BY ?areaName 
+ORDER BY ?n_poi
+]]
+
+[QueryGroup="Area"] @collection [[
+[QueryItem="area"]
+PREFIX : <http://noi.example.org/ontology/odh#>
+PREFIX dc: <http://purl.org/dc/terms/>
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xml: <http://www.w3.org/XML/1998/namespace>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX obda: <https://w3id.org/obda/vocabulary#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <http://schema.org/>
+
+SELECT * WHERE {
+?a a schema:AdministrativeArea ; rdfs:label ?name . 
+}
+]]
+
+[QueryGroup="Region"] @collection [[
+[QueryItem="region"]
+PREFIX : <http://noi.example.org/ontology/odh#>
+PREFIX dc: <http://purl.org/dc/terms/>
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xml: <http://www.w3.org/XML/1998/namespace>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX obda: <https://w3id.org/obda/vocabulary#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <http://schema.org/>
+
+SELECT * {
+?x a :Region ;  rdfs:label ?posLabel ; geo:asWKT ?pos; schema:elevation ?posHeight.
+}
+LIMIT 50
+]]
+
+[QueryGroup="ski"] @collection [[
+[QueryItem="SkiResort"]
+PREFIX : <http://noi.example.org/ontology/odh#>
+PREFIX dc: <http://purl.org/dc/terms/>
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xml: <http://www.w3.org/XML/1998/namespace>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX obda: <https://w3id.org/obda/vocabulary#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <http://schema.org/>
+
+SELECT * WHERE {
+?s a schema:SkiResort ; rdfs:label ?name ; geo:asWKT ?pos ; schema:elevation ?el ; schema:image ?img ; schema:isPartOf ?skiRegion. ?skiRegion a :SkiRegion .?skiRegion rdfs:label ?regionName.
+?s schema:isPartOf ?area. ?area a :Area ; rdfs:label ?areaName .
+  bind(concat('<h3>',str(?name), #?regionName, 
+' </h3>',
+      #        '<a href="', str(?img), '>',
+      '<img src="',str(?img), '" height="300" width="300">'
+    #  '</a>'
+    ) as ?posLabel)
+#  bind(strdt(?lex,rdf:HTML) as ?widget)
+}
+]]
+
+[QueryGroup="ActivityType"] @collection [[
+[QueryItem="activityType"]
+PREFIX : <http://noi.example.org/ontology/odh#>
+PREFIX dc: <http://purl.org/dc/terms/>
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xml: <http://www.w3.org/XML/1998/namespace>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX obda: <https://w3id.org/obda/vocabulary#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <http://schema.org/>
+
+SELECT * WHERE {
+? a :Activity ; :activityType ?t .
+}
 ]]

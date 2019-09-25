@@ -53,8 +53,45 @@ source		SELECT "Id" AS id
 			FROM "v_accommodationsopen"
 			WHERE "AccoTypeId" = 'BedBreakfast'
 
-mappingId	SkiArea
-target		:data/skiResort/{Id} a schema:SkiResort ; schema:longitude {Longitude} ; schema:latitude {Latitude} . 
-source		SELECT "Id", "Longitude", "Latitude" FROM v_skiareasopen
+mappingId	POI
+target		:data/poi/{Id} a :POI ; rdfs:label {Shortname}^^xsd:string ; geo:asWKT "POINT ({GpsPoints-position-Longitude} {GpsPoints-position-Latitude})"^^geo:wktLiteral ; schema:elevation {GpsPoints-position-Altitude}^^xsd:decimal . 
+source		SELECT "Id", "Shortname", "GpsPoints-position-Latitude", "GpsPoints-position-Longitude", "GpsPoints-position-Altitude" FROM v_poisopen
+
+mappingId	Area
+target		:data/area/{Id} a :Area ; rdfs:label {Shortname}^^xsd:string . 
+source		SELECT "Id", "Shortname" FROM v_areas
+
+mappingId	POI_Area
+target		:data/poi/{Id} schema:isPartOf :data/area/{data} . 
+source		SELECT "Id", "data" FROM "v_poisopen_AreaId";
+
+mappingId	Region
+target		:data/region/{Id} a :Region ; rdfs:label {Shortname}^^xsd:string ; geo:asWKT "POINT ({Longitude} {Latitude})"^^geo:wktLiteral ; schema:elevation {Altitude}^^xsd:decimal . 
+source		SELECT "Id", "Shortname", "Longitude", "Latitude", "Altitude" FROM v_regionsopen
+
+mappingId	SkiResort
+target		:data/skiResort/{Id} a schema:SkiResort ; rdfs:label {Shortname}^^xsd:string ; geo:asWKT "POINT ({Longitude} {Latitude})"^^geo:wktLiteral ; schema:elevation {AltitudeTo}^^xsd:decimal ; schema:image <{SkiAreaMapURL}> ; schema:isPartOf :data/skiRegion/{SkiRegionId} . 
+source		SELECT "Id", "Shortname", "Longitude", "Latitude", "AltitudeTo", "SkiAreaMapURL", "SkiRegionId" FROM v_skiareasopen
+
+mappingId	SkiRegion
+target		:data/skiRegion/{Id} a :SkiRegion ; rdfs:label {Shortname}^^xsd:string ; geo:asWKT "POINT ({Longitude} {Latitude})"^^geo:wktLiteral ; schema:elevation {Altitude}^^xsd:decimal . 
+source		SELECT "Id", "Shortname", "Longitude", "Latitude", "Altitude" FROM v_skiregionsopen
+
+mappingId	SkiResort_Area
+target		:data/skiResort/{Id} schema:isPartOf :data/area/{data} . 
+source		SELECT "Id", "data" FROM "v_skiareasopen_AreaId"
+
+mappingId	EntertainmentBusiness
+target		:data/poi/{Id} a schema:EntertainmentBusiness . 
+source		SELECT * FROM v_poisopen WHERE "Type" = 'Kunsthandwerker'
+
+mappingId	MedicalOrganization
+target		:data/poi/{Id} a schema:MedicalOrganization . 
+source		SELECT * FROM v_poisopen WHERE "Type" = 'Ärzte, Apotheken'
+
+mappingId	Activity
+target		:{SubType} a :Activity ; rdfs:label {SubType}^^xsd:string ; :activityType {Type}^^xsd:string . 
+source		SELECT DISTINCT "Type", "SubType"
+			FROM v_smgpoisopen
 ]]
 
