@@ -70,8 +70,8 @@ target		:data/region/{Id} a :Region ; rdfs:label {Shortname}^^xsd:string ; geo:a
 source		SELECT "Id", "Shortname", "Longitude", "Latitude", "Altitude" FROM v_regionsopen
 
 mappingId	SkiResort
-target		:data/skiResort/{Id} a schema:SkiResort ; rdfs:label {Shortname}^^xsd:string ; geo:asWKT "POINT ({Longitude} {Latitude})"^^geo:wktLiteral ; schema:elevation {AltitudeTo}^^xsd:decimal ; schema:image <{SkiAreaMapURL}> ; schema:isPartOf :data/skiRegion/{SkiRegionId} . 
-source		SELECT "Id", "Shortname", "Longitude", "Latitude", "AltitudeTo", "SkiAreaMapURL", "SkiRegionId" FROM v_skiareasopen
+target		:data/skiResort/{Id} a schema:SkiResort ; rdfs:label {Detail-en-Header}^^xsd:string ; geo:asWKT "POINT ({Longitude} {Latitude})"^^geo:wktLiteral ; schema:elevation {AltitudeTo}^^xsd:decimal ; schema:image <{SkiAreaMapURL}> ; schema:isPartOf :data/skiRegion/{SkiRegionId} . 
+source		SELECT "Id", "Shortname", "Detail-en-Header", "Longitude", "Latitude", "AltitudeTo", "SkiAreaMapURL", "SkiRegionId" FROM v_skiareasopen
 
 mappingId	SkiRegion
 target		:data/skiRegion/{Id} a :SkiRegion ; rdfs:label {Shortname}^^xsd:string ; geo:asWKT "POINT ({Longitude} {Latitude})"^^geo:wktLiteral ; schema:elevation {Altitude}^^xsd:decimal . 
