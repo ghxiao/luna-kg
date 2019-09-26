@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Network | Basic usage</title>
+    <title>KG / LUNA 2019</title>
 
     <link href="../node_modules/vis-network/dist/vis-network.min.css" rel="stylesheet" type="text/css"/>
 
@@ -16,6 +16,7 @@
         }
 
         .container {
+            font-size: x-large;
             height: 100%;
             display: grid;
             grid-gap: 3px;
@@ -40,6 +41,10 @@
         #footer {
             grid-column: 1 / -1;
         }
+
+        button {
+            font-size: large;
+        }
     </style>
 </head>
 <body>
@@ -47,30 +52,32 @@
 <div class="container" id="app">
     <div id="header">Header</div>
     <div id="qa">
-        <div id="question">{{ question }}</div>
-        <div id="answers">
-            <input id="answer.a" type="radio" name="answer" class="answer" value="A" v-model='selected'>
-            <label for="answer.a"> A. {{ answers.A}} </label> <br/>
-            <input id="answer.b" type="radio" name="answer" class="answer" value="B" v-model='selected'>
-            <label for="answer.b"> B. {{ answers.B}} </label> <br/>
-            <input id="answer.c" type="radio" name="answer" class="answer" value="C" v-model='selected'>
-            <label for="answer.c"> C. {{ answers.C}} </label> <br/>
-            <input id="answer.d" type="radio" name="answer" class="answer" value="D" v-model='selected'>
-            <label for="answer.d"> D. {{ answers.D}} </label>
+        <h2>Score: {{ score }}</h2>
+        <div id="question">{{ quiz.question }}</div>
+        <div id="choices">
+            <input id="choice.a" type="radio" name="choice" class="choice" value="A" v-model='selected' :disabled="status==2">
+            <label for="choice.a"> A. {{ quiz.choices.A }} </label> <br/>
+            <input id="choice.b" type="radio" name="choice" class="choice" value="B" v-model='selected' :disabled="status==2">
+            <label for="choice.b"> B. {{ quiz.choices.B }} </label> <br/>
+            <input id="choice.c" type="radio" name="choice" class="choice" value="C" v-model='selected' :disabled="status==2">
+            <label for="choice.c"> C. {{ quiz.choices.C }} </label> <br/>
+            <input id="choice.d" type="radio" name="choice" class="choice" value="D" v-model='selected' :disabled="status==2">
+            <label for="choice.d"> D. {{ quiz.choices.D }} </label>
             <br>
         </div>
-        Selected: {{ selected }}
+<!--        <div>Selected: {{ selected }}</div>-->
+        <div>Status: {{ status }}</div>
+        <button @click="score+=calcScore(status, selected === quiz.correct)" :disabled="status==2">Submit</button>
 
-        <button>Check</button>
+        <div v-show="status>=1">{{ message }}</div>
 
-        {{ selected === correctAnswer}}
+
     </div>
-    <div id="kg"></div>
+    <div id="kg" v-show="status >= 1"></div>
     <div id="footer">Footer</div>
 </div>
 
 <script src="index.js"></script>
-
 
 </body>
 </html>

@@ -127,13 +127,13 @@ const prefixes = {
 let quiz = [
     {
         question: "How many Ski Resorts are in Suedtirol?",
-        answers: {
+        choices: {
             'A': '1 -10',
             'B': '11 - 20',
             'C': '21 - 30',
             'D': '31 - 40'
         },
-        correctAnswer: 'C',
+        correct: 'C',
         sparql: `PREFIX : <http://noi.example.org/ontology/odh#>
 PREFIX dc: <http://purl.org/dc/terms/>
 PREFIX geo: <http://www.opengis.net/ont/geosparql#>
@@ -151,17 +151,57 @@ CONSTRUCT {
 WHERE {
 ?s a schema:SkiResort ; rdfs:label ?name ; geo:asWKT ?pos ; schema:elevation ?el .
 }`,
-        selected: "",
+        score: 0
     }
 ];
 
 
 // <script src="http://unpkg.com/vue"></script>
 
+// status:
+//  0: never tried
+//  1: first try
+//  2. done!
 const app = new Vue({
-    el: '#app',
-    data: quiz[0]
-});
+        el: '#app',
+        data: {
+            quiz: quiz[0],
+            selected: "",
+            status: 0,
+            score: 0,
+            message: "",
+        },
+        methods: {
+            calcScore(status, right) {
+                if (status === 0) {
+                    if (right) {
+                        this.status = 2;
+                        this.message = "Congratulations! You get 20 points!";
+                        return 20;
+                    } else {
+                        this.status = 1;
+                        this.message = "Sorry, the answer is wrong! But you can check the graph and retry!";
+                        return 0;
+                    }
+                } else if (status === 1) {
+                    if (right) {
+                        this.status = 2;
+                        this.message = "Congratulations! You get 10 points!";
+                        return 10;
+                    } else {
+                        this.status = 2;
+                        this.message = "Sorry, the answer is wrong!";
+                        return 0;
+                    }
+                } else if (status === 2) {
+                    return 0;
+                } else {
+                    return 0;
+                }
+            }
+        }
+    })
+;
 
 
 new SPARQLClient('http://localhost:8080/sparql')
