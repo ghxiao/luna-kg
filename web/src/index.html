@@ -31,6 +31,7 @@
         #qa {
             min-width: 300px;
             grid-column: 1 / 2;
+            padding: 20px;
         }
 
         #kg {
@@ -66,12 +67,12 @@
             <br>
         </div>
 <!--        <div>Selected: {{ selected }}</div>-->
-        <div>Status: {{ status }}</div>
+<!--        <div>Status: {{ status }}</div>-->
         <button @click="score+=calcScore(status, selected === quiz.correct)" :disabled="status==2">Submit</button>
-
-        <div v-show="status>=1">{{ message }}</div>
-
-
+        <p  v-html="message"></p>
+<!--        <div> {{ message }} </div>-->
+        <br/>
+        <button v-show="status==2" @click="next();">Next Question</button>
     </div>
     <div id="kg" v-show="status >= 1"></div>
     <div id="footer">Footer</div>

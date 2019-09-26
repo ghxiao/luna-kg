@@ -7,17 +7,23 @@
   "dependencies": {
     "lodash": "^4.17.15",
     "n3": "^1.2.0",
+    "parcel-plugin-static-files-copy": "^2.2.1",
     "sparqljs": "^2.2.3",
     "vis-network": "^6.0.0",
     "vue": "^2.6.10"
   },
   "devDependencies": {},
   "alias": {
-    "vue" : "./node_modules/vue/dist/vue.common.js"
+    "vue": "./node_modules/vue/dist/vue.common.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack"
+    "build": "parcel src/index.html"
+  },
+  "staticFiles": {
+    "staticPath": "src/images",
+    "watcherGlob": "**",
+    "staticOutDir": "images"
   },
   "keywords": [],
   "author": "",
