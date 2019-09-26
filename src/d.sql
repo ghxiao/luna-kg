@@ -58,3 +58,15 @@ CREATE OR REPLACE VIEW v_poisopen_OperationSchedule_OperationScheduleTime AS
            CAST("data"->>'Thuresday' As bool) AS "Thuresday",
            CAST("data"->>'Wednesday' As bool) AS "Wednesday"
     FROM t;
+
+
+SELECT "Detail-en-Header", "Detail-de-Header", "Detail-it-Header", "AltitudeTo" FROM v_skiareasopen ORDER BY "AltitudeTo";
+
+SELECT DISTINCT("SubType") FROM v_smgpoisopen WHERE "Type" = 'Winter';
+
+SELECT "LocationInfo-DistrictInfo-Name-de", "LocationInfo-DistrictInfo-Name-de", "LocationInfo-DistrictInfo-Name-it" FROM v_smgpoisopen WHERE "SubType" = 'Skitouren';
+
+
+SELECT * FROM v_smgpoisopen WHERE "SubType" = 'Weihnachtsmärkte';
+
+SELECT COUNT(*) FROM v_skiareasopen;
