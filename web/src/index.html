@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>KG / LUNA 2019</title>
+    <title>Im Reich von Open Data / Il potere dei dati | LUNA 2019</title>
 
     <link href="../node_modules/vis-network/dist/vis-network.min.css" rel="stylesheet" type="text/css"/>
 
@@ -20,12 +20,17 @@
             height: 100%;
             display: grid;
             grid-gap: 3px;
-            grid-template-columns: repeat(12, 1fr);
-            grid-template-rows: 40px auto 40px;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows:100px 220px auto 45px;
         }
 
         #header {
             grid-column: 1 / -1;
+            margin: 5px;
+        }
+
+        #qa fieldset {
+            height: 100%
         }
 
         #qa {
@@ -34,13 +39,31 @@
             padding: 20px;
         }
 
-        #kg {
+        #qa * {
+            padding: 5px;
+        }
+
+        #result {
             grid-column: 2 / -1;
+        }
+
+        #kg {
+            grid-column: 1 / -1;
             border: 1px solid lightgray;
+            margin: 5px;
         }
 
         #footer {
             grid-column: 1 / -1;
+        }
+
+        #footer img {
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        #kg-canvas {
+            height: 100%;
         }
 
         button {
@@ -51,31 +74,55 @@
 <body>
 
 <div class="container" id="app">
-    <div id="header">Header</div>
-    <div id="qa">
-        <h2>Score: {{ score }}</h2>
-        <div id="question">{{ quiz.question }}</div>
-        <div id="choices">
-            <input id="choice.a" type="radio" name="choice" class="choice" value="A" v-model='selected' :disabled="status==2">
-            <label for="choice.a"> A. {{ quiz.choices.A }} </label> <br/>
-            <input id="choice.b" type="radio" name="choice" class="choice" value="B" v-model='selected' :disabled="status==2">
-            <label for="choice.b"> B. {{ quiz.choices.B }} </label> <br/>
-            <input id="choice.c" type="radio" name="choice" class="choice" value="C" v-model='selected' :disabled="status==2">
-            <label for="choice.c"> C. {{ quiz.choices.C }} </label> <br/>
-            <input id="choice.d" type="radio" name="choice" class="choice" value="D" v-model='selected' :disabled="status==2">
-            <label for="choice.d"> D. {{ quiz.choices.D }} </label>
-            <br>
+    <div id="header">
+        <h1>Im Reich von Open Data / Il potere dei dati</h1>
+        <h2>Score: {{ score }} {{ final_message() }}</h2>
+        <div id="langSelector" style="margin-left:auto; margin-right:0;">
+            <input id="en" type="radio" name="lang" value="en" v-model="lang"><label for="en"> en </label>
+            <input id="de" type="radio" name="lang" value="de" v-model="lang"><label for="de"> de </label>
+            <input id="it" type="radio" name="lang" value="it" v-model="lang"><label for="it"> it </label>
         </div>
-<!--        <div>Selected: {{ selected }}</div>-->
-<!--        <div>Status: {{ status }}</div>-->
-        <button @click="score+=calcScore(status, selected === quiz.correct)" :disabled="status==2">Submit</button>
-        <p  v-html="message"></p>
-<!--        <div> {{ message }} </div>-->
-        <br/>
-        <button v-show="status==2" @click="next();">Next Question</button>
     </div>
-    <div id="kg" v-show="status >= 1"></div>
-    <div id="footer">Footer</div>
+    <div id="qa">
+        <fieldset title="Question">
+            <legend>Question #{{ quizIndex+1 }}: {{ quiz.question }}</legend>
+            <div id="choices">
+                <input id="choice.a" type="radio" name="choice" class="choice" value="A" v-model='selected'
+                       :disabled="status==2">
+                <label for="choice.a"> A. {{ localize(quiz.choices.A) }} </label>
+                <input id="choice.b" type="radio" name="choice" class="choice" value="B" v-model='selected'
+                       :disabled="status==2">
+                <label for="choice.b"> B. {{ localize(quiz.choices.B) }} </label>
+                <br>
+                <input id="choice.c" type="radio" name="choice" class="choice" value="C" v-model='selected'
+                       :disabled="status==2">
+                <label for="choice.c"> C. {{ localize(quiz.choices.C) }} </label>
+                <input id="choice.d" type="radio" name="choice" class="choice" value="D" v-model='selected'
+                       :disabled="status==2">
+                <label for="choice.d"> D. {{ localize(quiz.choices.D) }} </label>
+                <br>
+                <div>
+                    <button @click="score+=calcScore(status, selected === quiz.correct)"
+                            :disabled="status==2 || !selected">Submit
+                    </button>
+                    <button :disabled="showNextDisabled()" @click="next();">Next Question</button>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div id="result">
+        <p v-html="message"></p>
+        <br/>
+    </div>
+    <div id="kg">
+        <div id="kg-canvas" v-show="status >= 1"></div>
+    </div>
+    <div id="footer">
+        <a href="https://www.unibz.it" target="_blank"><img src="images/unibz.png" height="35px"></a>
+        <!--        <a href="https://www.unibz.it" target="_blank"><img src="images/suedtirol.png" height="38px"/></a>-->
+        <a href="https://opendatahub.bz.it" target="_blank"> <img src="images/logo-open-data-hub.png" height="35px"></a>
+        <a href="http://ontop.inf.unibz.it" target="_blank"> <img src="images/ontop-logo.png" height="35px"></a>
+    </div>
 </div>
 
 <script src="index.js"></script>

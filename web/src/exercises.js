@@ -11,6 +11,26 @@ PREFIX schema: <http://schema.org/>
 `;
 
 const exercises = [
+    /*0*/
+    {
+        question: " Which is a typical summer activity in Suedtirol?",
+        choices: {
+            'A': 'Eisklettern',
+            'B': 'Radfahren Radtouren',
+            'C': 'Skitouren',
+            'D': 'Rodeln'
+        },
+        correct: 'B',
+        sparql: `
+${prefixes}
+CONSTRUCT {
+ ?act :season ?at ; :name ?t.
+}
+WHERE {
+  ?act a :Activity ; rdfs:label ?t ; :activityType ?at . FILTER (?at = 'Winter' || ?at='Sommer')
+}`
+    },
+    /*0*/
     {
         question: " Which is a typical winter activity in Suedtirol?",
         choices: {
@@ -23,14 +43,15 @@ const exercises = [
         sparql: `
 ${prefixes}
 CONSTRUCT {
-?a a :Activity ; :activityType ?t .
+ ?act :season ?at ; :name ?t.
 }
 WHERE {
-?a a :Activity ; :activityType ?t .
+  ?act a :Activity ; rdfs:label ?t ; :activityType ?at . FILTER (?at = 'Winter' || ?at='Sommer')
 }`
     },
+    /*1*/
     {
-        question: "How many Ski Resorts are in Suedtirol?",
+        question: "How many ski resorts are in Suedtirol?",
         choices: {
             'A': '1 -10',
             'B': '11 - 20',
@@ -41,49 +62,73 @@ WHERE {
         sparql: `
 ${prefixes}
 CONSTRUCT {
-?s a schema:SkiResort ; rdfs:label ?name ; schema:elevation ?el .
+?s a schema:SkiResort ; rdfs:label ?name .
 }
 WHERE {
-?s a schema:SkiResort ; rdfs:label ?name ; geo:asWKT ?pos ; schema:elevation ?el .
+?s a schema:SkiResort ; rdfs:label ?name .
 }`,
     },
+    /*2*/
     {
-        question: " Which one is the highest?",
+        question: "Which one is the highest?",
         choices: {
-            'A': 'Merano 2000 ski area / Skigebiet Meran 2000 / Località sciistica Merano 2000',
-            'B': 'Sulden ski area / Skigebiet Sulden / Località sciistica Solda',
-            'C': 'Vigiljoch ski area /Skigebiet Vigiljoch / Località sciistica Monte S. Vigilio',
-            'D': 'Klausberg ski area / Skigebiet Klausberg /Località sciistica Klausberg'
+            'A': {
+                'en': 'Merano 2000 ski area',
+                'de': ' Skigebiet Meran 2000',
+                'it': 'Località sciistica Merano 2000'
+            },
+            'B': {
+                'en': 'Sulden ski area',
+                'de': 'Skigebiet Sulden',
+                "it": 'Località sciistica Solda'
+            },
+            'C': {
+                en: 'Vigiljoch ski area',
+                de: 'Skigebiet Vigiljoch',
+                it: 'Località sciistica Monte S. Vigilio'
+            },
+            'D': {
+                en: 'Klausberg ski area',
+                de: 'Skigebiet Klausberg',
+                it: 'Località sciistica Klausberg'
+            }
         },
         correct: 'B',
         sparql: `
 ${prefixes}
 CONSTRUCT {
-?s a schema:SkiResort ; rdfs:label ?name ; schema:elevation ?el .
+?s a schema:SkiResort ; :name ?name ; schema:elevation ?el .
 }
 WHERE {
 ?s a schema:SkiResort ; rdfs:label ?name ; geo:asWKT ?pos ; schema:elevation ?el .
-}`
-    },
+}
+ORDER BY DESC(?el)
+LIMIT 10`
+    }
+,
+    /*3*/
     {
-        question: " What is the elevation of the highest resort (or a specific one)?",
+        question: "Where is 'Sulden ski area' located?",
         choices: {
-            'A': 'Merano 2000 ski area / Skigebiet Meran 2000 / Località sciistica Merano 2000',
-            'B': 'Sulden ski area / Skigebiet Sulden / Località sciistica Solda',
-            'C': 'Vigiljoch ski area /Skigebiet Vigiljoch / Località sciistica Monte S. Vigilio',
-            'D': 'Klausberg ski area / Skigebiet Klausberg /Località sciistica Klausberg'
+            'A': 'Vinschgau',
+            'B': 'Meraner Land',
+            'C': 'Bruneck und Umgebung',
+            'D': 'Südtirols Süden'
         },
-        correct: 'B',
+        correct: 'A',
         sparql: `
 ${prefixes}
-CONSTRUCT {
-?s a schema:SkiResort ; rdfs:label ?name ; schema:elevation ?el .
+
+CONSTRUCT 
+{
+ ?s a schema:SkiResort ; rdfs:label ?name ; geo:asWKT ?pos ; schema:elevation ?el ; schema:isPartOf ?a. ?a a :Area.  ?a rdfs:label ?areaName; schema:isPartOf ?r . ?r a :Region; rdfs:label ?regionName .
 }
-WHERE {
-?s a schema:SkiResort ; rdfs:label ?name ; geo:asWKT ?pos ; schema:elevation ?el .
+ WHERE {
+ {  ?s a schema:SkiResort ; rdfs:label ?name ; geo:asWKT ?pos ; schema:elevation ?el ; schema:isPartOf ?a. ?a a :Area.  ?a rdfs:label ?areaName; schema:isPartOf ?r . ?r a :Region; rdfs:label ?regionName .
+    FILTER (?name = "Sulden ski area")
+  }
 }`
     }
-
 ];
 
 export {exercises};

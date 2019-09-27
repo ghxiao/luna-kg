@@ -5,7 +5,6 @@ import {Parser as N3Parser} from "n3";
 import {DataSet, Network} from "vis-network";
 
 function drawRDFGraph(g, container, prefixes) {
-    //N3Parser.parse(g);
     const parser = new N3Parser();
     const parsedGraph = parser.parse(g);
 
