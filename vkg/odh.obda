@@ -58,8 +58,8 @@ target		:data/poi/{Id} a :POI ; rdfs:label {Shortname}^^xsd:string ; geo:asWKT "
 source		SELECT "Id", "Shortname", "GpsPoints-position-Latitude", "GpsPoints-position-Longitude", "GpsPoints-position-Altitude" FROM v_poisopen
 
 mappingId	Area
-target		:data/area/{Id} a :Area ; rdfs:label {Shortname}^^xsd:string . 
-source		SELECT "Id", "Shortname" FROM v_areas
+target		:data/area/{Id} a :Area ; rdfs:label {Shortname}^^xsd:string ; schema:isPartOf :data/region/{RegionId} . 
+source		SELECT "Id", "Shortname", "RegionId" FROM v_areas
 
 mappingId	POI_Area
 target		:data/poi/{Id} schema:isPartOf :data/area/{data} . 
@@ -90,8 +90,12 @@ target		:data/poi/{Id} a schema:MedicalOrganization .
 source		SELECT * FROM v_poisopen WHERE "Type" = 'Ärzte, Apotheken'
 
 mappingId	Activity
-target		:{SubType} a :Activity ; rdfs:label {SubType}^^xsd:string ; :activityType {Type}^^xsd:string . 
-source		SELECT DISTINCT "Type", "SubType"
+target		:data/Activity/{SubType} a :Activity ; rdfs:label {SubType}^^xsd:string ; :activityType {Type}^^xsd:string . 
+source		SELECT "Type", "SubType"
 			FROM v_smgpoisopen
+
+mappingId	Theater
+target		:data/poi/{Id} a :Theater . 
+source		SELECT * FROM v_poisopen WHERE "Type" = 'Theater'
 ]]
 

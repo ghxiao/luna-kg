@@ -1396,6 +1396,14 @@ schema:address rdf:type owl:ObjectProperty ;
 :hasWkt rdf:type owl:DatatypeProperty .
 
 
+###  http://noi.example.org/ontology/odh#wineAwardYear
+:wineAwardYear rdf:type owl:DatatypeProperty .
+
+
+###  http://noi.example.org/ontology/odh#wineVintageYear
+:wineVintageYear rdf:type owl:DatatypeProperty .
+
+
 ###  http://schema.org/addressLocality
 schema:addressLocality rdf:type owl:DatatypeProperty ;
                        schema:domainIncludes schema:PostalAddress ;
@@ -1497,6 +1505,15 @@ geo:asWKT rdf:type owl:DatatypeProperty .
 ###  http://noi.example.org/ontology/odh#SkiRegion
 :SkiRegion rdf:type owl:Class ;
            rdfs:subClassOf schema:SportsActivityLocation .
+
+
+###  http://noi.example.org/ontology/odh#Theater
+:Theater rdf:type owl:Class ;
+         rdfs:subClassOf schema:CivicStructure .
+
+
+###  http://noi.example.org/ontology/odh#Wine
+:Wine rdf:type owl:Class .
 
 
 ###  http://purl.org/dc/dcmitype/Dataset
@@ -7178,9 +7195,9 @@ schema:acceptedOffer schema:rangeIncludes schema:Offer ;
 schema:acceptedPaymentMethod rdfs:comment "The payment method(s) accepted by seller for this offer."@en ;
                              schema:rangeIncludes schema:LoanOrCredit ;
                              rdfs:label "acceptedPaymentMethod"@en ;
-                             schema:domainIncludes schema:Demand ;
-                             schema:rangeIncludes schema:PaymentMethod ;
-                             schema:domainIncludes schema:Offer .
+                             schema:domainIncludes schema:Demand ,
+                                                   schema:Offer ;
+                             schema:rangeIncludes schema:PaymentMethod .
 
 
 schema:acceptsReservations schema:rangeIncludes schema:URL ;
@@ -7197,8 +7214,8 @@ schema:accessCode rdfs:label "accessCode"@en ;
                   schema:rangeIncludes schema:Text .
 
 
-schema:accessMode dc:source <https://github.com/schemaorg/schemaorg/issues/1100> ;
-                  schema:category "issue-1110"@en ;
+schema:accessMode schema:category "issue-1110"@en ;
+                  dc:source <https://github.com/schemaorg/schemaorg/issues/1100> ;
                   schema:domainIncludes schema:CreativeWork ;
                   rdfs:comment """The human sensory perceptual system or cognitive faculty through which a person may process or perceive information. Expected values include: auditory, tactile, textual, visual, colorDependent, chartOnVisual, chemOnVisual, diagramOnVisual, mathOnVisual, musicOnVisual, textOnVisual.
       """@en ;
@@ -7233,8 +7250,8 @@ schema:accessibilityFeature rdfs:comment "Content features of the resource, such
                             rdfs:label "accessibilityFeature"@en .
 
 
-schema:accessibilityHazard rdfs:label "accessibilityHazard"@en ;
-                           schema:rangeIncludes schema:Text ;
+schema:accessibilityHazard schema:rangeIncludes schema:Text ;
+                           rdfs:label "accessibilityHazard"@en ;
                            rdfs:comment "A characteristic of the described resource that is physiologically dangerous to some users. Related to WCAG 2.0 guideline 2.3 ([WebSchemas wiki lists possible values](http://www.w3.org/wiki/WebSchemas/Accessibility))."@en ;
                            schema:domainIncludes schema:CreativeWork .
 
@@ -7260,8 +7277,8 @@ schema:acquiredFrom schema:domainIncludes schema:OwnershipInfo ;
                     rdfs:label "acquiredFrom"@en .
 
 
-schema:actionAccessibilityRequirement rdfs:label "actionAccessibilityRequirement"@en ;
-                                      rdfs:comment "A set of requirements that a must be fulfilled in order to perform an Action. If more than one value is specied, fulfilling one set of requirements will allow the Action to be performed."@en ;
+schema:actionAccessibilityRequirement rdfs:comment "A set of requirements that a must be fulfilled in order to perform an Action. If more than one value is specied, fulfilling one set of requirements will allow the Action to be performed."@en ;
+                                      rdfs:label "actionAccessibilityRequirement"@en ;
                                       dc:source <https://github.com/schemaorg/schemaorg/issues/1741> ;
                                       schema:category "issue-1741"@en ;
                                       schema:domainIncludes schema:ConsumeAction ;
@@ -7288,11 +7305,11 @@ schema:actionStatus schema:domainIncludes schema:Action ;
 
 
 schema:actor schema:domainIncludes schema:TVSeries ,
-                                   schema:CreativeWorkSeason ;
-             schema:rangeIncludes schema:Person ;
-             schema:domainIncludes schema:Movie ,
+                                   schema:CreativeWorkSeason ,
                                    schema:VideoGameSeries ,
-                                   schema:Clip ;
+                                   schema:Movie ;
+             schema:rangeIncludes schema:Person ;
+             schema:domainIncludes schema:Clip ;
              rdfs:label "actor"@en ;
              schema:domainIncludes schema:Event ,
                                    schema:RadioSeries ;
@@ -7308,9 +7325,9 @@ schema:actors schema:domainIncludes schema:Movie ,
                                     schema:RadioSeries ;
               rdfs:comment "An actor, e.g. in tv, radio, movie, video games etc. Actors can be associated with individual items or with a series, episode, clip."@en ;
               schema:supersededBy schema:actor ;
-              schema:domainIncludes schema:VideoGame ,
+              schema:domainIncludes schema:VideoObject ,
                                     schema:Clip ,
-                                    schema:VideoObject ;
+                                    schema:VideoGame ;
               schema:rangeIncludes schema:Person ;
               schema:domainIncludes schema:VideoGameSeries ;
               rdfs:label "actors"@en ;
@@ -7340,18 +7357,18 @@ schema:additionalProperty schema:domainIncludes schema:QuantitativeValue ,
                                                 schema:Product ,
                                                 schema:QualitativeValue ,
                                                 schema:Place ;
-                          rdfs:label "additionalProperty"@en ;
+                          schema:rangeIncludes schema:PropertyValue ;
                           rdfs:comment """A property-value pair representing an additional characteristics of the entitity, e.g. a product feature or another characteristic for which there is no matching property in schema.org.\\n\\nNote: Publishers should be aware that applications designed to use specific schema.org properties (e.g. http://schema.org/width, http://schema.org/color, http://schema.org/gtin13, ...) will typically expect such data to be provided using those properties, rather than using the generic property/value mechanism.
 """@en ;
-                          schema:rangeIncludes schema:PropertyValue .
+                          rdfs:label "additionalProperty"@en .
 
 
 schema:addressCountry rdfs:label "addressCountry"@en ;
-                      schema:rangeIncludes schema:Text ;
-                      schema:domainIncludes schema:GeoCoordinates ,
+                      schema:domainIncludes schema:GeoCoordinates ;
+                      schema:rangeIncludes schema:Text ,
+                                           schema:Country ;
+                      schema:domainIncludes schema:PostalAddress ,
                                             schema:GeoShape ;
-                      schema:rangeIncludes schema:Country ;
-                      schema:domainIncludes schema:PostalAddress ;
                       rdfs:comment "The country. For example, USA. You can also provide the two-letter [ISO 3166-1 alpha-2 country code](http://en.wikipedia.org/wiki/ISO_3166-1)."@en .
 
 
@@ -7383,14 +7400,14 @@ schema:agent rdfs:comment "The direct performer or driver of the action (animate
 
 
 schema:aggregateRating rdfs:comment "The overall rating, based on a collection of reviews or ratings, of the item."@en ;
-                       schema:domainIncludes schema:Brand ;
                        rdfs:label "aggregateRating"@en ;
-                       schema:domainIncludes schema:Service ,
+                       schema:domainIncludes schema:Brand ,
+                                             schema:Service ,
                                              schema:Place ,
-                                             schema:Event ,
-                                             schema:CreativeWork ;
+                                             schema:Event ;
                        schema:rangeIncludes schema:AggregateRating ;
-                       schema:domainIncludes schema:Product ,
+                       schema:domainIncludes schema:CreativeWork ,
+                                             schema:Product ,
                                              schema:Offer ,
                                              schema:Organization .
 
@@ -7409,8 +7426,8 @@ schema:album rdfs:comment "A music album."@en ;
 
 
 schema:albumProductionType schema:domainIncludes schema:MusicAlbum ;
-                           schema:rangeIncludes schema:MusicAlbumProductionType ;
                            rdfs:comment "Classification of the album by it's type of content: soundtrack, live album, studio album, etc."@en ;
+                           schema:rangeIncludes schema:MusicAlbumProductionType ;
                            rdfs:label "albumProductionType"@en ;
                            dc:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> .
 
@@ -7429,8 +7446,8 @@ schema:albumReleaseType schema:domainIncludes schema:MusicAlbum ;
                         rdfs:comment "The kind of release which this album is: single, EP or album."@en .
 
 
-schema:albums rdfs:label "albums"@en ;
-              rdfs:comment "A collection of music albums."@en ;
+schema:albums rdfs:comment "A collection of music albums."@en ;
+              rdfs:label "albums"@en ;
               schema:supersededBy schema:album ;
               schema:domainIncludes schema:MusicGroup ;
               schema:rangeIncludes schema:MusicAlbum .
@@ -7470,8 +7487,8 @@ schema:alumniOf schema:rangeIncludes schema:EducationalOrganization ,
                 schema:inverseOf schema:alumni .
 
 
-schema:amenityFeature rdfs:label "amenityFeature"@en ;
-                      rdfs:comment "An amenity feature (e.g. a characteristic or service) of the Accommodation. This generic property does not make a statement about whether the feature is included in an offer for the main accommodation or available at extra costs."@en ;
+schema:amenityFeature rdfs:comment "An amenity feature (e.g. a characteristic or service) of the Accommodation. This generic property does not make a statement about whether the feature is included in an offer for the main accommodation or available at extra costs."@en ;
+                      rdfs:label "amenityFeature"@en ;
                       schema:domainIncludes schema:Accommodation ,
                                             schema:Place ;
                       schema:rangeIncludes schema:LocationFeatureSpecification ;
@@ -7480,9 +7497,9 @@ schema:amenityFeature rdfs:label "amenityFeature"@en ;
 
 
 schema:amount rdfs:label "amount"@en ;
+              schema:domainIncludes schema:DatedMoneySpecification ,
+                                    schema:InvestmentOrDeposit ;
               schema:category "issue-1698"@en ;
-              schema:domainIncludes schema:InvestmentOrDeposit ,
-                                    schema:DatedMoneySpecification ;
               dc:source <https://github.com/schemaorg/schemaorg/issues/1698> ;
               schema:rangeIncludes schema:MonetaryAmount ;
               schema:domainIncludes schema:LoanOrCredit ;
@@ -7504,10 +7521,10 @@ schema:annualPercentageRate dc:source <http://www.w3.org/wiki/WebSchemas/SchemaD
                                                  schema:QuantitativeValue .
 
 
-schema:answerCount schema:rangeIncludes schema:Integer ;
-                   rdfs:label "answerCount"@en ;
-                   rdfs:comment "The number of answers this question has received."@en ;
-                   schema:domainIncludes schema:Question .
+schema:answerCount rdfs:label "answerCount"@en ;
+                   schema:rangeIncludes schema:Integer ;
+                   schema:domainIncludes schema:Question ;
+                   rdfs:comment "The number of answers this question has received."@en .
 
 
 schema:application schema:rangeIncludes schema:SoftwareApplication ;
@@ -7524,9 +7541,9 @@ schema:applicationCategory schema:rangeIncludes schema:Text ;
                            schema:domainIncludes schema:SoftwareApplication .
 
 
-schema:applicationSubCategory schema:rangeIncludes schema:URL ;
-                              schema:domainIncludes schema:SoftwareApplication ;
+schema:applicationSubCategory schema:domainIncludes schema:SoftwareApplication ;
                               rdfs:label "applicationSubCategory"@en ;
+                              schema:rangeIncludes schema:URL ;
                               rdfs:comment "Subcategory of the application, e.g. 'Arcade Game'."@en ;
                               schema:rangeIncludes schema:Text .
 
@@ -7570,10 +7587,10 @@ schema:arrivalBusStop schema:rangeIncludes schema:BusStop ;
                       rdfs:comment "The stop or station from which the bus arrives."@en .
 
 
-schema:arrivalGate rdfs:comment "Identifier of the flight's arrival gate."@en ;
-                   rdfs:label "arrivalGate"@en ;
-                   schema:domainIncludes schema:Flight ;
-                   schema:rangeIncludes schema:Text .
+schema:arrivalGate rdfs:label "arrivalGate"@en ;
+                   rdfs:comment "Identifier of the flight's arrival gate."@en ;
+                   schema:rangeIncludes schema:Text ;
+                   schema:domainIncludes schema:Flight .
 
 
 schema:arrivalPlatform schema:domainIncludes schema:TrainTrip ;
@@ -7642,8 +7659,8 @@ schema:assembly rdfs:label "assembly"@en ;
 
 
 schema:assemblyVersion rdfs:comment "Associated product/technology version. e.g., .NET Framework 4.5."@en ;
-                       rdfs:label "assemblyVersion"@en ;
                        schema:rangeIncludes schema:Text ;
+                       rdfs:label "assemblyVersion"@en ;
                        schema:domainIncludes schema:APIReference .
 
 
@@ -7665,8 +7682,8 @@ schema:athlete schema:rangeIncludes schema:Person ;
                schema:domainIncludes schema:SportsTeam .
 
 
-schema:attendee rdfs:comment "A person or organization attending the event."@en ;
-                rdfs:label "attendee"@en ;
+schema:attendee rdfs:label "attendee"@en ;
+                rdfs:comment "A person or organization attending the event."@en ;
                 schema:domainIncludes schema:Event ;
                 schema:rangeIncludes schema:Person ,
                                      schema:Organization .
@@ -7687,8 +7704,8 @@ schema:audience schema:domainIncludes schema:CreativeWork ;
                                       schema:PlayAction ;
                 rdfs:label "audience"@en ;
                 rdfs:comment "An intended audience, i.e. a group for whom something was created."@en ;
-                schema:domainIncludes schema:LodgingBusiness ,
-                                      schema:Event .
+                schema:domainIncludes schema:Event ,
+                                      schema:LodgingBusiness .
 
 
 schema:audienceType schema:domainIncludes schema:Audience ;
@@ -7697,8 +7714,8 @@ schema:audienceType schema:domainIncludes schema:Audience ;
                     schema:rangeIncludes schema:Text .
 
 
-schema:audio schema:rangeIncludes schema:AudioObject ;
-             schema:domainIncludes schema:CreativeWork ;
+schema:audio schema:domainIncludes schema:CreativeWork ;
+             schema:rangeIncludes schema:AudioObject ;
              rdfs:label "audio"@en ;
              schema:rangeIncludes schema:Clip ;
              rdfs:comment "An embedded audio object."@en .
@@ -7716,8 +7733,8 @@ schema:author schema:rangeIncludes schema:Person ;
               schema:domainIncludes schema:CreativeWork ;
               schema:rangeIncludes schema:Organization ;
               schema:domainIncludes schema:Rating ;
-              rdfs:comment "The author of this content or rating. Please note that author is special in that HTML 5 provides a special mechanism for indicating authorship via the rel tag. That is equivalent to this and may be used interchangeably."@en ;
-              rdfs:label "author"@en .
+              rdfs:label "author"@en ;
+              rdfs:comment "The author of this content or rating. Please note that author is special in that HTML 5 provides a special mechanism for indicating authorship via the rel tag. That is equivalent to this and may be used interchangeably."@en .
 
 
 schema:availability schema:rangeIncludes schema:ItemAvailability ;
@@ -7731,9 +7748,9 @@ schema:availabilityEnds schema:domainIncludes schema:Offer ;
                         schema:rangeIncludes schema:DateTime ;
                         rdfs:comment "The end of the availability of the product or service included in the offer."@en ;
                         schema:domainIncludes schema:Demand ;
+                        schema:rangeIncludes schema:Date ;
                         dc:source <https://github.com/schemaorg/schemaorg/issues/1741> ;
-                        schema:rangeIncludes schema:Date ,
-                                             schema:Time ;
+                        schema:rangeIncludes schema:Time ;
                         schema:category "issue-1741"@en ;
                         schema:domainIncludes schema:ActionAccessSpecification ;
                         rdfs:label "availabilityEnds"@en .
@@ -7766,24 +7783,24 @@ schema:availableDeliveryMethod schema:rangeIncludes schema:DeliveryMethod ;
 
 schema:availableFrom rdfs:label "availableFrom"@en ;
                      schema:domainIncludes schema:DeliveryEvent ;
-                     schema:rangeIncludes schema:DateTime ;
-                     rdfs:comment "When the item is available for pickup from the store, locker, etc."@en .
+                     rdfs:comment "When the item is available for pickup from the store, locker, etc."@en ;
+                     schema:rangeIncludes schema:DateTime .
 
 
 schema:availableLanguage rdfs:label "availableLanguage"@en ;
-                         schema:domainIncludes schema:LodgingBusiness ;
+                         schema:domainIncludes schema:LodgingBusiness ,
+                                               schema:ServiceChannel ;
                          schema:rangeIncludes schema:Language ;
-                         schema:domainIncludes schema:ServiceChannel ,
-                                               schema:TouristAttraction ,
+                         schema:domainIncludes schema:TouristAttraction ,
                                                schema:ContactPoint ;
-                         schema:rangeIncludes schema:Text ;
-                         rdfs:comment "A language someone may use with or at the item, service or place. Please use one of the language codes from the [IETF BCP 47 standard](http://tools.ietf.org/html/bcp47). See also [[inLanguage]]"@en .
+                         rdfs:comment "A language someone may use with or at the item, service or place. Please use one of the language codes from the [IETF BCP 47 standard](http://tools.ietf.org/html/bcp47). See also [[inLanguage]]"@en ;
+                         schema:rangeIncludes schema:Text .
 
 
 schema:availableOnDevice rdfs:comment "Device required to run the application. Used in cases where a specific make/model is required to run the application."@en ;
                          rdfs:label "availableOnDevice"@en ;
-                         schema:rangeIncludes schema:Text ;
-                         schema:domainIncludes schema:SoftwareApplication .
+                         schema:domainIncludes schema:SoftwareApplication ;
+                         schema:rangeIncludes schema:Text .
 
 
 schema:availableThrough rdfs:comment "After this date, the item will no longer be available for pickup."@en ;
@@ -7796,8 +7813,8 @@ schema:award schema:domainIncludes schema:Person ;
              rdfs:label "award"@en ;
              schema:rangeIncludes schema:Text ;
              schema:domainIncludes schema:CreativeWork ,
-                                   schema:Service ,
-                                   schema:Product ;
+                                   schema:Product ,
+                                   schema:Service ;
              rdfs:comment "An award won by or for this item."@en ;
              schema:domainIncludes schema:Organization .
 
@@ -7815,14 +7832,14 @@ schema:awards schema:domainIncludes schema:Product ;
 schema:baseSalary schema:rangeIncludes schema:PriceSpecification ;
                   schema:domainIncludes schema:JobPosting ;
                   schema:rangeIncludes schema:Number ;
-                  schema:domainIncludes schema:EmployeeRole ;
                   rdfs:comment "The base salary of the job or of an employee in an EmployeeRole."@en ;
+                  schema:domainIncludes schema:EmployeeRole ;
                   schema:rangeIncludes schema:MonetaryAmount ;
                   rdfs:label "baseSalary"@en .
 
 
-schema:bed schema:domainIncludes schema:HotelRoom ;
-           dc:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+schema:bed dc:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+           schema:domainIncludes schema:HotelRoom ;
            schema:rangeIncludes schema:Text ,
                                 schema:BedType ;
            rdfs:comment """The type of bed or beds included in the accommodation. For the single case of just one bed of a certain type, you use bed directly with a text.
@@ -7832,8 +7849,8 @@ schema:bed schema:domainIncludes schema:HotelRoom ;
            rdfs:label "bed"@en .
 
 
-schema:beforeMedia schema:rangeIncludes schema:MediaObject ;
-                   schema:domainIncludes schema:HowToDirection ;
+schema:beforeMedia schema:domainIncludes schema:HowToDirection ;
+                   schema:rangeIncludes schema:MediaObject ;
                    rdfs:label "beforeMedia"@en ;
                    schema:rangeIncludes schema:URL ;
                    rdfs:comment "A media object representing the circumstances before performing this direction."@en .
@@ -7903,8 +7920,8 @@ schema:blogPosts rdfs:label "blogPosts"@en ;
 
 
 schema:boardingGroup schema:domainIncludes schema:FlightReservation ;
-                     rdfs:comment "The airline-specific indicator of boarding order / preference."@en ;
                      rdfs:label "boardingGroup"@en ;
+                     rdfs:comment "The airline-specific indicator of boarding order / preference."@en ;
                      schema:rangeIncludes schema:Text .
 
 
@@ -7935,8 +7952,8 @@ schema:bookingAgent schema:domainIncludes schema:Reservation ;
                     rdfs:label "bookingAgent"@en .
 
 
-schema:bookingTime schema:rangeIncludes schema:DateTime ;
-                   schema:domainIncludes schema:Reservation ;
+schema:bookingTime schema:domainIncludes schema:Reservation ;
+                   schema:rangeIncludes schema:DateTime ;
                    rdfs:label "bookingTime"@en ;
                    rdfs:comment "The date and time the reservation was booked."@en .
 
@@ -7961,12 +7978,12 @@ schema:branchOf rdfs:comment "The larger organization that this local business i
                 schema:rangeIncludes schema:Organization .
 
 
-schema:brand rdfs:comment "The brand(s) associated with a product or service, or the brand(s) maintained by an organization or business person."@en ;
-             schema:rangeIncludes schema:Organization ;
+schema:brand schema:rangeIncludes schema:Organization ;
+             rdfs:comment "The brand(s) associated with a product or service, or the brand(s) maintained by an organization or business person."@en ;
              schema:domainIncludes schema:Service ;
              schema:rangeIncludes schema:Brand ;
-             schema:domainIncludes schema:Product ,
-                                   schema:Person ;
+             schema:domainIncludes schema:Person ,
+                                   schema:Product ;
              rdfs:label "brand"@en ;
              schema:domainIncludes schema:Organization .
 
@@ -8045,8 +8062,8 @@ schema:broker schema:rangeIncludes schema:Organization ,
                                     schema:Order ,
                                     schema:Service ,
                                     schema:Invoice ;
-              rdfs:comment "An entity that arranges for an exchange between a buyer and a seller.  In most cases a broker never acquires or releases ownership of a product or service involved in an exchange.  If it is not clear whether an entity is a broker, seller, or buyer, the latter two terms are preferred."@en ;
-              rdfs:label "broker"@en .
+              rdfs:label "broker"@en ;
+              rdfs:comment "An entity that arranges for an exchange between a buyer and a seller.  In most cases a broker never acquires or releases ownership of a product or service involved in an exchange.  If it is not clear whether an entity is a broker, seller, or buyer, the latter two terms are preferred."@en .
 
 
 schema:browserRequirements schema:domainIncludes schema:WebApplication ;
@@ -8067,8 +8084,8 @@ schema:busNumber rdfs:label "busNumber"@en ;
                  rdfs:comment "The unique identifier for the bus."@en .
 
 
-schema:businessFunction rdfs:label "businessFunction"@en ;
-                        schema:rangeIncludes schema:BusinessFunction ;
+schema:businessFunction schema:rangeIncludes schema:BusinessFunction ;
+                        rdfs:label "businessFunction"@en ;
                         schema:domainIncludes schema:Offer ,
                                               schema:TypeAndQuantityNode ;
                         rdfs:comment "The business function (e.g. sell, lease, repair, dispose) of the offer or component of a bundle (TypeAndQuantityNode). The default is http://purl.org/goodrelations/v1#Sell."@en ;
@@ -8076,9 +8093,9 @@ schema:businessFunction rdfs:label "businessFunction"@en ;
 
 
 schema:byArtist schema:rangeIncludes schema:MusicGroup ;
-                schema:domainIncludes schema:MusicRecording ;
+                schema:domainIncludes schema:MusicRecording ,
+                                      schema:MusicAlbum ;
                 rdfs:comment "The artist that performed this album or recording."@en ;
-                schema:domainIncludes schema:MusicAlbum ;
                 schema:rangeIncludes schema:Person ;
                 rdfs:label "byArtist"@en .
 
@@ -8089,9 +8106,9 @@ schema:calories rdfs:comment "The number of calories."@en ;
                 schema:domainIncludes schema:NutritionInformation .
 
 
-schema:caption schema:rangeIncludes schema:Text ;
+schema:caption schema:rangeIncludes schema:Text ,
+                                    schema:MediaObject ;
                rdfs:label "caption"@en ;
-               schema:rangeIncludes schema:MediaObject ;
                schema:domainIncludes schema:ImageObject ,
                                      schema:VideoObject ,
                                      schema:AudioObject ;
@@ -8105,14 +8122,14 @@ schema:carbohydrateContent rdfs:label "carbohydrateContent"@en ;
 
 
 schema:cargoVolume rdfs:label "cargoVolume"@en ;
-                   dc:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
                    rdfs:comment "The available volume for cargo or luggage. For automobiles, this is usually the trunk volume.\\n\\nTypical unit code(s): LTR for liters, FTQ for cubic foot/feet\\n\\nNote: You can use [[minValue]] and [[maxValue]] to indicate ranges."@en ;
+                   dc:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
                    schema:domainIncludes schema:Vehicle ;
                    schema:rangeIncludes schema:QuantitativeValue .
 
 
-schema:carrier schema:domainIncludes schema:Flight ;
-               schema:supersededBy schema:provider ;
+schema:carrier schema:supersededBy schema:provider ;
+               schema:domainIncludes schema:Flight ;
                schema:rangeIncludes schema:Organization ;
                rdfs:label "carrier"@en ;
                rdfs:comment "'carrier' is an out-dated term indicating the 'provider' for parcel delivery and flights."@en ;
@@ -8126,8 +8143,8 @@ schema:carrierRequirements schema:domainIncludes schema:MobileApplication ;
 
 
 schema:catalog schema:domainIncludes schema:Dataset ;
-               rdfs:label "catalog"@en ;
                rdfs:comment "A data catalog which contains this dataset."@en ;
+               rdfs:label "catalog"@en ;
                schema:rangeIncludes schema:DataCatalog ;
                schema:supersededBy schema:includedInDataCatalog .
 
@@ -8145,16 +8162,16 @@ schema:character rdfs:label "character"@en ;
                  schema:domainIncludes schema:CreativeWork .
 
 
-schema:characterAttribute rdfs:label "characterAttribute"@en ;
-                          schema:domainIncludes schema:VideoGameSeries ;
+schema:characterAttribute schema:domainIncludes schema:VideoGameSeries ;
+                          rdfs:label "characterAttribute"@en ;
                           schema:rangeIncludes schema:Thing ;
                           rdfs:comment "A piece of data that represents a particular aspect of a fictional character (skill, power, character points, advantage, disadvantage)."@en ;
                           schema:domainIncludes schema:Game .
 
 
 schema:characterName schema:domainIncludes schema:PerformanceRole ;
-                     rdfs:label "characterName"@en ;
                      rdfs:comment "The name of a character played in some acting or performing role, i.e. in a PerformanceRole."@en ;
+                     rdfs:label "characterName"@en ;
                      schema:rangeIncludes schema:Text .
 
 
@@ -8220,8 +8237,8 @@ schema:citation schema:rangeIncludes schema:Text ;
 
 schema:claimReviewed rdfs:label "claimReviewed"@en ;
                      schema:rangeIncludes schema:Text ;
-                     rdfs:comment "A short summary of the specific claims reviewed in a ClaimReview."@en ;
                      dc:source <https://github.com/schemaorg/schemaorg/issues/1061> ;
+                     rdfs:comment "A short summary of the specific claims reviewed in a ClaimReview."@en ;
                      schema:category "issue-1061"@en ;
                      schema:domainIncludes schema:ClaimReview .
 
@@ -8233,8 +8250,8 @@ schema:closes schema:domainIncludes schema:OpeningHoursSpecification ;
 
 
 schema:coach schema:rangeIncludes schema:Person ;
-             schema:domainIncludes schema:SportsTeam ;
              rdfs:comment "A person that acts in a coaching role for a sports team."@en ;
+             schema:domainIncludes schema:SportsTeam ;
              rdfs:label "coach"@en .
 
 
@@ -8244,8 +8261,8 @@ schema:codeRepository schema:rangeIncludes schema:URL ;
                       rdfs:label "codeRepository"@en .
 
 
-schema:codeSampleType rdfs:comment "What type of code sample: full (compile ready) solution, code snippet, inline code, scripts, template."@en ;
-                      schema:domainIncludes schema:SoftwareSourceCode ;
+schema:codeSampleType schema:domainIncludes schema:SoftwareSourceCode ;
+                      rdfs:comment "What type of code sample: full (compile ready) solution, code snippet, inline code, scripts, template."@en ;
                       schema:rangeIncludes schema:Text ;
                       rdfs:label "codeSampleType"@en .
 
@@ -8271,8 +8288,8 @@ schema:color schema:domainIncludes schema:Product ;
 
 
 schema:comment rdfs:comment "Comments, typically from users."@en ;
-               rdfs:label "comment"@en ;
                schema:domainIncludes schema:RsvpAction ;
+               rdfs:label "comment"@en ;
                schema:rangeIncludes schema:Comment ;
                schema:domainIncludes schema:CreativeWork .
 
@@ -8296,8 +8313,8 @@ schema:commentTime schema:rangeIncludes schema:Date ,
                    rdfs:label "commentTime"@en .
 
 
-schema:composer schema:domainIncludes schema:Event ,
-                                      schema:MusicComposition ;
+schema:composer schema:domainIncludes schema:MusicComposition ,
+                                      schema:Event ;
                 schema:rangeIncludes schema:Person ,
                                      schema:Organization ;
                 rdfs:label "composer"@en ;
@@ -8313,8 +8330,8 @@ schema:contactOption schema:rangeIncludes schema:ContactPointOption ;
 
 schema:contactPoint schema:domainIncludes schema:Organization ,
                                           schema:Person ;
-                    schema:rangeIncludes schema:ContactPoint ;
                     rdfs:label "contactPoint"@en ;
+                    schema:rangeIncludes schema:ContactPoint ;
                     rdfs:comment "A contact point for a person or organization."@en .
 
 
@@ -8328,26 +8345,26 @@ schema:contactPoints rdfs:comment "A contact point for a person or organization.
 
 schema:contactType schema:domainIncludes schema:ContactPoint ;
                    rdfs:comment "A person or organization can have different contact points, for different purposes. For example, a sales contact point, a PR contact point and so on. This property is used to specify the kind of contact point."@en ;
-                   schema:rangeIncludes schema:Text ;
-                   rdfs:label "contactType"@en .
+                   rdfs:label "contactType"@en ;
+                   schema:rangeIncludes schema:Text .
 
 
-schema:containedIn schema:domainIncludes schema:Place ;
-                   schema:supersededBy schema:containedInPlace ;
+schema:containedIn schema:supersededBy schema:containedInPlace ;
+                   schema:domainIncludes schema:Place ;
                    rdfs:comment "The basic containment relation between a place and one that contains it."@en ;
                    rdfs:label "containedIn"@en ;
                    schema:rangeIncludes schema:Place .
 
 
-schema:containedInPlace schema:inverseOf schema:containsPlace ;
-                        rdfs:comment "The basic containment relation between a place and one that contains it."@en ;
+schema:containedInPlace rdfs:comment "The basic containment relation between a place and one that contains it."@en ;
+                        schema:inverseOf schema:containsPlace ;
                         schema:rangeIncludes schema:Place ;
                         rdfs:label "containedInPlace"@en ;
                         schema:domainIncludes schema:Place .
 
 
-schema:containsPlace schema:rangeIncludes schema:Place ;
-                     schema:inverseOf schema:containedInPlace ;
+schema:containsPlace schema:inverseOf schema:containedInPlace ;
+                     schema:rangeIncludes schema:Place ;
                      rdfs:label "containsPlace"@en ;
                      rdfs:comment "The basic containment relation between a place and another that it contains."@en ;
                      schema:domainIncludes schema:Place .
@@ -8361,8 +8378,8 @@ schema:contentRating schema:rangeIncludes schema:Text ;
 
 
 schema:contentSize rdfs:comment "File size in (mega/kilo) bytes."@en ;
-                   rdfs:label "contentSize"@en ;
                    schema:domainIncludes schema:MediaObject ;
+                   rdfs:label "contentSize"@en ;
                    schema:rangeIncludes schema:Text .
 
 
@@ -8392,9 +8409,9 @@ schema:cookingMethod rdfs:label "cookingMethod"@en ;
                      schema:rangeIncludes schema:Text .
 
 
-schema:copyrightHolder schema:rangeIncludes schema:Organization ;
+schema:copyrightHolder schema:rangeIncludes schema:Organization ,
+                                            schema:Person ;
                        rdfs:label "copyrightHolder"@en ;
-                       schema:rangeIncludes schema:Person ;
                        schema:domainIncludes schema:CreativeWork ;
                        rdfs:comment "The party holding the legal copyright to the CreativeWork."@en .
 
@@ -8411,8 +8428,8 @@ schema:countriesNotSupported schema:domainIncludes schema:SoftwareApplication ;
                              schema:rangeIncludes schema:Text .
 
 
-schema:countriesSupported schema:rangeIncludes schema:Text ;
-                          rdfs:comment "Countries for which the application is supported. You can also provide the two-letter ISO 3166-1 alpha-2 country code."@en ;
+schema:countriesSupported rdfs:comment "Countries for which the application is supported. You can also provide the two-letter ISO 3166-1 alpha-2 country code."@en ;
+                          schema:rangeIncludes schema:Text ;
                           rdfs:label "countriesSupported"@en ;
                           schema:domainIncludes schema:SoftwareApplication .
 
@@ -8420,8 +8437,8 @@ schema:countriesSupported schema:rangeIncludes schema:Text ;
 schema:countryOfOrigin rdfs:label "countryOfOrigin"@en ;
                        schema:domainIncludes schema:TVEpisode ;
                        schema:rangeIncludes schema:Country ;
-                       schema:domainIncludes schema:TVSeries ,
-                                             schema:Movie ,
+                       schema:domainIncludes schema:Movie ,
+                                             schema:TVSeries ,
                                              schema:TVSeason ;
                        rdfs:comment "The country of the principal offices of the production company or individual responsible for the movie or program."@en .
 
@@ -8432,19 +8449,19 @@ schema:courseCode rdfs:label "courseCode"@en ;
                   schema:rangeIncludes schema:Text .
 
 
-schema:courseMode rdfs:label "courseMode"@en ;
-                  schema:domainIncludes schema:CourseInstance ;
+schema:courseMode schema:domainIncludes schema:CourseInstance ;
+                  rdfs:label "courseMode"@en ;
                   schema:rangeIncludes schema:Text ;
                   rdfs:comment "The medium or means of delivery of the course instance or the mode of study, either as a text label (e.g. \"online\", \"onsite\" or \"blended\"; \"synchronous\" or \"asynchronous\"; \"full-time\" or \"part-time\") or as a URL reference to a term from a controlled vocabulary (e.g. https://ceds.ed.gov/element/001311#Asynchronous )."@en ;
                   schema:rangeIncludes schema:URL .
 
 
-schema:coursePrerequisites rdfs:label "coursePrerequisites"@en ;
-                           schema:rangeIncludes schema:Text ,
-                                                schema:Course ;
+schema:coursePrerequisites schema:rangeIncludes schema:Text ;
+                           rdfs:label "coursePrerequisites"@en ;
+                           schema:rangeIncludes schema:Course ;
                            schema:domainIncludes schema:Course ;
-                           schema:rangeIncludes schema:AlignmentObject ;
-                           rdfs:comment "Requirements for taking the Course. May be completion of another [[Course]] or a textual description like \"permission of instructor\". Requirements may be a pre-requisite competency, referenced using [[AlignmentObject]]."@en .
+                           rdfs:comment "Requirements for taking the Course. May be completion of another [[Course]] or a textual description like \"permission of instructor\". Requirements may be a pre-requisite competency, referenced using [[AlignmentObject]]."@en ;
+                           schema:rangeIncludes schema:AlignmentObject .
 
 
 schema:coverageEndTime rdfs:label "coverageEndTime"@en ;
@@ -8485,15 +8502,15 @@ schema:cssSelector schema:domainIncludes schema:SpeakableSpecification ;
 
 
 schema:currenciesAccepted rdfs:label "currenciesAccepted"@en ;
-                          rdfs:comment "The currency accepted.\\n\\nUse standard formats: [ISO 4217 currency format](http://en.wikipedia.org/wiki/ISO_4217) e.g. \"USD\"; [Ticker symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies) for cryptocurrencies e.g. \"BTC\"; well known names for [Local Exchange Tradings Systems](https://en.wikipedia.org/wiki/Local_exchange_trading_system) (LETS) and other currency types e.g. \"Ithaca HOUR\"."@en ;
                           schema:rangeIncludes schema:Text ;
+                          rdfs:comment "The currency accepted.\\n\\nUse standard formats: [ISO 4217 currency format](http://en.wikipedia.org/wiki/ISO_4217) e.g. \"USD\"; [Ticker symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies) for cryptocurrencies e.g. \"BTC\"; well known names for [Local Exchange Tradings Systems](https://en.wikipedia.org/wiki/Local_exchange_trading_system) (LETS) and other currency types e.g. \"Ithaca HOUR\"."@en ;
                           schema:domainIncludes schema:LocalBusiness .
 
 
-schema:currency schema:domainIncludes schema:MonetaryAmountDistribution ,
-                                      schema:MonetaryAmount ,
-                                      schema:DatedMoneySpecification ;
+schema:currency schema:domainIncludes schema:MonetaryAmount ,
+                                      schema:MonetaryAmountDistribution ;
                 schema:rangeIncludes schema:Text ;
+                schema:domainIncludes schema:DatedMoneySpecification ;
                 rdfs:comment "The currency in which the monetary amount is expressed.\\n\\nUse standard formats: [ISO 4217 currency format](http://en.wikipedia.org/wiki/ISO_4217) e.g. \"USD\"; [Ticker symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies) for cryptocurrencies e.g. \"BTC\"; well known names for [Local Exchange Tradings Systems](https://en.wikipedia.org/wiki/Local_exchange_trading_system) (LETS) and other currency types e.g. \"Ithaca HOUR\"."@en ;
                 rdfs:label "currency"@en .
 
@@ -8530,15 +8547,15 @@ schema:datasetTimeInterval schema:domainIncludes schema:Dataset ;
 
 schema:dateCreated schema:rangeIncludes schema:Date ;
                    rdfs:label "dateCreated"@en ;
-                   schema:domainIncludes schema:DataFeedItem ,
-                                         schema:CreativeWork ;
+                   schema:domainIncludes schema:CreativeWork ,
+                                         schema:DataFeedItem ;
                    schema:rangeIncludes schema:DateTime ;
                    rdfs:comment "The date on which the CreativeWork was created or the item was added to a DataFeed."@en .
 
 
-schema:dateDeleted schema:rangeIncludes schema:DateTime ;
+schema:dateDeleted schema:rangeIncludes schema:DateTime ,
+                                        schema:Date ;
                    rdfs:label "dateDeleted"@en ;
-                   schema:rangeIncludes schema:Date ;
                    schema:domainIncludes schema:DataFeedItem ;
                    rdfs:comment "The datetime the item was removed from the DataFeed."@en .
 
@@ -8551,16 +8568,16 @@ schema:dateIssued schema:rangeIncludes schema:Date ,
 
 
 schema:dateModified schema:domainIncludes schema:DataFeedItem ;
-                    schema:rangeIncludes schema:DateTime ;
                     rdfs:label "dateModified"@en ;
+                    schema:rangeIncludes schema:DateTime ;
                     rdfs:comment "The date on which the CreativeWork was most recently modified or when the item's entry was modified within a DataFeed."@en ;
                     schema:rangeIncludes schema:Date ;
                     schema:domainIncludes schema:CreativeWork .
 
 
-schema:datePosted rdfs:label "datePosted"@en ;
-                  schema:domainIncludes schema:JobPosting ;
+schema:datePosted schema:domainIncludes schema:JobPosting ;
                   rdfs:comment "Publication date for the job posting."@en ;
+                  rdfs:label "datePosted"@en ;
                   schema:rangeIncludes schema:Date .
 
 
@@ -8571,9 +8588,9 @@ schema:datePublished schema:rangeIncludes schema:Date ;
 
 
 schema:dateRead schema:domainIncludes schema:Message ;
-                schema:rangeIncludes schema:Date ;
+                schema:rangeIncludes schema:Date ,
+                                     schema:DateTime ;
                 rdfs:label "dateRead"@en ;
-                schema:rangeIncludes schema:DateTime ;
                 rdfs:comment "The date/time at which the message has been read by the recipient if a single recipient exists."@en .
 
 
@@ -8597,13 +8614,13 @@ schema:dateVehicleFirstRegistered rdfs:comment "The date of the first registrati
 
 
 schema:dateline schema:domainIncludes schema:NewsArticle ;
+                schema:rangeIncludes schema:Text ;
                 rdfs:comment """A [dateline](https://en.wikipedia.org/wiki/Dateline) is a brief piece of text included in news articles that describes where and when the story was written or filed though the date is often omitted. Sometimes only a placename is provided.
 
 Structured representations of dateline-related information can also be expressed more explicitly using [[locationCreated]] (which represents where a work was created e.g. where a news report was written).  For location depicted or described in the content, use [[contentLocation]].
 
 Dateline summaries are oriented more towards human readers than towards automated processing, and can vary substantially. Some examples: \"BEIRUT, Lebanon, June 2.\", \"Paris, France\", \"December 19, 2017 11:43AM Reporting from Washington\", \"Beijing/Moscow\", \"QUEZON CITY, Philippines\".
       """@en ;
-                schema:rangeIncludes schema:Text ;
                 rdfs:label "dateline"@en .
 
 
@@ -8613,8 +8630,8 @@ schema:dayOfWeek schema:domainIncludes schema:OpeningHoursSpecification ;
                  schema:rangeIncludes schema:DayOfWeek .
 
 
-schema:deathDate schema:domainIncludes schema:Person ;
-                 schema:rangeIncludes schema:Date ;
+schema:deathDate schema:rangeIncludes schema:Date ;
+                 schema:domainIncludes schema:Person ;
                  rdfs:comment "Date of death."@en ;
                  rdfs:label "deathDate"@en .
 
@@ -8666,13 +8683,13 @@ schema:departureAirport schema:domainIncludes schema:Flight ;
 schema:departureBusStop rdfs:comment "The stop or station from which the bus departs."@en ;
                         schema:rangeIncludes schema:BusStop ;
                         rdfs:label "departureBusStop"@en ;
-                        schema:rangeIncludes schema:BusStation ;
-                        schema:domainIncludes schema:BusTrip .
+                        schema:domainIncludes schema:BusTrip ;
+                        schema:rangeIncludes schema:BusStation .
 
 
 schema:departureGate rdfs:label "departureGate"@en ;
-                     schema:rangeIncludes schema:Text ;
                      schema:domainIncludes schema:Flight ;
+                     schema:rangeIncludes schema:Text ;
                      rdfs:comment "Identifier of the flight's departure gate."@en .
 
 
@@ -8682,8 +8699,8 @@ schema:departurePlatform schema:rangeIncludes schema:Text ;
                          rdfs:comment "The platform from which the train departs."@en .
 
 
-schema:departureStation schema:rangeIncludes schema:TrainStation ;
-                        schema:domainIncludes schema:TrainTrip ;
+schema:departureStation schema:domainIncludes schema:TrainTrip ;
+                        schema:rangeIncludes schema:TrainStation ;
                         rdfs:label "departureStation"@en ;
                         rdfs:comment "The station from which the train departs."@en .
 
@@ -8695,9 +8712,9 @@ schema:departureTerminal schema:domainIncludes schema:Flight ;
 
 
 schema:departureTime rdfs:comment "The expected departure time."@en ;
-                     schema:rangeIncludes schema:Time ,
-                                          schema:DateTime ;
+                     schema:rangeIncludes schema:Time ;
                      rdfs:label "departureTime"@en ;
+                     schema:rangeIncludes schema:DateTime ;
                      schema:domainIncludes schema:Trip .
 
 
@@ -8718,14 +8735,14 @@ schema:depth schema:domainIncludes schema:VisualArtwork ;
 schema:device schema:domainIncludes schema:SoftwareApplication ;
               schema:rangeIncludes schema:Text ;
               rdfs:label "device"@en ;
-              schema:supersededBy schema:availableOnDevice ;
-              rdfs:comment "Device required to run the application. Used in cases where a specific make/model is required to run the application."@en .
+              rdfs:comment "Device required to run the application. Used in cases where a specific make/model is required to run the application."@en ;
+              schema:supersededBy schema:availableOnDevice .
 
 
 schema:director schema:domainIncludes schema:Event ,
                                       schema:TVSeries ,
-                                      schema:RadioSeries ,
                                       schema:Clip ,
+                                      schema:RadioSeries ,
                                       schema:VideoGameSeries ;
                 schema:rangeIncludes schema:Person ;
                 schema:domainIncludes schema:CreativeWorkSeason ,
@@ -8742,8 +8759,8 @@ schema:directors schema:domainIncludes schema:Movie ,
                                        schema:TVSeries ,
                                        schema:MovieSeries ;
                  rdfs:comment "A director of e.g. tv, radio, movie, video games etc. content. Directors can be associated with individual items or with a series, episode, clip."@en ;
-                 schema:domainIncludes schema:Clip ,
-                                       schema:VideoObject ,
+                 schema:domainIncludes schema:VideoObject ,
+                                       schema:Clip ,
                                        schema:VideoGame ,
                                        schema:VideoGameSeries ;
                  schema:rangeIncludes schema:Person ;
@@ -8755,8 +8772,8 @@ schema:directors schema:domainIncludes schema:Movie ,
 
 schema:discount schema:rangeIncludes schema:Number ,
                                      schema:Text ;
-                rdfs:label "discount"@en ;
                 schema:domainIncludes schema:Order ;
+                rdfs:label "discount"@en ;
                 rdfs:comment "Any discount applied (to an Order)."@en .
 
 
@@ -8791,9 +8808,9 @@ schema:dissolutionDate schema:domainIncludes schema:Organization ;
 
 
 schema:distance schema:rangeIncludes schema:Distance ;
-                schema:domainIncludes schema:ExerciseAction ,
-                                      schema:TravelAction ;
+                schema:domainIncludes schema:ExerciseAction ;
                 rdfs:comment "The distance travelled, e.g. exercising or travelling."@en ;
+                schema:domainIncludes schema:TravelAction ;
                 rdfs:label "distance"@en .
 
 
@@ -8817,9 +8834,9 @@ schema:downloadUrl rdfs:label "downloadUrl"@en ;
 
 
 schema:downvoteCount schema:rangeIncludes schema:Integer ;
-                     schema:domainIncludes schema:Question ,
-                                           schema:Comment ;
                      rdfs:comment "The number of downvotes this question, answer or comment has received from the community."@en ;
+                     schema:domainIncludes schema:Comment ,
+                                           schema:Question ;
                      rdfs:label "downvoteCount"@en .
 
 
@@ -8866,8 +8883,8 @@ schema:educationRequirements schema:rangeIncludes schema:Text ;
                              schema:domainIncludes schema:Occupation ,
                                                    schema:JobPosting ;
                              dc:source <https://github.com/schemaorg/schemaorg/issues/1698> ;
-                             rdfs:comment "Educational background needed for the position or Occupation."@en ;
                              rdfs:label "educationRequirements"@en ;
+                             rdfs:comment "Educational background needed for the position or Occupation."@en ;
                              schema:category "issue-1698"@en .
 
 
@@ -8913,16 +8930,16 @@ schema:eligibleQuantity schema:rangeIncludes schema:QuantitativeValue ;
                         schema:domainIncludes schema:PriceSpecification ,
                                               schema:Demand ,
                                               schema:Offer ;
-                        rdfs:label "eligibleQuantity"@en ;
-                        rdfs:comment "The interval and unit of measurement of ordering quantities for which the offer or price specification is valid. This allows e.g. specifying that a certain freight charge is valid only for a certain quantity."@en .
+                        rdfs:comment "The interval and unit of measurement of ordering quantities for which the offer or price specification is valid. This allows e.g. specifying that a certain freight charge is valid only for a certain quantity."@en ;
+                        rdfs:label "eligibleQuantity"@en .
 
 
 schema:eligibleTransactionVolume schema:rangeIncludes schema:PriceSpecification ;
                                  schema:domainIncludes schema:PriceSpecification ,
                                                        schema:Offer ,
                                                        schema:Demand ;
-                                 rdfs:label "eligibleTransactionVolume"@en ;
-                                 rdfs:comment "The transaction volume, in a monetary unit, for which the offer or price specification is valid, e.g. for indicating a minimal purchasing volume, to express free shipping above a certain order volume, or to limit the acceptance of credit cards to purchases to a certain minimal amount."@en .
+                                 rdfs:comment "The transaction volume, in a monetary unit, for which the offer or price specification is valid, e.g. for indicating a minimal purchasing volume, to express free shipping above a certain order volume, or to limit the acceptance of credit cards to purchases to a certain minimal amount."@en ;
+                                 rdfs:label "eligibleTransactionVolume"@en .
 
 
 schema:embedUrl schema:rangeIncludes schema:URL ;
@@ -8952,14 +8969,14 @@ schema:employmentType schema:rangeIncludes schema:Text ;
 
 schema:encodesCreativeWork schema:domainIncludes schema:MediaObject ;
                            schema:rangeIncludes schema:CreativeWork ;
-                           rdfs:label "encodesCreativeWork"@en ;
                            schema:inverseOf schema:encoding ;
+                           rdfs:label "encodesCreativeWork"@en ;
                            rdfs:comment "The CreativeWork encoded by this media object."@en .
 
 
 schema:encoding schema:rangeIncludes schema:MediaObject ;
-                schema:domainIncludes schema:CreativeWork ;
                 rdfs:comment "A media object that encodes this CreativeWork. This property is a synonym for associatedMedia."@en ;
+                schema:domainIncludes schema:CreativeWork ;
                 rdfs:label "encoding"@en ;
                 schema:inverseOf schema:encodesCreativeWork .
 
@@ -8996,23 +9013,23 @@ schema:endDate schema:domainIncludes schema:Role ,
                schema:rangeIncludes schema:DateTime ;
                schema:domainIncludes schema:Event ;
                rdfs:label "endDate"@en ;
-               schema:domainIncludes schema:CreativeWorkSeries ;
-               rdfs:comment "The end date and time of the item (in [ISO 8601 date format](http://en.wikipedia.org/wiki/ISO_8601))."@en .
+               rdfs:comment "The end date and time of the item (in [ISO 8601 date format](http://en.wikipedia.org/wiki/ISO_8601))."@en ;
+               schema:domainIncludes schema:CreativeWorkSeries .
 
 
 schema:endTime rdfs:label "endTime"@en ;
-               schema:domainIncludes schema:Action ;
-               rdfs:comment "The endTime of something. For a reserved event or service (e.g. FoodEstablishmentReservation), the time that it is expected to end. For actions that span a period of time, when the action was performed. e.g. John wrote a book from January to *December*. For media, including audio and video, it's the time offset of the end of a clip within a larger file.\\n\\nNote that Event uses startDate/endDate instead of startTime/endTime, even when describing dates with times. This situation may be clarified in future revisions."@en ;
+               schema:domainIncludes schema:Action ,
+                                     schema:FoodEstablishmentReservation ;
                schema:rangeIncludes schema:Time ;
-               schema:domainIncludes schema:FoodEstablishmentReservation ;
+               rdfs:comment "The endTime of something. For a reserved event or service (e.g. FoodEstablishmentReservation), the time that it is expected to end. For actions that span a period of time, when the action was performed. e.g. John wrote a book from January to *December*. For media, including audio and video, it's the time offset of the end of a clip within a larger file.\\n\\nNote that Event uses startDate/endDate instead of startTime/endTime, even when describing dates with times. This situation may be clarified in future revisions."@en ;
                schema:rangeIncludes schema:DateTime ;
                schema:domainIncludes schema:MediaObject .
 
 
 schema:episodes rdfs:comment "An episode of a TV/radio series or season."@en ;
-                schema:domainIncludes schema:VideoGameSeries ,
-                                      schema:TVSeries ;
+                schema:domainIncludes schema:VideoGameSeries ;
                 schema:rangeIncludes schema:Episode ;
+                schema:domainIncludes schema:TVSeries ;
                 schema:supersededBy schema:episode ;
                 schema:domainIncludes schema:CreativeWorkSeason ,
                                       schema:RadioSeries ;
@@ -9051,8 +9068,8 @@ schema:estimatedSalary schema:domainIncludes schema:JobPosting ;
                        schema:rangeIncludes schema:MonetaryAmountDistribution ,
                                             schema:MonetaryAmount ;
                        rdfs:comment "An estimated salary for a job posting or occupation, based on a variety of variables including, but not limited to industry, job title, and location. Estimated salaries  are often computed by outside organizations rather than the hiring organization, who may not have committed to the estimated value."@en ;
-                       schema:category "issue-1698"@en ;
                        dc:source <https://github.com/schemaorg/schemaorg/issues/1698> ;
+                       schema:category "issue-1698"@en ;
                        schema:domainIncludes schema:Occupation ;
                        schema:rangeIncludes schema:Number .
 
@@ -9065,8 +9082,8 @@ schema:event schema:domainIncludes schema:JoinAction ;
                                    schema:Place ,
                                    schema:InformAction ,
                                    schema:Organization ,
-                                   schema:InviteAction ,
-                                   schema:PlayAction .
+                                   schema:PlayAction ,
+                                   schema:InviteAction .
 
 
 schema:eventStatus rdfs:comment "An eventStatus of an event represents its status; particularly useful when an event is cancelled or rescheduled."@en ;
@@ -9077,9 +9094,9 @@ schema:eventStatus rdfs:comment "An eventStatus of an event represents its statu
 
 schema:events rdfs:comment "Upcoming or past events associated with this place or organization."@en ;
               schema:supersededBy schema:event ;
+              schema:domainIncludes schema:Place ;
               rdfs:label "events"@en ;
-              schema:domainIncludes schema:Place ,
-                                    schema:Organization ;
+              schema:domainIncludes schema:Organization ;
               schema:rangeIncludes schema:Event .
 
 
@@ -9087,8 +9104,8 @@ schema:exampleOfWork rdfs:comment "A creative work that this work is an example/
                      dc:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_bibex> ;
                      schema:domainIncludes schema:CreativeWork ;
                      schema:rangeIncludes schema:CreativeWork ;
-                     schema:inverseOf schema:workExample ;
-                     rdfs:label "exampleOfWork"@en .
+                     rdfs:label "exampleOfWork"@en ;
+                     schema:inverseOf schema:workExample .
 
 
 schema:executableLibraryName rdfs:label "executableLibraryName"@en ;
@@ -9121,18 +9138,18 @@ schema:expectedArrivalUntil rdfs:comment "The latest date the package may arrive
 schema:expectsAcceptanceOf schema:domainIncludes schema:ConsumeAction ;
                            schema:category "issue-1741"@en ;
                            schema:rangeIncludes schema:Offer ;
+                           rdfs:comment "An Offer which must be accepted before the user can perform the Action. For example, the user may need to buy a movie before being able to watch it."@en ;
                            schema:domainIncludes schema:MediaSubscription ,
                                                  schema:ActionAccessSpecification ;
-                           rdfs:comment "An Offer which must be accepted before the user can perform the Action. For example, the user may need to buy a movie before being able to watch it."@en ;
-                           dc:source <https://github.com/schemaorg/schemaorg/issues/1741> ;
-                           rdfs:label "expectsAcceptanceOf"@en .
+                           rdfs:label "expectsAcceptanceOf"@en ;
+                           dc:source <https://github.com/schemaorg/schemaorg/issues/1741> .
 
 
 schema:experienceRequirements schema:domainIncludes schema:JobPosting ;
                               rdfs:comment "Description of skills and experience needed for the position or Occupation."@en ;
                               schema:domainIncludes schema:Occupation ;
-                              schema:rangeIncludes schema:Text ;
                               rdfs:label "experienceRequirements"@en ;
+                              schema:rangeIncludes schema:Text ;
                               dc:source <https://github.com/schemaorg/schemaorg/issues/1698> ;
                               schema:category "issue-1698"@en .
 
@@ -9187,8 +9204,8 @@ schema:fileFormat schema:supersededBy schema:encodingFormat ;
 
 schema:fileSize rdfs:comment "Size of the application / package (e.g. 18MB). In the absence of a unit (MB, KB etc.), KB will be assumed."@en ;
                 rdfs:label "fileSize"@en ;
-                schema:rangeIncludes schema:Text ;
-                schema:domainIncludes schema:SoftwareApplication .
+                schema:domainIncludes schema:SoftwareApplication ;
+                schema:rangeIncludes schema:Text .
 
 
 schema:firstPerformance rdfs:comment "The date and place the work was first performed."@en ;
@@ -9201,8 +9218,8 @@ schema:firstPerformance rdfs:comment "The date and place the work was first perf
 schema:flightDistance rdfs:label "flightDistance"@en ;
                       schema:rangeIncludes schema:Distance ;
                       rdfs:comment "The distance of the flight."@en ;
-                      schema:domainIncludes schema:Flight ;
-                      schema:rangeIncludes schema:Text .
+                      schema:rangeIncludes schema:Text ;
+                      schema:domainIncludes schema:Flight .
 
 
 schema:floorSize schema:domainIncludes schema:Accommodation ;
@@ -9215,8 +9232,8 @@ Typical unit code(s): MTK for square meter, FTK for square foot, or YDK for squa
 
 schema:follows schema:rangeIncludes schema:Person ;
                rdfs:comment "The most generic uni-directional social relation."@en ;
-               rdfs:label "follows"@en ;
-               schema:domainIncludes schema:Person .
+               schema:domainIncludes schema:Person ;
+               rdfs:label "follows"@en .
 
 
 schema:founder schema:rangeIncludes schema:Person ;
@@ -9260,8 +9277,8 @@ schema:fuelConsumption schema:domainIncludes schema:Vehicle ;
 
 schema:fuelEfficiency rdfs:label "fuelEfficiency"@en ;
                       schema:domainIncludes schema:Vehicle ;
-                      schema:rangeIncludes schema:QuantitativeValue ;
                       rdfs:comment "The distance traveled per unit of fuel used; most commonly miles per gallon (mpg) or kilometers per liter (km/L).\\n\\n* Note 1: There are unfortunately no standard unit codes for miles per gallon or kilometers per liter. Use [[unitText]] to indicate the unit of measurement, e.g. mpg or km/L.\\n* Note 2: There are two ways of indicating the fuel consumption, [[fuelConsumption]] (e.g. 8 liters per 100 km) and [[fuelEfficiency]] (e.g. 30 miles per gallon). They are reciprocal.\\n* Note 3: Often, the absolute value is useful only when related to driving speed (\"at 80 km/h\") or usage pattern (\"city traffic\"). You can use [[valueReference]] to link the value for the fuel economy to another value."@en ;
+                      schema:rangeIncludes schema:QuantitativeValue ;
                       dc:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> .
 
 
@@ -9298,24 +9315,24 @@ schema:gameLocation schema:domainIncludes schema:VideoGameSeries ;
                     rdfs:comment "Real or fictional location of the game (or part of game)."@en .
 
 
-schema:gamePlatform schema:rangeIncludes schema:Text ;
-                    rdfs:comment "The electronic systems used to play <a href=\"http://en.wikipedia.org/wiki/Category:Video_game_platforms\">video games</a>."@en ;
+schema:gamePlatform rdfs:comment "The electronic systems used to play <a href=\"http://en.wikipedia.org/wiki/Category:Video_game_platforms\">video games</a>."@en ;
+                    schema:rangeIncludes schema:Text ;
                     schema:domainIncludes schema:VideoGameSeries ;
                     schema:rangeIncludes schema:URL ;
-                    rdfs:label "gamePlatform"@en ;
                     schema:domainIncludes schema:VideoGame ;
+                    rdfs:label "gamePlatform"@en ;
                     schema:rangeIncludes schema:Thing .
 
 
-schema:gameServer schema:rangeIncludes schema:GameServer ;
-                  schema:inverseOf schema:game ;
+schema:gameServer schema:inverseOf schema:game ;
+                  schema:rangeIncludes schema:GameServer ;
                   schema:domainIncludes schema:VideoGame ;
                   rdfs:comment "The server on which  it is possible to play the game."@en ;
                   rdfs:label "gameServer"@en .
 
 
-schema:gameTip rdfs:label "gameTip"@en ;
-               rdfs:comment "Links to tips, tactics, etc."@en ;
+schema:gameTip rdfs:comment "Links to tips, tactics, etc."@en ;
+               rdfs:label "gameTip"@en ;
                schema:domainIncludes schema:VideoGame ;
                schema:rangeIncludes schema:CreativeWork .
 
@@ -9329,10 +9346,10 @@ schema:gender rdfs:comment "Gender of the person. While http://schema.org/Male a
 
 schema:genre rdfs:label "genre"@en ;
              schema:rangeIncludes schema:Text ;
-             schema:domainIncludes schema:MusicGroup ;
-             schema:rangeIncludes schema:URL ;
              schema:domainIncludes schema:CreativeWork ,
-                                   schema:BroadcastChannel ;
+                                   schema:MusicGroup ;
+             schema:rangeIncludes schema:URL ;
+             schema:domainIncludes schema:BroadcastChannel ;
              rdfs:comment "Genre of the creative work, broadcast channel or group."@en .
 
 
@@ -9346,8 +9363,8 @@ schema:geoRadius schema:rangeIncludes schema:Text ;
                  rdfs:label "geoRadius"@en ;
                  schema:rangeIncludes schema:Number ;
                  schema:domainIncludes schema:GeoCircle ;
-                 rdfs:comment "Indicates the approximate radius of a GeoCircle (metres unless indicated otherwise via Distance notation)."@en ;
-                 schema:rangeIncludes schema:Distance .
+                 schema:rangeIncludes schema:Distance ;
+                 rdfs:comment "Indicates the approximate radius of a GeoCircle (metres unless indicated otherwise via Distance notation)."@en .
 
 
 schema:geographicArea schema:domainIncludes schema:Audience ;
@@ -9356,8 +9373,8 @@ schema:geographicArea schema:domainIncludes schema:Audience ;
                       rdfs:comment "The geographic area associated with the audience."@en .
 
 
-schema:givenName rdfs:label "givenName"@en ;
-                 rdfs:comment "Given name. In the U.S., the first name of a Person. This can be used along with familyName instead of the name property."@en ;
+schema:givenName rdfs:comment "Given name. In the U.S., the first name of a Person. This can be used along with familyName instead of the name property."@en ;
+                 rdfs:label "givenName"@en ;
                  schema:rangeIncludes schema:Text ;
                  schema:domainIncludes schema:Person .
 
@@ -9365,8 +9382,8 @@ schema:givenName rdfs:label "givenName"@en ;
 schema:grantee schema:domainIncludes schema:DigitalDocumentPermission ;
                schema:rangeIncludes schema:Audience ,
                                     schema:Organization ,
-                                    schema:ContactPoint ,
-                                    schema:Person ;
+                                    schema:Person ,
+                                    schema:ContactPoint ;
                rdfs:label "grantee"@en ;
                rdfs:comment "The person, organization, contact point, or audience that has been granted this permission."@en .
 
@@ -9385,9 +9402,9 @@ schema:greaterOrEqual rdfs:comment "This ordering relation for qualitative value
 
 schema:hasBroadcastChannel schema:rangeIncludes schema:BroadcastChannel ;
                            schema:category "issue-1004"@en ;
-                           rdfs:comment "A broadcast channel of a broadcast service."@en ;
-                           dc:source <https://github.com/schemaorg/schemaorg/issues/1004> ;
                            rdfs:label "hasBroadcastChannel"@en ;
+                           dc:source <https://github.com/schemaorg/schemaorg/issues/1004> ;
+                           rdfs:comment "A broadcast channel of a broadcast service."@en ;
                            schema:inverseOf schema:providesBroadcastService ;
                            schema:domainIncludes schema:BroadcastService .
 
@@ -9421,16 +9438,16 @@ schema:hasMap rdfs:comment "A URL to a map of the place."@en ;
 schema:hasMenu schema:rangeIncludes schema:URL ,
                                     schema:Menu ;
                rdfs:label "hasMenu"@en ;
-               schema:rangeIncludes schema:Text ;
                rdfs:comment "Either the actual menu as a structured representation, as text, or a URL of the menu."@en ;
+               schema:rangeIncludes schema:Text ;
                schema:domainIncludes schema:FoodEstablishment .
 
 
 schema:hasMenuItem rdfs:label "hasMenuItem"@en ;
                    rdfs:comment "A food or drink item contained in a menu or menu section."@en ;
-                   schema:domainIncludes schema:MenuSection ,
-                                         schema:Menu ;
-                   schema:rangeIncludes schema:MenuItem .
+                   schema:domainIncludes schema:MenuSection ;
+                   schema:rangeIncludes schema:MenuItem ;
+                   schema:domainIncludes schema:Menu .
 
 
 schema:hasMenuSection rdfs:label "hasMenuSection"@en ;
@@ -9440,8 +9457,8 @@ schema:hasMenuSection rdfs:label "hasMenuSection"@en ;
                       schema:rangeIncludes schema:MenuSection .
 
 
-schema:hasOccupation rdfs:comment "The Person's occupation. For past professions, use Role for expressing dates."@en ;
-                     schema:rangeIncludes schema:Occupation ;
+schema:hasOccupation schema:rangeIncludes schema:Occupation ;
+                     rdfs:comment "The Person's occupation. For past professions, use Role for expressing dates."@en ;
                      rdfs:label "hasOccupation"@en ;
                      schema:category "issue-1698"@en ;
                      dc:source <https://github.com/schemaorg/schemaorg/issues/1698> ;
@@ -9470,8 +9487,8 @@ schema:headline rdfs:comment "Headline of the article."@en ;
 
 
 schema:height schema:domainIncludes schema:Person ,
-                                    schema:Product ,
                                     schema:VisualArtwork ,
+                                    schema:Product ,
                                     schema:MediaObject ;
               rdfs:label "height"@en ;
               schema:rangeIncludes schema:Distance ,
@@ -9480,8 +9497,8 @@ schema:height schema:domainIncludes schema:Person ,
 
 
 schema:highPrice schema:domainIncludes schema:AggregateOffer ;
-                 rdfs:comment "The highest price of all offers available.\\n\\nUsage guidelines:\\n\\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039)) rather than superficially similiar Unicode symbols.\\n* Use '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal point. Avoid using these symbols as a readability separator."@en ;
                  schema:rangeIncludes schema:Text ;
+                 rdfs:comment "The highest price of all offers available.\\n\\nUsage guidelines:\\n\\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039)) rather than superficially similiar Unicode symbols.\\n* Use '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal point. Avoid using these symbols as a readability separator."@en ;
                  rdfs:label "highPrice"@en ;
                  schema:rangeIncludes schema:Number .
 
@@ -9513,9 +9530,9 @@ schema:hostingOrganization rdfs:comment "The organization (airline, travelers' c
 schema:hoursAvailable schema:domainIncludes schema:ContactPoint ;
                       schema:rangeIncludes schema:OpeningHoursSpecification ;
                       rdfs:comment "The hours during which this service or contact is available."@en ;
+                      schema:domainIncludes schema:Service ;
                       rdfs:label "hoursAvailable"@en ;
-                      schema:domainIncludes schema:Service ,
-                                            schema:LocationFeatureSpecification .
+                      schema:domainIncludes schema:LocationFeatureSpecification .
 
 
 schema:httpMethod rdfs:comment "An HTTP method that specifies the appropriate HTTP method for a request to an HTTP EntryPoint. Values are capitalized strings as used in HTTP."@en ;
@@ -9527,8 +9544,8 @@ schema:httpMethod rdfs:comment "An HTTP method that specifies the appropriate HT
 schema:iataCode schema:domainIncludes schema:Airport ;
                 rdfs:comment "IATA identifier for an airline or airport."@en ;
                 schema:domainIncludes schema:Airline ;
-                rdfs:label "iataCode"@en ;
-                schema:rangeIncludes schema:Text .
+                schema:rangeIncludes schema:Text ;
+                rdfs:label "iataCode"@en .
 
 
 schema:icaoCode schema:domainIncludes schema:Airport ;
@@ -9559,14 +9576,14 @@ schema:inLanguage rdfs:comment "The language of the content or performance or us
                   rdfs:label "inLanguage"@en ;
                   schema:rangeIncludes schema:Text ;
                   schema:domainIncludes schema:CreativeWork ,
-                                        schema:Event ,
-                                        schema:WriteAction ;
+                                        schema:Event ;
                   schema:rangeIncludes schema:Language ;
-                  schema:domainIncludes schema:CommunicateAction .
+                  schema:domainIncludes schema:WriteAction ,
+                                        schema:CommunicateAction .
 
 
-schema:inPlaylist schema:domainIncludes schema:MusicRecording ;
-                  rdfs:label "inPlaylist"@en ;
+schema:inPlaylist rdfs:label "inPlaylist"@en ;
+                  schema:domainIncludes schema:MusicRecording ;
                   schema:rangeIncludes schema:MusicPlaylist ;
                   rdfs:comment "The playlist to which this recording belongs."@en .
 
@@ -9600,8 +9617,8 @@ schema:includedDataCatalog rdfs:comment "A data catalog which contains this data
 
 schema:includedInDataCatalog schema:rangeIncludes schema:DataCatalog ;
                              rdfs:comment "A data catalog which contains this dataset."@en ;
-                             schema:domainIncludes schema:Dataset ;
                              rdfs:label "includedInDataCatalog"@en ;
+                             schema:domainIncludes schema:Dataset ;
                              schema:inverseOf schema:dataset .
 
 
@@ -9635,8 +9652,8 @@ schema:installUrl schema:rangeIncludes schema:URL ;
                   rdfs:label "installUrl"@en .
 
 
-schema:instructor schema:rangeIncludes schema:Person ;
-                  rdfs:label "instructor"@en ;
+schema:instructor rdfs:label "instructor"@en ;
+                  schema:rangeIncludes schema:Person ;
                   schema:domainIncludes schema:CourseInstance ;
                   rdfs:comment "A person assigned to instruct or provide instructional assistance for the [[CourseInstance]]."@en .
 
@@ -9659,8 +9676,8 @@ schema:interactionStatistic rdfs:comment "The number of interactions for the Cre
                             schema:domainIncludes schema:CreativeWork .
 
 
-schema:interactionType schema:domainIncludes schema:InteractionCounter ;
-                       rdfs:comment "The Action representing the type of interaction. For up votes, +1s, etc. use [[LikeAction]]. For down votes use [[DislikeAction]]. Otherwise, use the most specific Action."@en ;
+schema:interactionType rdfs:comment "The Action representing the type of interaction. For up votes, +1s, etc. use [[LikeAction]]. For down votes use [[DislikeAction]]. Otherwise, use the most specific Action."@en ;
+                       schema:domainIncludes schema:InteractionCounter ;
                        schema:rangeIncludes schema:Action ;
                        rdfs:label "interactionType"@en .
 
@@ -9705,8 +9722,8 @@ schema:isAccessoryOrSparePartFor schema:rangeIncludes schema:Product ;
 schema:isBasedOn schema:rangeIncludes schema:URL ;
                  schema:domainIncludes schema:CreativeWork ;
                  schema:rangeIncludes schema:Product ;
-                 rdfs:comment "A resource from which this work is derived or from which it is a modification or adaption."@en ;
                  rdfs:label "isBasedOn"@en ;
+                 rdfs:comment "A resource from which this work is derived or from which it is a modification or adaption."@en ;
                  schema:rangeIncludes schema:CreativeWork .
 
 
@@ -9745,10 +9762,10 @@ schema:isLiveBroadcast schema:rangeIncludes schema:Boolean ;
 
 schema:isRelatedTo rdfs:comment "A pointer to another, somehow related product (or multiple products)."@en ;
                    schema:rangeIncludes schema:Product ;
-                   schema:domainIncludes schema:Product ,
-                                         schema:Service ;
-                   rdfs:label "isRelatedTo"@en ;
-                   schema:rangeIncludes schema:Service .
+                   schema:domainIncludes schema:Service ,
+                                         schema:Product ;
+                   schema:rangeIncludes schema:Service ;
+                   rdfs:label "isRelatedTo"@en .
 
 
 schema:isSimilarTo schema:rangeIncludes schema:Product ;
@@ -9766,9 +9783,9 @@ schema:isVariantOf schema:rangeIncludes schema:ProductModel ;
 
 
 schema:isicV4 schema:rangeIncludes schema:Text ;
+              schema:domainIncludes schema:Place ;
               rdfs:comment "The International Standard of Industrial Classification of All Economic Activities (ISIC), Revision 4 code for a particular organization, business person, or place."@en ;
-              schema:domainIncludes schema:Place ,
-                                    schema:Organization ,
+              schema:domainIncludes schema:Organization ,
                                     schema:Person ;
               rdfs:label "isicV4"@en .
 
@@ -9783,8 +9800,8 @@ schema:isrcCode rdfs:comment "The International Standard Recording Code for the 
 schema:issuedBy rdfs:label "issuedBy"@en ;
                 schema:domainIncludes schema:Permit ;
                 rdfs:comment "The organization issuing the ticket or permit."@en ;
-                schema:domainIncludes schema:Ticket ;
-                schema:rangeIncludes schema:Organization .
+                schema:rangeIncludes schema:Organization ;
+                schema:domainIncludes schema:Ticket .
 
 
 schema:issuedThrough rdfs:label "issuedThrough"@en ;
@@ -9793,8 +9810,8 @@ schema:issuedThrough rdfs:label "issuedThrough"@en ;
                      schema:rangeIncludes schema:Service .
 
 
-schema:iswcCode rdfs:label "iswcCode"@en ;
-                schema:rangeIncludes schema:Text ;
+schema:iswcCode schema:rangeIncludes schema:Text ;
+                rdfs:label "iswcCode"@en ;
                 rdfs:comment "The International Standard Musical Work Code for the composition."@en ;
                 dc:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
                 schema:domainIncludes schema:MusicComposition .
@@ -9875,8 +9892,8 @@ schema:keywords rdfs:label "keywords"@en ;
                 rdfs:comment "Keywords or tags used to describe this content. Multiple entries in a keywords list are typically delimited by commas."@en .
 
 
-schema:knownVehicleDamages rdfs:comment "A textual description of known damages, both repaired and unrepaired."@en ;
-                           schema:rangeIncludes schema:Text ;
+schema:knownVehicleDamages schema:rangeIncludes schema:Text ;
+                           rdfs:comment "A textual description of known damages, both repaired and unrepaired."@en ;
                            schema:domainIncludes schema:Vehicle ;
                            rdfs:label "knownVehicleDamages"@en ;
                            dc:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> .
@@ -9950,8 +9967,8 @@ schema:lodgingUnitDescription schema:domainIncludes schema:LodgingReservation ;
 
 
 schema:lodgingUnitType schema:rangeIncludes schema:QualitativeValue ;
-                       rdfs:comment "Textual description of the unit type (including suite vs. room, size of bed, etc.)."@en ;
                        schema:domainIncludes schema:LodgingReservation ;
+                       rdfs:comment "Textual description of the unit type (including suite vs. room, size of bed, etc.)."@en ;
                        schema:rangeIncludes schema:Text ;
                        rdfs:label "lodgingUnitType"@en .
 
@@ -9994,9 +10011,9 @@ schema:mainEntityOfPage rdfs:label "mainEntityOfPage"@en ;
 schema:makesOffer schema:inverseOf schema:offeredBy ;
                   rdfs:comment "A pointer to products or services offered by the organization or person."@en ;
                   rdfs:label "makesOffer"@en ;
-                  schema:domainIncludes schema:Organization ;
                   schema:rangeIncludes schema:Offer ;
-                  schema:domainIncludes schema:Person .
+                  schema:domainIncludes schema:Organization ,
+                                        schema:Person .
 
 
 schema:manufacturer schema:domainIncludes schema:Product ;
@@ -10006,8 +10023,8 @@ schema:manufacturer schema:domainIncludes schema:Product ;
 
 
 schema:map schema:supersededBy schema:hasMap ;
-           schema:domainIncludes schema:Place ;
            schema:rangeIncludes schema:URL ;
+           schema:domainIncludes schema:Place ;
            rdfs:label "map"@en ;
            rdfs:comment "A URL to a map of the place."@en .
 
@@ -10018,8 +10035,8 @@ schema:mapType rdfs:label "mapType"@en ;
                rdfs:comment "Indicates the kind of Map, from the MapCategoryType Enumeration."@en .
 
 
-schema:maps rdfs:comment "A URL to a map of the place."@en ;
-            schema:rangeIncludes schema:URL ;
+schema:maps schema:rangeIncludes schema:URL ;
+            rdfs:comment "A URL to a map of the place."@en ;
             schema:supersededBy schema:hasMap ;
             schema:domainIncludes schema:Place ;
             rdfs:label "maps"@en .
@@ -10079,8 +10096,8 @@ schema:members schema:supersededBy schema:member ;
                rdfs:comment "A member of this organization."@en .
 
 
-schema:membershipNumber rdfs:comment "A unique identifier for the membership."@en ;
-                        schema:domainIncludes schema:ProgramMembership ;
+schema:membershipNumber schema:domainIncludes schema:ProgramMembership ;
+                        rdfs:comment "A unique identifier for the membership."@en ;
                         rdfs:label "membershipNumber"@en ;
                         schema:rangeIncludes schema:Text .
 
@@ -10108,20 +10125,20 @@ schema:menu schema:rangeIncludes schema:URL ;
 
 
 schema:menuAddOn schema:domainIncludes schema:MenuItem ;
-                 rdfs:label "menuAddOn"@en ;
                  dc:source <https://github.com/schemaorg/schemaorg/issues/1541> ;
-                 schema:rangeIncludes schema:MenuSection ;
+                 rdfs:label "menuAddOn"@en ;
                  schema:category "issue-1541"@en ;
-                 schema:rangeIncludes schema:MenuItem ;
+                 schema:rangeIncludes schema:MenuSection ,
+                                      schema:MenuItem ;
                  rdfs:comment "Additional menu item(s) such as a side dish of salad or side order of fries that can be added to this menu item. Additionally it can be a menu section containing allowed add-on menu items for this menu item."@en .
 
 
 schema:merchant rdfs:comment "'merchant' is an out-dated term for 'seller'."@en ;
                 rdfs:label "merchant"@en ;
                 schema:domainIncludes schema:Order ;
-                schema:rangeIncludes schema:Organization ;
-                schema:supersededBy schema:seller ;
-                schema:rangeIncludes schema:Person .
+                schema:rangeIncludes schema:Organization ,
+                                     schema:Person ;
+                schema:supersededBy schema:seller .
 
 
 schema:messageAttachment rdfs:comment "A CreativeWork attached to the message."@en ;
@@ -10159,11 +10176,11 @@ schema:minimumPaymentDue rdfs:comment "The minimum payment required at this time
                          schema:rangeIncludes schema:MonetaryAmount .
 
 
-schema:model rdfs:label "model"@en ;
-             schema:rangeIncludes schema:ProductModel ;
+schema:model schema:rangeIncludes schema:ProductModel ;
+             rdfs:label "model"@en ;
              rdfs:comment "The model of the product. Use with the URL of a ProductModel or a textual representation of the model identifier. The URL of the ProductModel can be from an external source. It is recommended to additionally provide strong product identifiers via the gtin8/gtin13/gtin14 and mpn properties."@en ;
-             schema:domainIncludes schema:Product ;
-             schema:rangeIncludes schema:Text .
+             schema:rangeIncludes schema:Text ;
+             schema:domainIncludes schema:Product .
 
 
 schema:modifiedTime schema:domainIncludes schema:Reservation ;
@@ -10181,8 +10198,8 @@ schema:mpn schema:domainIncludes schema:Product ;
 
 
 schema:multipleValues schema:rangeIncludes schema:Boolean ;
-                      rdfs:comment "Whether multiple values are allowed for the property.  Default is false."@en ;
                       schema:domainIncludes schema:PropertyValueSpecification ;
+                      rdfs:comment "Whether multiple values are allowed for the property.  Default is false."@en ;
                       rdfs:label "multipleValues"@en .
 
 
@@ -10200,24 +10217,24 @@ schema:musicBy schema:domainIncludes schema:VideoGame ;
                                      schema:Clip ,
                                      schema:VideoGameSeries ;
                rdfs:label "musicBy"@en ;
-               schema:domainIncludes schema:MovieSeries ;
                schema:rangeIncludes schema:MusicGroup ;
-               schema:domainIncludes schema:Movie ,
+               schema:domainIncludes schema:MovieSeries ,
+                                     schema:Movie ,
                                      schema:TVSeries ;
                schema:rangeIncludes schema:Person ;
                schema:domainIncludes schema:RadioSeries .
 
 
 schema:musicCompositionForm dc:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
-                            rdfs:comment "The type of composition (e.g. overture, sonata, symphony, etc.)."@en ;
                             schema:domainIncludes schema:MusicComposition ;
+                            rdfs:comment "The type of composition (e.g. overture, sonata, symphony, etc.)."@en ;
                             rdfs:label "musicCompositionForm"@en ;
                             schema:rangeIncludes schema:Text .
 
 
 schema:musicGroupMember schema:supersededBy schema:member ;
-                        schema:domainIncludes schema:MusicGroup ;
                         rdfs:label "musicGroupMember"@en ;
+                        schema:domainIncludes schema:MusicGroup ;
                         schema:rangeIncludes schema:Person ;
                         rdfs:comment "A member of a music group&#x2014;for example, John, Paul, George, or Ringo."@en .
 
@@ -10243,24 +10260,24 @@ schema:naics schema:rangeIncludes schema:Text ;
              rdfs:comment "The North American Industry Classification System (NAICS) code for a particular organization or business person."@en .
 
 
-schema:name schema:rangeIncludes schema:Text ;
-            schema:domainIncludes schema:Thing ;
+schema:name schema:domainIncludes schema:Thing ;
+            schema:rangeIncludes schema:Text ;
             rdfs:comment "The name of the item."@en ;
             rdfs:label "name"@en .
 
 
 schema:namedPosition schema:domainIncludes schema:Role ;
                      rdfs:comment "A position played, performed or filled by a person or organization, as part of an organization. For example, an athlete in a SportsTeam might play in the position named 'Quarterback'."@en ;
-                     schema:rangeIncludes schema:Text ,
-                                          schema:URL ;
+                     schema:rangeIncludes schema:Text ;
                      schema:supersededBy schema:roleName ;
+                     schema:rangeIncludes schema:URL ;
                      rdfs:label "namedPosition"@en .
 
 
-schema:nationality rdfs:comment "Nationality of the person."@en ;
-                   schema:domainIncludes schema:Person ;
-                   schema:rangeIncludes schema:Country ;
-                   rdfs:label "nationality"@en .
+schema:nationality schema:domainIncludes schema:Person ;
+                   rdfs:comment "Nationality of the person."@en ;
+                   rdfs:label "nationality"@en ;
+                   schema:rangeIncludes schema:Country .
 
 
 schema:netWorth schema:rangeIncludes schema:MonetaryAmount ;
@@ -10285,8 +10302,8 @@ schema:nonEqual rdfs:comment "This ordering relation for qualitative values indi
 schema:numAdults schema:rangeIncludes schema:QuantitativeValue ;
                  rdfs:comment "The number of adults staying in the unit."@en ;
                  rdfs:label "numAdults"@en ;
-                 schema:rangeIncludes schema:Integer ;
-                 schema:domainIncludes schema:LodgingReservation .
+                 schema:domainIncludes schema:LodgingReservation ;
+                 schema:rangeIncludes schema:Integer .
 
 
 schema:numChildren schema:rangeIncludes schema:Integer ;
@@ -10297,23 +10314,23 @@ schema:numChildren schema:rangeIncludes schema:Integer ;
 
 
 schema:numTracks schema:domainIncludes schema:MusicPlaylist ;
-                 rdfs:comment "The number of tracks in this album or playlist."@en ;
                  rdfs:label "numTracks"@en ;
+                 rdfs:comment "The number of tracks in this album or playlist."@en ;
                  schema:rangeIncludes schema:Integer .
 
 
-schema:numberOfAirbags schema:rangeIncludes schema:Number ,
-                                            schema:Text ;
+schema:numberOfAirbags schema:rangeIncludes schema:Text ,
+                                            schema:Number ;
                        schema:domainIncludes schema:Vehicle ;
                        rdfs:comment "The number or type of airbags in the vehicle."@en ;
-                       dc:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
-                       rdfs:label "numberOfAirbags"@en .
+                       rdfs:label "numberOfAirbags"@en ;
+                       dc:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> .
 
 
-schema:numberOfAxles schema:rangeIncludes schema:QuantitativeValue ;
+schema:numberOfAxles dc:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
                      rdfs:comment "The number of axles.\\n\\nTypical unit code(s): C62"@en ;
-                     dc:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
-                     schema:rangeIncludes schema:Number ;
+                     schema:rangeIncludes schema:QuantitativeValue ,
+                                          schema:Number ;
                      rdfs:label "numberOfAxles"@en ;
                      schema:domainIncludes schema:Vehicle .
 
@@ -10334,15 +10351,15 @@ schema:numberOfDoors schema:rangeIncludes schema:Number ;
 
 
 schema:numberOfEmployees schema:rangeIncludes schema:QuantitativeValue ;
-                         schema:domainIncludes schema:BusinessAudience ;
                          rdfs:label "numberOfEmployees"@en ;
+                         schema:domainIncludes schema:BusinessAudience ;
                          rdfs:comment "The number of employees in an organization e.g. business."@en ;
                          schema:domainIncludes schema:Organization .
 
 
 schema:numberOfEpisodes schema:domainIncludes schema:CreativeWorkSeason ,
-                                              schema:RadioSeries ,
                                               schema:VideoGameSeries ,
+                                              schema:RadioSeries ,
                                               schema:TVSeries ;
                         schema:rangeIncludes schema:Integer ;
                         rdfs:label "numberOfEpisodes"@en ;
@@ -10422,12 +10439,12 @@ schema:nutrition schema:domainIncludes schema:MenuItem ;
 schema:occupancy schema:domainIncludes schema:Suite ,
                                        schema:SingleFamilyResidence ;
                  rdfs:label "occupancy"@en ;
-                 schema:rangeIncludes schema:QuantitativeValue ;
                  rdfs:comment """The allowed total occupancy for the accommodation in persons (including infants etc). For individual accommodations, this is not necessarily the legal maximum but defines the permitted usage as per the contractual agreement (e.g. a double room used by a single person).
 Typical unit code(s): C62 for person"""@en ;
-                 schema:domainIncludes schema:Apartment ,
-                                       schema:HotelRoom ;
-                 dc:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> .
+                 schema:rangeIncludes schema:QuantitativeValue ;
+                 schema:domainIncludes schema:Apartment ;
+                 dc:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+                 schema:domainIncludes schema:HotelRoom .
 
 
 schema:occupationLocation rdfs:label "occupationLocation"@en ;
@@ -10438,10 +10455,10 @@ schema:occupationLocation rdfs:label "occupationLocation"@en ;
                           rdfs:comment " The region/country for which this occupational description is appropriate. Note that educational requirements and qualifications can vary between jurisdictions."@en .
 
 
-schema:occupationalCategory schema:domainIncludes schema:Occupation ;
-                            rdfs:comment """A category describing the job, preferably using a term from a taxonomy such as [BLS O*NET-SOC](http://www.onetcenter.org/taxonomy.html), [ISCO-08](https://www.ilo.org/public/english/bureau/stat/isco/isco08/) or similar, with the property repeated for each applicable value. Ideally the taxonomy should be identified, and both the textual label and formal code for the category should be provided.\\n
+schema:occupationalCategory rdfs:comment """A category describing the job, preferably using a term from a taxonomy such as [BLS O*NET-SOC](http://www.onetcenter.org/taxonomy.html), [ISCO-08](https://www.ilo.org/public/english/bureau/stat/isco/isco08/) or similar, with the property repeated for each applicable value. Ideally the taxonomy should be identified, and both the textual label and formal code for the category should be provided.\\n
 Note: for historical reasons, any textual label and formal code provided as a literal may be assumed to be from O*NET-SOC."""@en ;
-                            schema:domainIncludes schema:JobPosting ;
+                            schema:domainIncludes schema:JobPosting ,
+                                                  schema:Occupation ;
                             rdfs:label "occupationalCategory"@en ;
                             schema:rangeIncludes schema:Text ;
                             schema:category "issue-1698"@en ;
@@ -10464,9 +10481,9 @@ schema:offeredBy schema:domainIncludes schema:Offer ;
 
 schema:offers schema:domainIncludes schema:AggregateOffer ;
               rdfs:comment "An offer to provide this item&#x2014;for example, an offer to sell a product, rent the DVD of a movie, perform a service, or give away tickets to an event."@en ;
-              schema:domainIncludes schema:Product ;
+              schema:domainIncludes schema:Product ,
+                                    schema:Event ;
               rdfs:label "offers"@en ;
-              schema:domainIncludes schema:Event ;
               schema:rangeIncludes schema:Offer ;
               schema:domainIncludes schema:CreativeWork ,
                                     schema:Trip ,
@@ -10474,10 +10491,10 @@ schema:offers schema:domainIncludes schema:AggregateOffer ;
                                     schema:Service .
 
 
-schema:openingHours schema:domainIncludes schema:CivicStructure ,
-                                          schema:LocalBusiness ;
-                    rdfs:comment "The general opening hours for a business. Opening hours can be specified as a weekly time range, starting with days, then times per day. Multiple days can be listed with commas ',' separating each day. Day or time ranges are specified using a hyphen '-'.\\n\\n* Days are specified using the following two-letter combinations: ```Mo```, ```Tu```, ```We```, ```Th```, ```Fr```, ```Sa```, ```Su```.\\n* Times are specified using 24:00 time. For example, 3pm is specified as ```15:00```. \\n* Here is an example: <code>&lt;time itemprop=\"openingHours\" datetime=&quot;Tu,Th 16:00-20:00&quot;&gt;Tuesdays and Thursdays 4-8pm&lt;/time&gt;</code>.\\n* If a business is open 7 days a week, then it can be specified as <code>&lt;time itemprop=&quot;openingHours&quot; datetime=&quot;Mo-Su&quot;&gt;Monday through Sunday, all day&lt;/time&gt;</code>."@en ;
+schema:openingHours schema:domainIncludes schema:LocalBusiness ,
+                                          schema:CivicStructure ;
                     schema:rangeIncludes schema:Text ;
+                    rdfs:comment "The general opening hours for a business. Opening hours can be specified as a weekly time range, starting with days, then times per day. Multiple days can be listed with commas ',' separating each day. Day or time ranges are specified using a hyphen '-'.\\n\\n* Days are specified using the following two-letter combinations: ```Mo```, ```Tu```, ```We```, ```Th```, ```Fr```, ```Sa```, ```Su```.\\n* Times are specified using 24:00 time. For example, 3pm is specified as ```15:00```. \\n* Here is an example: <code>&lt;time itemprop=\"openingHours\" datetime=&quot;Tu,Th 16:00-20:00&quot;&gt;Tuesdays and Thursdays 4-8pm&lt;/time&gt;</code>.\\n* If a business is open 7 days a week, then it can be specified as <code>&lt;time itemprop=&quot;openingHours&quot; datetime=&quot;Mo-Su&quot;&gt;Monday through Sunday, all day&lt;/time&gt;</code>."@en ;
                     rdfs:label "openingHours"@en .
 
 
@@ -10514,8 +10531,8 @@ schema:orderDelivery schema:domainIncludes schema:Order ;
 
 
 schema:orderItemNumber schema:domainIncludes schema:OrderItem ;
-                       schema:rangeIncludes schema:Text ;
                        rdfs:comment "The identifier of the order item."@en ;
+                       schema:rangeIncludes schema:Text ;
                        rdfs:label "orderItemNumber"@en .
 
 
@@ -10571,9 +10588,9 @@ schema:ownedThrough schema:domainIncludes schema:OwnershipInfo ;
                     rdfs:comment "The date and time of giving up ownership on the product."@en .
 
 
-schema:owns schema:rangeIncludes schema:Product ;
+schema:owns schema:rangeIncludes schema:Product ,
+                                 schema:OwnershipInfo ;
             schema:domainIncludes schema:Organization ;
-            schema:rangeIncludes schema:OwnershipInfo ;
             rdfs:comment "Products owned by the organization or person."@en ;
             rdfs:label "owns"@en ;
             schema:domainIncludes schema:Person .
@@ -10662,9 +10679,9 @@ schema:partySize rdfs:comment "Number of people the reservation should accommoda
 
 schema:passengerPriorityStatus schema:domainIncludes schema:FlightReservation ;
                                rdfs:comment "The priority status assigned to a passenger for security or boarding (e.g. FastTrack or Priority)."@en ;
+                               schema:rangeIncludes schema:QualitativeValue ;
                                rdfs:label "passengerPriorityStatus"@en ;
-                               schema:rangeIncludes schema:QualitativeValue ,
-                                                    schema:Text .
+                               schema:rangeIncludes schema:Text .
 
 
 schema:passengerSequenceNumber rdfs:comment "The passenger's sequence number as assigned by the airline."@en ;
@@ -10690,9 +10707,9 @@ schema:paymentDue schema:domainIncludes schema:Order ;
 schema:paymentDueDate rdfs:comment "The date that payment is due."@en ;
                       rdfs:label "paymentDueDate"@en ;
                       schema:domainIncludes schema:Invoice ;
-                      schema:rangeIncludes schema:Date ,
-                                           schema:DateTime ;
-                      schema:domainIncludes schema:Order .
+                      schema:rangeIncludes schema:Date ;
+                      schema:domainIncludes schema:Order ;
+                      schema:rangeIncludes schema:DateTime .
 
 
 schema:paymentMethod rdfs:comment "The name of the credit card or other method of payment for the order."@en ;
@@ -10730,8 +10747,8 @@ schema:percentile10 schema:rangeIncludes schema:Number ;
                     dc:source <https://github.com/schemaorg/schemaorg/issues/1698> .
 
 
-schema:percentile25 dc:source <https://github.com/schemaorg/schemaorg/issues/1698> ;
-                    schema:rangeIncludes schema:Number ;
+schema:percentile25 schema:rangeIncludes schema:Number ;
+                    dc:source <https://github.com/schemaorg/schemaorg/issues/1698> ;
                     schema:category "issue-1698"@en ;
                     rdfs:label "percentile25"@en ;
                     rdfs:comment "The 25th percentile value."@en ;
@@ -10740,15 +10757,15 @@ schema:percentile25 dc:source <https://github.com/schemaorg/schemaorg/issues/169
 
 schema:percentile75 schema:rangeIncludes schema:Number ;
                     rdfs:comment "The 75th percentile value."@en ;
-                    rdfs:label "percentile75"@en ;
                     schema:category "issue-1698"@en ;
+                    rdfs:label "percentile75"@en ;
                     dc:source <https://github.com/schemaorg/schemaorg/issues/1698> ;
                     schema:domainIncludes schema:QuantitativeValueDistribution .
 
 
 schema:percentile90 dc:source <https://github.com/schemaorg/schemaorg/issues/1698> ;
-                    schema:category "issue-1698"@en ;
                     schema:domainIncludes schema:QuantitativeValueDistribution ;
+                    schema:category "issue-1698"@en ;
                     rdfs:label "percentile90"@en ;
                     rdfs:comment "The 90th percentile value."@en ;
                     schema:rangeIncludes schema:Number .
@@ -10804,16 +10821,16 @@ schema:petsAllowed schema:domainIncludes schema:Accommodation ;
                    rdfs:comment "Indicates whether pets are allowed to enter the accommodation or lodging business. More detailed information can be put in a text value."@en ;
                    schema:rangeIncludes schema:Text ,
                                         schema:Boolean ;
-                   schema:domainIncludes schema:LodgingBusiness ;
                    rdfs:label "petsAllowed"@en ;
+                   schema:domainIncludes schema:LodgingBusiness ;
                    dc:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> .
 
 
 schema:photos schema:domainIncludes schema:Place ;
               rdfs:label "photos"@en ;
-              schema:rangeIncludes schema:Photograph ,
-                                   schema:ImageObject ;
+              schema:rangeIncludes schema:Photograph ;
               rdfs:comment "Photographs of this place."@en ;
+              schema:rangeIncludes schema:ImageObject ;
               schema:supersededBy schema:photo .
 
 
@@ -10824,8 +10841,8 @@ schema:pickupLocation rdfs:label "pickupLocation"@en ;
                       schema:domainIncludes schema:TaxiReservation .
 
 
-schema:pickupTime schema:domainIncludes schema:TaxiReservation ;
-                  rdfs:comment "When a taxi will pickup a passenger or a rental car can be picked up."@en ;
+schema:pickupTime rdfs:comment "When a taxi will pickup a passenger or a rental car can be picked up."@en ;
+                  schema:domainIncludes schema:TaxiReservation ;
                   rdfs:label "pickupTime"@en ;
                   schema:rangeIncludes schema:DateTime ;
                   schema:domainIncludes schema:RentalCarReservation .
@@ -10910,8 +10927,8 @@ schema:priceComponent dc:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgS
                       schema:rangeIncludes schema:UnitPriceSpecification .
 
 
-schema:priceCurrency schema:domainIncludes schema:Reservation ,
-                                           schema:TradeAction ,
+schema:priceCurrency schema:domainIncludes schema:TradeAction ,
+                                           schema:Reservation ,
                                            schema:PriceSpecification ,
                                            schema:Ticket ;
                      rdfs:label "priceCurrency"@en ;
@@ -10926,8 +10943,8 @@ schema:priceRange rdfs:label "priceRange"@en ;
                   rdfs:comment "The price range of the business, for example ```$$$```."@en .
 
 
-schema:priceSpecification schema:rangeIncludes schema:PriceSpecification ;
-                          rdfs:comment "One or more detailed price specifications, indicating the unit price and delivery or payment charges."@en ;
+schema:priceSpecification rdfs:comment "One or more detailed price specifications, indicating the unit price and delivery or payment charges."@en ;
+                          schema:rangeIncludes schema:PriceSpecification ;
                           rdfs:label "priceSpecification"@en ;
                           schema:domainIncludes schema:Demand ,
                                                 schema:TradeAction ,
@@ -10960,8 +10977,8 @@ schema:printColumn rdfs:comment "The number of the column in which the NewsArtic
 
 schema:printEdition schema:rangeIncludes schema:Text ;
                     rdfs:comment "The edition of the print product in which the NewsArticle appears."@en ;
-                    schema:domainIncludes schema:NewsArticle ;
-                    rdfs:label "printEdition"@en .
+                    rdfs:label "printEdition"@en ;
+                    schema:domainIncludes schema:NewsArticle .
 
 
 schema:printPage schema:rangeIncludes schema:Text ;
@@ -10978,8 +10995,8 @@ schema:printSection schema:domainIncludes schema:NewsArticle ;
 
 schema:processingTime rdfs:comment "Estimated processing time for the service using this channel."@en ;
                       schema:domainIncludes schema:ServiceChannel ;
-                      rdfs:label "processingTime"@en ;
-                      schema:rangeIncludes schema:Duration .
+                      schema:rangeIncludes schema:Duration ;
+                      rdfs:label "processingTime"@en .
 
 
 schema:processorRequirements schema:domainIncludes schema:SoftwareApplication ;
@@ -10989,21 +11006,21 @@ schema:processorRequirements schema:domainIncludes schema:SoftwareApplication ;
 
 
 schema:producer schema:domainIncludes schema:CreativeWork ;
-                schema:rangeIncludes schema:Person ;
                 rdfs:comment "The person or organization who produced the work (e.g. music album, movie, tv/radio series etc.)."@en ;
+                schema:rangeIncludes schema:Person ;
                 rdfs:label "producer"@en ;
                 schema:rangeIncludes schema:Organization .
 
 
-schema:produces rdfs:comment "The tangible thing generated by the service, e.g. a passport, permit, etc."@en ;
-                schema:supersededBy schema:serviceOutput ;
+schema:produces schema:supersededBy schema:serviceOutput ;
+                rdfs:comment "The tangible thing generated by the service, e.g. a passport, permit, etc."@en ;
                 rdfs:label "produces"@en ;
                 schema:rangeIncludes schema:Thing ;
                 schema:domainIncludes schema:Service .
 
 
-schema:productSupported schema:domainIncludes schema:ContactPoint ;
-                        rdfs:label "productSupported"@en ;
+schema:productSupported rdfs:label "productSupported"@en ;
+                        schema:domainIncludes schema:ContactPoint ;
                         schema:rangeIncludes schema:Product ;
                         rdfs:comment "The product or service this support contact point is related to (such as product support for a particular product line). This can be a specific product or product line (e.g. \"iPhone\") or a general category of products or services (e.g. \"smartphones\")."@en ;
                         schema:rangeIncludes schema:Text .
@@ -11014,10 +11031,10 @@ schema:productionCompany schema:domainIncludes schema:Movie ,
                                                schema:TVSeries ,
                                                schema:MediaObject ,
                                                schema:RadioSeries ,
-                                               schema:CreativeWorkSeason ,
-                                               schema:Episode ;
+                                               schema:CreativeWorkSeason ;
                          rdfs:label "productionCompany"@en ;
-                         schema:domainIncludes schema:VideoGameSeries ;
+                         schema:domainIncludes schema:Episode ,
+                                               schema:VideoGameSeries ;
                          schema:rangeIncludes schema:Organization ;
                          rdfs:comment "The production company or studio responsible for the item e.g. series, video game, episode etc."@en .
 
@@ -11030,8 +11047,8 @@ schema:productionDate dc:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgS
                       schema:rangeIncludes schema:Date .
 
 
-schema:proficiencyLevel rdfs:comment "Proficiency needed for this content; expected values: 'Beginner', 'Expert'."@en ;
-                        schema:rangeIncludes schema:Text ;
+schema:proficiencyLevel schema:rangeIncludes schema:Text ;
+                        rdfs:comment "Proficiency needed for this content; expected values: 'Beginner', 'Expert'."@en ;
                         schema:domainIncludes schema:TechArticle ;
                         rdfs:label "proficiencyLevel"@en .
 
@@ -11049,9 +11066,9 @@ schema:programName rdfs:label "programName"@en ;
 
 
 schema:programmingLanguage schema:domainIncludes schema:SoftwareSourceCode ;
-                           schema:rangeIncludes schema:Text ;
                            rdfs:comment "The computer programming language."@en ;
-                           schema:rangeIncludes schema:ComputerLanguage ;
+                           schema:rangeIncludes schema:Text ,
+                                                schema:ComputerLanguage ;
                            rdfs:label "programmingLanguage"@en .
 
 
@@ -11061,20 +11078,20 @@ schema:programmingModel schema:rangeIncludes schema:Text ;
                         schema:domainIncludes schema:APIReference .
 
 
-schema:propertyID schema:rangeIncludes schema:URL ,
-                                       schema:Text ;
+schema:propertyID schema:rangeIncludes schema:URL ;
                   rdfs:comment """A commonly used identifier for the characteristic represented by the property, e.g. a manufacturer or a standard code for a property. propertyID can be
 (1) a prefixed string, mainly meant to be used with standards for product properties; (2) a site-specific, non-prefixed string (e.g. the primary key of the property or the vendor-specific id of the property), or (3)
 a URL indicating the type of the property, either pointing to an external vocabulary, or a Web resource that describes the property (e.g. a glossary entry).
 Standards bodies should promote a standard prefix for the identifiers of properties from their standards."""@en ;
+                  schema:rangeIncludes schema:Text ;
                   schema:domainIncludes schema:PropertyValue ;
                   rdfs:label "propertyID"@en .
 
 
 schema:proteinContent schema:domainIncludes schema:NutritionInformation ;
                       rdfs:comment "The number of grams of protein."@en ;
-                      rdfs:label "proteinContent"@en ;
-                      schema:rangeIncludes schema:Mass .
+                      schema:rangeIncludes schema:Mass ;
+                      rdfs:label "proteinContent"@en .
 
 
 schema:provider rdfs:comment "The service provider, service operator, or service performer; the goods producer. Another party (a seller) may offer those services or goods on behalf of the provider. A provider may also serve as the seller."@en ;
@@ -11140,14 +11157,14 @@ While such policies are most typically expressed in natural language, sometimes 
                             schema:domainIncludes schema:Organization ;
                             schema:rangeIncludes schema:URL ,
                                                  schema:CreativeWork ;
-                            schema:domainIncludes schema:CreativeWork ;
                             rdfs:label "publishingPrinciples"@en ;
-                            schema:domainIncludes schema:Person .
+                            schema:domainIncludes schema:CreativeWork ,
+                                                  schema:Person .
 
 
-schema:purchaseDate schema:domainIncludes schema:Product ,
-                                          schema:Vehicle ;
+schema:purchaseDate schema:domainIncludes schema:Product ;
                     rdfs:label "purchaseDate"@en ;
+                    schema:domainIncludes schema:Vehicle ;
                     rdfs:comment "The date the item e.g. vehicle was purchased by the current owner."@en ;
                     schema:rangeIncludes schema:Date ;
                     dc:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> .
@@ -11201,8 +11218,8 @@ schema:recipeCuisine schema:domainIncludes schema:Recipe ;
 
 
 schema:recordLabel rdfs:comment "The label that issued the release."@en ;
-                   schema:domainIncludes schema:MusicRelease ;
                    dc:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+                   schema:domainIncludes schema:MusicRelease ;
                    schema:rangeIncludes schema:Organization ;
                    rdfs:label "recordLabel"@en .
 
@@ -11229,9 +11246,9 @@ schema:recordedIn rdfs:comment "The CreativeWork that captured all or part of th
                   schema:inverseOf schema:recordedAt .
 
 
-schema:recordingOf schema:rangeIncludes schema:MusicComposition ;
+schema:recordingOf rdfs:comment "The composition this track is a recording of."@en ;
                    schema:domainIncludes schema:MusicRecording ;
-                   rdfs:comment "The composition this track is a recording of."@en ;
+                   schema:rangeIncludes schema:MusicComposition ;
                    schema:inverseOf schema:recordedAs ;
                    rdfs:label "recordingOf"@en ;
                    dc:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> .
@@ -11245,15 +11262,15 @@ schema:referenceQuantity schema:domainIncludes schema:UnitPriceSpecification ;
                          rdfs:comment "The reference quantity for which a certain price applies, e.g. 1 EUR per 4 kWh of electricity. This property is a replacement for unitOfMeasurement for the advanced cases where the price does not relate to a standard unit."@en .
 
 
-schema:referencesOrder rdfs:comment "The Order(s) related to this Invoice. One or more Orders may be combined into a single Invoice."@en ;
-                       rdfs:label "referencesOrder"@en ;
+schema:referencesOrder rdfs:label "referencesOrder"@en ;
+                       rdfs:comment "The Order(s) related to this Invoice. One or more Orders may be combined into a single Invoice."@en ;
                        schema:domainIncludes schema:Invoice ;
                        schema:rangeIncludes schema:Order .
 
 
-schema:regionsAllowed schema:rangeIncludes schema:Place ;
-                      rdfs:comment "The regions where the media is allowed. If not specified, then it's assumed to be allowed everywhere. Specify the countries in [ISO 3166 format](http://en.wikipedia.org/wiki/ISO_3166)."@en ;
+schema:regionsAllowed rdfs:comment "The regions where the media is allowed. If not specified, then it's assumed to be allowed everywhere. Specify the countries in [ISO 3166 format](http://en.wikipedia.org/wiki/ISO_3166)."@en ;
                       schema:domainIncludes schema:MediaObject ;
+                      schema:rangeIncludes schema:Place ;
                       rdfs:label "regionsAllowed"@en .
 
 
@@ -11283,24 +11300,24 @@ schema:releaseNotes schema:rangeIncludes schema:URL ;
 
 
 schema:releaseOf schema:domainIncludes schema:MusicRelease ;
-                 schema:rangeIncludes schema:MusicAlbum ;
-                 dc:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
                  rdfs:comment "The album this is a release of."@en ;
+                 dc:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ> ;
+                 schema:rangeIncludes schema:MusicAlbum ;
                  schema:inverseOf schema:albumRelease ;
                  rdfs:label "releaseOf"@en .
 
 
 schema:releasedEvent schema:domainIncludes schema:CreativeWork ;
-                     rdfs:comment "The place and time the release was issued, expressed as a PublicationEvent."@en ;
                      rdfs:label "releasedEvent"@en ;
+                     rdfs:comment "The place and time the release was issued, expressed as a PublicationEvent."@en ;
                      schema:rangeIncludes schema:PublicationEvent .
 
 
 schema:relevantOccupation schema:domainIncludes schema:JobPosting ;
                           schema:rangeIncludes schema:Occupation ;
                           rdfs:comment "The Occupation for the JobPosting."@en ;
-                          dc:source <https://github.com/schemaorg/schemaorg/issues/1698> ;
                           rdfs:label "relevantOccupation"@en ;
+                          dc:source <https://github.com/schemaorg/schemaorg/issues/1698> ;
                           schema:category "issue-1698"@en .
 
 
@@ -11317,8 +11334,8 @@ schema:replyToUrl schema:rangeIncludes schema:URL ;
 
 
 schema:reportNumber schema:domainIncludes schema:Report ;
-                    rdfs:comment "The number or other unique designator assigned to a Report by the publishing organization."@en ;
                     rdfs:label "reportNumber"@en ;
+                    rdfs:comment "The number or other unique designator assigned to a Report by the publishing organization."@en ;
                     schema:rangeIncludes schema:Text .
 
 
@@ -11366,8 +11383,8 @@ schema:requirements rdfs:comment "Component dependency requirements for applicat
                     schema:rangeIncludes schema:Text ,
                                          schema:URL ;
                     schema:domainIncludes schema:SoftwareApplication ;
-                    schema:supersededBy schema:softwareRequirements ;
-                    rdfs:label "requirements"@en .
+                    rdfs:label "requirements"@en ;
+                    schema:supersededBy schema:softwareRequirements .
 
 
 schema:requiresSubscription rdfs:label "requiresSubscription"@en ;
@@ -11394,8 +11411,8 @@ schema:reservationId schema:domainIncludes schema:Reservation ;
 
 schema:reservationStatus rdfs:label "reservationStatus"@en ;
                          schema:rangeIncludes schema:ReservationStatusType ;
-                         schema:domainIncludes schema:Reservation ;
-                         rdfs:comment "The current status of the reservation."@en .
+                         rdfs:comment "The current status of the reservation."@en ;
+                         schema:domainIncludes schema:Reservation .
 
 
 schema:reservedTicket schema:rangeIncludes schema:Ticket ;
@@ -11416,13 +11433,13 @@ schema:responsibilities rdfs:comment "Responsibilities associated with this role
 schema:review schema:rangeIncludes schema:Review ;
               schema:domainIncludes schema:Service ,
                                     schema:Product ,
+                                    schema:Brand ,
                                     schema:Place ,
                                     schema:Organization ,
-                                    schema:Brand ,
-                                    schema:CreativeWork ,
-                                    schema:Event ;
+                                    schema:CreativeWork ;
               rdfs:label "review"@en ;
-              schema:domainIncludes schema:Offer ;
+              schema:domainIncludes schema:Event ,
+                                    schema:Offer ;
               rdfs:comment "A review of the item."@en .
 
 
@@ -11436,8 +11453,8 @@ schema:reviewAspect schema:domainIncludes schema:Rating ;
 
 
 schema:reviewBody schema:domainIncludes schema:Review ;
-                  rdfs:comment "The actual body of the review."@en ;
                   schema:rangeIncludes schema:Text ;
+                  rdfs:comment "The actual body of the review."@en ;
                   rdfs:label "reviewBody"@en .
 
 
@@ -11463,9 +11480,9 @@ schema:reviewedBy rdfs:label "reviewedBy"@en ;
 schema:reviews schema:domainIncludes schema:CreativeWork ;
                schema:supersededBy schema:review ;
                rdfs:label "reviews"@en ;
-               schema:domainIncludes schema:Offer ,
-                                     schema:Product ;
+               schema:domainIncludes schema:Offer ;
                rdfs:comment "Review of the item."@en ;
+               schema:domainIncludes schema:Product ;
                schema:rangeIncludes schema:Review ;
                schema:domainIncludes schema:Organization ,
                                      schema:Place .
@@ -11473,13 +11490,13 @@ schema:reviews schema:domainIncludes schema:CreativeWork ;
 
 schema:roleName schema:rangeIncludes schema:URL ,
                                      schema:Text ;
-                schema:domainIncludes schema:Role ;
                 rdfs:label "roleName"@en ;
+                schema:domainIncludes schema:Role ;
                 rdfs:comment "A role played, performed or filled by a person or organization. For example, the team of creators for a comic book might fill the roles named 'inker', 'penciller', and 'letterer'; or an athlete in a SportsTeam might play in the position named 'Quarterback'."@en .
 
 
-schema:rsvpResponse rdfs:label "rsvpResponse"@en ;
-                    schema:domainIncludes schema:RsvpAction ;
+schema:rsvpResponse schema:domainIncludes schema:RsvpAction ;
+                    rdfs:label "rsvpResponse"@en ;
                     schema:rangeIncludes schema:RsvpResponseType ;
                     rdfs:comment "The response (yes, no, maybe) to the RSVP."@en .
 
@@ -11505,8 +11522,8 @@ schema:salaryCurrency schema:domainIncludes schema:EmployeeRole ;
 
 
 schema:sampleType rdfs:label "sampleType"@en ;
-                  schema:rangeIncludes schema:Text ;
                   schema:supersededBy schema:codeSampleType ;
+                  schema:rangeIncludes schema:Text ;
                   schema:domainIncludes schema:SoftwareSourceCode ;
                   rdfs:comment "What type of code sample: full (compile ready) solution, code snippet, inline code, scripts, template."@en .
 
@@ -11549,8 +11566,8 @@ schema:screenshot rdfs:comment "A link to a screenshot image of the app."@en ;
                   schema:domainIncludes schema:SoftwareApplication .
 
 
-schema:seasons schema:rangeIncludes schema:CreativeWorkSeason ;
-               schema:supersededBy schema:season ;
+schema:seasons schema:supersededBy schema:season ;
+               schema:rangeIncludes schema:CreativeWorkSeason ;
                schema:domainIncludes schema:VideoGameSeries ,
                                      schema:TVSeries ;
                rdfs:label "seasons"@en ;
@@ -11589,8 +11606,8 @@ schema:securityScreening rdfs:label "securityScreening"@en ;
                          schema:domainIncludes schema:FlightReservation .
 
 
-schema:seeks rdfs:comment "A pointer to products or services sought by the organization or person (demand)."@en ;
-             schema:domainIncludes schema:Organization ;
+schema:seeks schema:domainIncludes schema:Organization ;
+             rdfs:comment "A pointer to products or services sought by the organization or person (demand)."@en ;
              schema:rangeIncludes schema:Demand ;
              schema:domainIncludes schema:Person ;
              rdfs:label "seeks"@en .
@@ -11633,9 +11650,9 @@ schema:serviceLocation schema:domainIncludes schema:ServiceChannel ;
 
 
 schema:serviceOperator schema:domainIncludes schema:GovernmentService ;
-                       rdfs:comment "The operating organization, if different from the provider.  This enables the representation of services that are provided by an organization, but operated by another organization like a subcontractor."@en ;
+                       rdfs:label "serviceOperator"@en ;
                        schema:rangeIncludes schema:Organization ;
-                       rdfs:label "serviceOperator"@en .
+                       rdfs:comment "The operating organization, if different from the provider.  This enables the representation of services that are provided by an organization, but operated by another organization like a subcontractor."@en .
 
 
 schema:serviceOutput rdfs:label "serviceOutput"@en ;
@@ -11699,15 +11716,15 @@ schema:siblings rdfs:label "siblings"@en ;
                 schema:rangeIncludes schema:Person .
 
 
-schema:significantLink rdfs:label "significantLink"@en ;
-                       schema:domainIncludes schema:WebPage ;
+schema:significantLink schema:domainIncludes schema:WebPage ;
+                       rdfs:label "significantLink"@en ;
                        rdfs:comment "One of the more significant URLs on the page. Typically, these are the non-navigation links that are clicked on the most."@en ;
                        schema:rangeIncludes schema:URL .
 
 
 schema:significantLinks schema:domainIncludes schema:WebPage ;
-                        schema:supersededBy schema:significantLink ;
                         rdfs:label "significantLinks"@en ;
+                        schema:supersededBy schema:significantLink ;
                         schema:rangeIncludes schema:URL ;
                         rdfs:comment "The most significant URLs on the page. Typically, these are the non-navigation links that are clicked on the most."@en .
 
@@ -11726,14 +11743,14 @@ schema:slogan rdfs:comment "A slogan or motto associated with the item."@en ;
               schema:domainIncludes schema:Product ;
               rdfs:label "slogan"@en ;
               schema:domainIncludes schema:Place ,
-                                    schema:Organization ,
                                     schema:Brand ,
+                                    schema:Organization ,
                                     schema:Service .
 
 
 schema:smokingAllowed rdfs:comment "Indicates whether it is allowed to smoke in the place, e.g. in the restaurant, hotel or hotel room."@en ;
-                      rdfs:label "smokingAllowed"@en ;
                       dc:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
+                      rdfs:label "smokingAllowed"@en ;
                       schema:domainIncludes schema:Place ;
                       schema:rangeIncludes schema:Boolean .
 
@@ -11771,8 +11788,8 @@ schema:softwareVersion schema:rangeIncludes schema:Text ;
 
 schema:sourceOrganization rdfs:comment "The Organization on whose behalf the creator was working."@en ;
                           rdfs:label "sourceOrganization"@en ;
-                          schema:domainIncludes schema:CreativeWork ;
-                          schema:rangeIncludes schema:Organization .
+                          schema:rangeIncludes schema:Organization ;
+                          schema:domainIncludes schema:CreativeWork .
 
 
 schema:spatial schema:rangeIncludes schema:Place ;
@@ -11845,11 +11862,11 @@ schema:starRating rdfs:comment "An official rating for a lodging business or foo
                   rdfs:label "starRating"@en .
 
 
-schema:startDate rdfs:comment "The start date and time of the item (in [ISO 8601 date format](http://en.wikipedia.org/wiki/ISO_8601))."@en ;
-                 schema:domainIncludes schema:DatedMoneySpecification ,
-                                       schema:Event ;
+schema:startDate schema:domainIncludes schema:DatedMoneySpecification ;
+                 rdfs:comment "The start date and time of the item (in [ISO 8601 date format](http://en.wikipedia.org/wiki/ISO_8601))."@en ;
                  schema:rangeIncludes schema:Date ;
-                 schema:domainIncludes schema:Role ,
+                 schema:domainIncludes schema:Event ,
+                                       schema:Role ,
                                        schema:CreativeWorkSeries ,
                                        schema:CreativeWorkSeason ;
                  rdfs:label "startDate"@en ;
@@ -12011,8 +12028,8 @@ schema:targetName schema:rangeIncludes schema:Text ;
 
 schema:targetPlatform schema:domainIncludes schema:APIReference ;
                       rdfs:comment "Type of app development: phone, Metro style, desktop, XBox, etc."@en ;
-                      schema:rangeIncludes schema:Text ;
-                      rdfs:label "targetPlatform"@en .
+                      rdfs:label "targetPlatform"@en ;
+                      schema:rangeIncludes schema:Text .
 
 
 schema:targetProduct rdfs:comment "Target Operating System / Product to which the code applies.  If applies to several versions, just the product name can be used."@en ;
@@ -12035,15 +12052,15 @@ schema:temporal rdfs:comment """The \"temporal\" property can be used in cases w
                                      schema:DateTime .
 
 
-schema:temporalCoverage schema:rangeIncludes schema:Text ;
-                        rdfs:comment """The temporalCoverage of a CreativeWork indicates the period that the content applies to, i.e. that it describes, either as a DateTime or as a textual string indicating a time period in [ISO 8601 time interval format](https://en.wikipedia.org/wiki/ISO_8601#Time_intervals). In
+schema:temporalCoverage rdfs:comment """The temporalCoverage of a CreativeWork indicates the period that the content applies to, i.e. that it describes, either as a DateTime or as a textual string indicating a time period in [ISO 8601 time interval format](https://en.wikipedia.org/wiki/ISO_8601#Time_intervals). In
       the case of a Dataset it will typically indicate the relevant time period in a precise notation (e.g. for a 2011 census dataset, the year 2011 would be written \"2011/2012\"). Other forms of content e.g. ScholarlyArticle, Book, TVSeries or TVEpisode may indicate their temporalCoverage in broader terms - textually or via well-known URL.
       Written works such as books may sometimes have precise temporal coverage too, e.g. a work set in 1939 - 1945 can be indicated in ISO 8601 interval format format via \"1939/1945\".
 
 Open-ended date ranges can be written with \"..\" in place of the end date. For example, \"2015-11/..\" indicates a range beginning in November 2015 and with no specified final date. This is tentative and might be updated in future when ISO 8601 is officially updated."""@en ;
-                        schema:rangeIncludes schema:DateTime ;
+                        schema:rangeIncludes schema:Text ,
+                                             schema:DateTime ,
+                                             schema:URL ;
                         schema:domainIncludes schema:CreativeWork ;
-                        schema:rangeIncludes schema:URL ;
                         rdfs:label "temporalCoverage"@en .
 
 
@@ -12054,9 +12071,9 @@ schema:text rdfs:comment "The textual content of this CreativeWork."@en ;
 
 
 schema:thumbnail rdfs:comment "Thumbnail image for an image or video."@en ;
-                 schema:domainIncludes schema:VideoObject ;
                  rdfs:label "thumbnail"@en ;
-                 schema:domainIncludes schema:ImageObject ;
+                 schema:domainIncludes schema:VideoObject ,
+                                       schema:ImageObject ;
                  schema:rangeIncludes schema:ImageObject .
 
 
@@ -12079,14 +12096,14 @@ schema:ticketNumber schema:rangeIncludes schema:Text ;
 
 
 schema:ticketToken rdfs:label "ticketToken"@en ;
-                   schema:rangeIncludes schema:Text ;
                    rdfs:comment "Reference to an asset (e.g., Barcode, QR code image or PDF) usable for entrance."@en ;
-                   schema:rangeIncludes schema:URL ;
+                   schema:rangeIncludes schema:Text ,
+                                        schema:URL ;
                    schema:domainIncludes schema:Ticket .
 
 
-schema:ticketedSeat schema:rangeIncludes schema:Seat ;
-                    schema:domainIncludes schema:Ticket ;
+schema:ticketedSeat schema:domainIncludes schema:Ticket ;
+                    schema:rangeIncludes schema:Seat ;
                     rdfs:label "ticketedSeat"@en ;
                     rdfs:comment "The seat associated with the ticket."@en .
 
@@ -12171,9 +12188,9 @@ schema:trailer schema:domainIncludes schema:RadioSeries ,
                                      schema:CreativeWorkSeason ,
                                      schema:Episode ;
                schema:rangeIncludes schema:VideoObject ;
+               schema:domainIncludes schema:VideoGameSeries ;
                rdfs:label "trailer"@en ;
-               schema:domainIncludes schema:VideoGameSeries ,
-                                     schema:VideoGame ;
+               schema:domainIncludes schema:VideoGame ;
                rdfs:comment "The trailer of a movie or tv/radio series, season, episode, etc."@en .
 
 
@@ -12210,10 +12227,10 @@ schema:translator rdfs:comment "Organization or person who adapts a creative wor
                   rdfs:label "translator"@en .
 
 
-schema:typeOfBed rdfs:label "typeOfBed"@en ;
-                 schema:rangeIncludes schema:BedType ,
-                                      schema:Text ;
+schema:typeOfBed schema:rangeIncludes schema:BedType ;
+                 rdfs:label "typeOfBed"@en ;
                  rdfs:comment "The type of bed to which the BedDetail refers, i.e. the type of bed available in the quantity indicated by quantity."@en ;
+                 schema:rangeIncludes schema:Text ;
                  dc:source <https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology> ;
                  schema:domainIncludes schema:BedDetails .
 
@@ -12226,9 +12243,9 @@ schema:typeOfGood schema:domainIncludes schema:TypeAndQuantityNode ;
                   rdfs:label "typeOfGood"@en .
 
 
-schema:typicalAgeRange schema:domainIncludes schema:Event ;
+schema:typicalAgeRange schema:domainIncludes schema:Event ,
+                                             schema:CreativeWork ;
                        rdfs:label "typicalAgeRange"@en ;
-                       schema:domainIncludes schema:CreativeWork ;
                        schema:rangeIncludes schema:Text ;
                        rdfs:comment "The typical expected age range, e.g. '7-9', '11-'."@en .
 
@@ -12237,8 +12254,8 @@ schema:underName rdfs:comment "The person or organization the reservation or tic
                  schema:rangeIncludes schema:Organization ;
                  schema:domainIncludes schema:Ticket ,
                                        schema:Reservation ;
-                 schema:rangeIncludes schema:Person ;
-                 rdfs:label "underName"@en .
+                 rdfs:label "underName"@en ;
+                 schema:rangeIncludes schema:Person .
 
 
 schema:unitCode rdfs:comment "The unit of measurement given using the UN/CEFACT Common Code (3 characters) or a URL. Other codes than the UN/CEFACT Common Code may be used with a prefix followed by a colon."@en ;
@@ -12267,8 +12284,8 @@ schema:unsaturatedFatContent rdfs:label "unsaturatedFatContent"@en ;
                              rdfs:comment "The number of grams of unsaturated fat."@en .
 
 
-schema:uploadDate schema:rangeIncludes schema:Date ;
-                  schema:domainIncludes schema:MediaObject ;
+schema:uploadDate schema:domainIncludes schema:MediaObject ;
+                  schema:rangeIncludes schema:Date ;
                   rdfs:label "uploadDate"@en ;
                   rdfs:comment "Date when this media object was uploaded to this site."@en .
 
@@ -12281,8 +12298,8 @@ schema:upvoteCount rdfs:comment "The number of upvotes this question, answer or 
 
 
 schema:url schema:domainIncludes schema:Thing ;
-           schema:rangeIncludes schema:URL ;
            rdfs:label "url"@en ;
+           schema:rangeIncludes schema:URL ;
            rdfs:comment "URL of the item."@en .
 
 
@@ -12299,8 +12316,8 @@ schema:userInteractionCount rdfs:comment "The number of interactions for the Cre
 
 
 schema:validFor rdfs:comment "The duration of validity of a permit or similar thing."@en ;
-                rdfs:label "validFor"@en ;
                 schema:rangeIncludes schema:Duration ;
+                rdfs:label "validFor"@en ;
                 schema:domainIncludes schema:Permit .
 
 
@@ -12329,11 +12346,11 @@ schema:validThrough schema:domainIncludes schema:PriceSpecification ;
                                           schema:Demand ,
                                           schema:JobPosting ;
                     schema:rangeIncludes schema:Date ;
-                    schema:domainIncludes schema:OpeningHoursSpecification ,
-                                          schema:MonetaryAmount ;
+                    schema:domainIncludes schema:OpeningHoursSpecification ;
                     rdfs:label "validThrough"@en ;
-                    schema:domainIncludes schema:LocationFeatureSpecification ;
-                    rdfs:comment "The date after when the item is not valid. For example the end of an offer, salary period, or a period of opening hours."@en .
+                    schema:domainIncludes schema:MonetaryAmount ;
+                    rdfs:comment "The date after when the item is not valid. For example the end of an offer, salary period, or a period of opening hours."@en ;
+                    schema:domainIncludes schema:LocationFeatureSpecification .
 
 
 schema:validUntil rdfs:comment "The date when the item is no longer valid."@en ;
@@ -12379,13 +12396,13 @@ schema:valueName rdfs:label "valueName"@en ;
 
 schema:valuePattern schema:rangeIncludes schema:Text ;
                     rdfs:comment "Specifies a regular expression for testing literal values according to the HTML spec."@en ;
-                    rdfs:label "valuePattern"@en ;
-                    schema:domainIncludes schema:PropertyValueSpecification .
+                    schema:domainIncludes schema:PropertyValueSpecification ;
+                    rdfs:label "valuePattern"@en .
 
 
-schema:valueReference schema:domainIncludes schema:QualitativeValue ;
-                      schema:rangeIncludes schema:QuantitativeValue ,
+schema:valueReference schema:rangeIncludes schema:QuantitativeValue ,
                                            schema:Enumeration ;
+                      schema:domainIncludes schema:QualitativeValue ;
                       rdfs:label "valueReference"@en ;
                       schema:rangeIncludes schema:StructuredValue ,
                                            schema:QualitativeValue ;
@@ -12408,8 +12425,8 @@ schema:vatID rdfs:label "vatID"@en ;
              rdfs:comment "The Value-added Tax ID of the organization or person."@en .
 
 
-schema:vehicleConfiguration rdfs:label "vehicleConfiguration"@en ;
-                            schema:rangeIncludes schema:Text ;
+schema:vehicleConfiguration schema:rangeIncludes schema:Text ;
+                            rdfs:label "vehicleConfiguration"@en ;
                             rdfs:comment "A short text indicating the configuration of the vehicle, e.g. '5dr hatchback ST 2.5 MT 225 hp' or 'limited edition'."@en ;
                             schema:domainIncludes schema:Vehicle ;
                             dc:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> .
@@ -12443,16 +12460,16 @@ schema:vehicleModelDate schema:domainIncludes schema:Vehicle ;
                         schema:rangeIncludes schema:Date .
 
 
-schema:vehicleSeatingCapacity dc:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
-                              rdfs:label "vehicleSeatingCapacity"@en ;
+schema:vehicleSeatingCapacity rdfs:label "vehicleSeatingCapacity"@en ;
+                              schema:rangeIncludes schema:QuantitativeValue ;
+                              dc:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group> ;
                               rdfs:comment "The number of passengers that can be seated in the vehicle, both in terms of the physical space available, and in terms of limitations set by law.\\n\\nTypical unit code(s): C62 for persons."@en ;
-                              schema:rangeIncludes schema:QuantitativeValue ,
-                                                   schema:Number ;
+                              schema:rangeIncludes schema:Number ;
                               schema:domainIncludes schema:Vehicle .
 
 
-schema:vehicleSpecialUsage schema:rangeIncludes schema:Text ;
-                           rdfs:label "vehicleSpecialUsage"@en ;
+schema:vehicleSpecialUsage rdfs:label "vehicleSpecialUsage"@en ;
+                           schema:rangeIncludes schema:Text ;
                            rdfs:comment "Indicates whether the vehicle has been used for special purposes, like commercial rental, driving school, or as a taxi. The legislation in many countries requires this information to be revealed when offering a car for sale."@en ;
                            schema:domainIncludes schema:Vehicle .
 
@@ -12480,11 +12497,11 @@ schema:video rdfs:label "video"@en ;
                                   schema:VideoObject .
 
 
-schema:videoFormat schema:rangeIncludes schema:Text ;
-                   schema:domainIncludes schema:BroadcastEvent ;
+schema:videoFormat schema:domainIncludes schema:BroadcastEvent ;
+                   schema:rangeIncludes schema:Text ;
+                   schema:domainIncludes schema:ScreeningEvent ;
                    rdfs:comment "The type of screening or video broadcast used (e.g. IMAX, 3D, SD, HD, etc.)."@en ;
-                   schema:domainIncludes schema:ScreeningEvent ,
-                                         schema:BroadcastService ;
+                   schema:domainIncludes schema:BroadcastService ;
                    rdfs:label "videoFormat"@en .
 
 
@@ -12509,10 +12526,10 @@ schema:warranty rdfs:label "warranty"@en ;
 
 schema:warrantyPromise schema:domainIncludes schema:BuyAction ,
                                              schema:SellAction ;
-                       schema:supersededBy schema:warranty ;
+                       schema:rangeIncludes schema:WarrantyPromise ;
                        rdfs:comment "The warranty promise(s) included in the offer."@en ;
-                       rdfs:label "warrantyPromise"@en ;
-                       schema:rangeIncludes schema:WarrantyPromise .
+                       schema:supersededBy schema:warranty ;
+                       rdfs:label "warrantyPromise"@en .
 
 
 schema:warrantyScope schema:domainIncludes schema:WarrantyPromise ;
@@ -12544,16 +12561,16 @@ schema:width schema:domainIncludes schema:Product ,
 
 
 schema:wordCount rdfs:comment "The number of words in the text of the Article."@en ;
-                 rdfs:label "wordCount"@en ;
                  schema:rangeIncludes schema:Integer ;
+                 rdfs:label "wordCount"@en ;
                  schema:domainIncludes schema:Article .
 
 
 schema:workExample dc:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_bibex> ;
                    schema:inverseOf schema:exampleOfWork ;
                    rdfs:label "workExample"@en ;
-                   schema:domainIncludes schema:CreativeWork ;
                    rdfs:comment "Example/instance/realization/derivation of the concept of this creative work. eg. The paperback edition, first edition, or eBook."@en ;
+                   schema:domainIncludes schema:CreativeWork ;
                    schema:rangeIncludes schema:CreativeWork .
 
 
@@ -12593,8 +12610,8 @@ schema:yearlyRevenue rdfs:comment "The size of the business in annual revenue."@
 
 schema:yearsInOperation schema:domainIncludes schema:BusinessAudience ;
                         schema:rangeIncludes schema:QuantitativeValue ;
-                        rdfs:comment "The age of the business."@en ;
-                        rdfs:label "yearsInOperation"@en .
+                        rdfs:label "yearsInOperation"@en ;
+                        rdfs:comment "The age of the business."@en .
 
 
 <http://schema.org/docs/schema_org_rdfa.html> dc:source <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#IIT-CNR.it> ,

@@ -56,9 +56,15 @@ Quanti ostelli della gioventù ci sono in Alto Adige?
 
 ### Q6:
 
+<!--
 Which youth hostel is located in Bolzano? (OR OTHER REGION)
 Welche Jugendherberge befindet sich in Bozen?
 Quale ostello della gioventù si trova a Bolzano?
+-->
+
+Where is the youth hostel 'Casa per Ferie' located?
+Wo befindet sich das Jugendherberge 'Casa per Ferie'?
+Dove si trova l'ostello della gioventù "Casa per Ferie"?
 
 
 ### Q7:
@@ -94,3 +100,6 @@ Südtirol Gewürztraminer Spätlese Terminum
 Südtirol Vinschgau Riesling Windbichel
 Südtirol Terlaner I Grande Cuvée
 Südtirol Lagrein Mirell
+
+
+## TODO: remove duplicated edges (for Q5)

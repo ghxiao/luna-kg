@@ -85,7 +85,7 @@
     </div>
     <div id="qa">
         <fieldset title="Question">
-            <legend>Question #{{ quizIndex+1 }}: {{ quiz.question }}</legend>
+            <legend>Question #{{ quizIndex+1 }}/{{ totalQuestions}}: {{ localize(quiz.question) }}</legend>
             <div id="choices">
                 <input id="choice.a" type="radio" name="choice" class="choice" value="A" v-model='selected'
                        :disabled="status==2">
@@ -106,6 +106,7 @@
                             :disabled="status==2 || !selected">Submit
                     </button>
                     <button :disabled="showNextDisabled()" @click="next();">Next Question</button>
+                    <button @click="loadKG();">Load Knowledge Graph</button>
                 </div>
             </div>
         </fieldset>

@@ -10,10 +10,23 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX schema: <http://schema.org/>
 `;
 
+`
+{
+en: '',
+de: '',
+it: '',
+}
+`
+
+
 const exercises = [
-    /*0*/
+    /*Q0*/
     {
-        question: " Which is a typical summer activity in Suedtirol?",
+        question: {
+            en: 'Which is a typical summer activity in South Tyrol?',
+            de: 'Was ist eine typische Sommeraktivität in Südtirol?',
+            it: 'Qual è una tipica attività estiva in Alto Adigen',
+        },
         choices: {
             'A': 'Eisklettern',
             'B': 'Radfahren Radtouren',
@@ -30,9 +43,13 @@ WHERE {
   ?act a :Activity ; rdfs:label ?t ; :activityType ?at . FILTER (?at = 'Winter' || ?at='Sommer')
 }`
     },
-    /*0*/
+    /*Q1*/
     {
-        question: " Which is a typical winter activity in Suedtirol?",
+        question: {
+            en: 'Which is a typical winter activity in South Tyrol?',
+            de: 'Was ist eine typische Winteraktivität in Südtirol?',
+            it: 'Qual è una tipica attività invernale in Alto Adige?',
+        },
         choices: {
             'A': 'Badeseen Freibäder',
             'B': 'Radfahren Radtouren',
@@ -49,9 +66,13 @@ WHERE {
   ?act a :Activity ; rdfs:label ?t ; :activityType ?at . FILTER (?at = 'Winter' || ?at='Sommer')
 }`
     },
-    /*1*/
+    /*Q2*/
     {
-        question: "How many ski resorts are in Suedtirol?",
+        question: {
+            en: 'How many ski resorts are in South Tyrol?',
+            de: 'Wie viele Skigebiete gibt es in Südtirol?',
+            it: 'Quanti comprensori sciistici ci sono in Alto Adige?',
+        },
         choices: {
             'A': '1 -10',
             'B': '11 - 20',
@@ -68,9 +89,13 @@ WHERE {
 ?s a schema:SkiResort ; rdfs:label ?name .
 }`,
     },
-    /*2*/
+    /*Q3*/
     {
-        question: "Which one is the highest?",
+        question: {
+            en: 'Which is the highest ski resort in South Tyrol?',
+            de: 'Welches ist der höchste Skiort Südtirols?',
+            it: 'Quale è la località sciistica più alta dell\'Alto Adige?\n',
+        },
         choices: {
             'A': {
                 'en': 'Merano 2000 ski area',
@@ -105,10 +130,14 @@ WHERE {
 ORDER BY DESC(?el)
 LIMIT 10`
     }
-,
-    /*3*/
+    ,
+    /*Q4*/
     {
-        question: "Where is 'Sulden ski area' located?",
+        question: {
+            en: 'Where is the \'Sulden ski area\' located?',
+            de: 'Wo befindet sich das \'Skigebiet Sulden\'?',
+            it: 'Dove si trova la \'Località sciistica Solda\'?',
+        },
         choices: {
             'A': 'Vinschgau',
             'B': 'Meraner Land',
@@ -129,6 +158,98 @@ CONSTRUCT
   }
 }`
     }
+    ,
+    /*Q5*/
+    {
+        question: {
+            en: 'How many youth hostels are there in South Tyrol?',
+            de: 'Wie viele Jugendherbergen gibt es in Südtirol?',
+            it: 'Quanti ostelli della gioventù ci sono in Alto Adige?',
+        },
+        choices: {
+            'A': '1-3',
+            'B': '4-6',
+            'C': '7-9',
+            'D': '10-12'
+        },
+        correct: 'B',
+        sparql: `
+${prefixes}
+
+CONSTRUCT 
+{
+ ?s a schema:Hostel ; schema:name ?name .
+}
+ WHERE {
+ {  ?s a schema:Hostel ; schema:name ?name .
+  }
+}`
+    }
+    ,
+    /* Q6 */
+    {
+        question: {
+            en: 'Where is the youth hostel \'Casa per Ferie\' located?',
+            de: 'Wo befindet sich das Jugendherberge \'Casa per Ferie\'?',
+            it: 'Dove si trova l\'ostello della gioventù "Casa per Ferie"?',
+        },
+        choices: {
+            'A': 'Bolzano',
+            'B': 'Braies',
+            'C': 'Salorno',
+            'D': 'Merano'
+        },
+        correct: 'B',
+        sparql: `
+${prefixes}
+
+CONSTRUCT 
+{
+?s a schema:Hostel .
+  ?s schema:name ?hostelName .
+  ?s schema:address ?add .
+  ?add schema:addressLocality ?loc .
+}
+ WHERE {
+  ?s a schema:Hostel .
+  ?s schema:name ?hostelName .
+  ?s schema:address ?add .
+  ?add schema:addressLocality ?loc .
+  FILTER (LANG(?hostelName) = 'en')
+  FILTER (LANG(?loc) = 'en')}`
+    },
+/* Q7 */
+    {
+        question: {
+            en: 'Which city has the second largest number of accommodations?',
+            de: 'Welche Stadt hat die zweitgrößte Anzahl von Unterkünften?',
+            it: 'Quale città ha il secondo maggior numero di alloggi?',
+        },
+        choices: {
+            'A': 'Bolzano',
+            'B': 'Braies',
+            'C': 'Salorno',
+            'D': 'Merano'
+        },
+        correct: 'B',
+        sparql: `
+${prefixes}
+
+CONSTRUCT 
+{
+?s a schema:Hostel .
+  ?s schema:name ?hostelName .
+  ?s schema:address ?add .
+  ?add schema:addressLocality ?loc .
+}
+ WHERE {
+  ?s a schema:Hostel .
+  ?s schema:name ?hostelName .
+  ?s schema:address ?add .
+  ?add schema:addressLocality ?loc .
+  FILTER (LANG(?hostelName) = 'en')
+  FILTER (LANG(?loc) = 'en')}`
+    },
 ];
 
 export {exercises};

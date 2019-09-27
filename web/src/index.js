@@ -16,6 +16,10 @@ const app = new Vue({
         lang: 'en',
         endpoint: new SPARQLClient('http://localhost:8080/sparql')
     },
+    mounted: function () {
+        //console.log(this.data)
+        this.loadKG(this.quiz.sparql);
+    },
     methods: {
         calcScore(status, right) {
             // status:
@@ -62,10 +66,11 @@ const app = new Vue({
             this.status = 0;
             this.message = "";
             this.selected = 0;
+            //this.loadKG(this.quiz.sparql);
         },
-        loadKG(constructQuery) {
+        loadKG() {
             this.endpoint
-                .construct(constructQuery)
+                .construct(this.quiz.sparql)
                 .then(
                     result => {
                         const prefixes = {
