@@ -54,8 +54,8 @@ source		SELECT "Id" AS id
 			WHERE "AccoTypeId" = 'BedBreakfast'
 
 mappingId	POI
-target		:data/poi/{Id} a :POI ; rdfs:label {Shortname}^^xsd:string ; geo:asWKT "POINT ({GpsPoints-position-Longitude} {GpsPoints-position-Latitude})"^^geo:wktLiteral ; schema:elevation {GpsPoints-position-Altitude}^^xsd:decimal . 
-source		SELECT "Id", "Shortname", "GpsPoints-position-Latitude", "GpsPoints-position-Longitude", "GpsPoints-position-Altitude" FROM v_poisopen
+target		:data/poi/{Id} a :POI ; rdfs:label {Shortname}^^xsd:string ; geo:asWKT "POINT ({GpsPoints-position-Longitude} {GpsPoints-position-Latitude})"^^geo:wktLiteral ; schema:elevation {GpsPoints-position-Altitude}^^xsd:decimal ; schema:location {LocationInfo-AreaInfo-Name-en}^^xsd:string . 
+source		SELECT "Id", "Shortname", "GpsPoints-position-Latitude", "GpsPoints-position-Longitude", "GpsPoints-position-Altitude", "LocationInfo-AreaInfo-Name-en" FROM v_poisopen
 
 mappingId	Area
 target		:data/area/{Id} a :Area ; rdfs:label {Shortname}^^xsd:string ; schema:isPartOf :data/region/{RegionId} . 
@@ -96,6 +96,14 @@ source		SELECT "Type", "SubType"
 
 mappingId	Theater
 target		:data/poi/{Id} a :Theater . 
-source		SELECT * FROM v_poisopen WHERE "Type" = 'Theater'
+source		SELECT * FROM v_poisopen WHERE "SubType" = 'Theater'
+
+mappingId	Wine
+target		:data/wine/{Id} a :Wine ; rdfs:label {Shortname} ; :wineVintageYear {Vintage} ; :wineAwardYear {Awardyear} . 
+source		SELECT * FROM v_wines
+
+mappingId	WineAward
+target		:data/wine/{Id} a :Wine ; :receivesWineAward {data}^^xsd:string . 
+source		SELECT * FROM "v_wines_Awards"
 ]]
 

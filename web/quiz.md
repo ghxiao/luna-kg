@@ -1,6 +1,6 @@
 # Quiz
 
-### Q1: Winter Activity
+### Q0/1: Winter/Summer Activity
 
 Which is a typical winter activity in South Tyrol?
 Was ist eine typische Winteraktivität in Südtirol?
@@ -86,11 +86,7 @@ B. 2
 C. 3
 D. 4
 
-### Q9:
-
-Post offices.
-
-### Q10: Wine and Awards:
+### Q9: Wine and Awards:
 
 Which of the following wines got the largest number of awards?
 Welcher der folgenden Weine erhielt die meisten Auszeichnungen?

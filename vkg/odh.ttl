@@ -1396,6 +1396,10 @@ schema:address rdf:type owl:ObjectProperty ;
 :hasWkt rdf:type owl:DatatypeProperty .
 
 
+###  http://noi.example.org/ontology/odh#receivesWineAward
+:receivesWineAward rdf:type owl:DatatypeProperty .
+
+
 ###  http://noi.example.org/ontology/odh#wineAwardYear
 :wineAwardYear rdf:type owl:DatatypeProperty .
 

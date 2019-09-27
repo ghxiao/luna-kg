@@ -219,36 +219,93 @@ CONSTRUCT
   FILTER (LANG(?loc) = 'en')}`
     },
 /* Q7 */
+//     {
+//         question: {
+//             en: 'Which city has the second largest number of accommodations?',
+//             de: 'Welche Stadt hat die zweitgrößte Anzahl von Unterkünften?',
+//             it: 'Quale città ha il secondo maggior numero di alloggi?',
+//         },
+//         choices: {
+//             'A': 'Bolzano',
+//             'B': 'Braies',
+//             'C': 'Salorno',
+//             'D': 'Merano'
+//         },
+//         correct: 'B',
+//         sparql: `
+// ${prefixes}
+//
+// CONSTRUCT
+// {
+// ?s a schema:Hostel .
+//   ?s schema:name ?hostelName .
+//   ?s schema:address ?add .
+//   ?add schema:addressLocality ?loc .
+// }
+//  WHERE {
+//   ?s a schema:Hostel .
+//   ?s schema:name ?hostelName .
+//   ?s schema:address ?add .
+//   ?add schema:addressLocality ?loc .
+//   FILTER (LANG(?hostelName) = 'en')
+//   FILTER (LANG(?loc) = 'en')}`
+//     },
+/* Q8 */
     {
         question: {
-            en: 'Which city has the second largest number of accommodations?',
-            de: 'Welche Stadt hat die zweitgrößte Anzahl von Unterkünften?',
-            it: 'Quale città ha il secondo maggior numero di alloggi?',
+            en: 'How many cities in South Tyrol have a theater?',
+            de: 'In wie vielen Städten Südtirols gibt es ein Theater?',
+            it: 'Quante città dell\'Alto Adige hanno un teatro?',
         },
         choices: {
-            'A': 'Bolzano',
-            'B': 'Braies',
-            'C': 'Salorno',
-            'D': 'Merano'
+            'A': '1',
+            'B': '2',
+            'C': '3',
+            'D': '4'
         },
         correct: 'B',
         sparql: `
 ${prefixes}
 
-CONSTRUCT 
-{
-?s a schema:Hostel .
-  ?s schema:name ?hostelName .
-  ?s schema:address ?add .
-  ?add schema:addressLocality ?loc .
+CONSTRUCT {
+?x a :Theater ; rdfs:label ?posLabel ;  schema:location ?city.
 }
- WHERE {
-  ?s a schema:Hostel .
-  ?s schema:name ?hostelName .
-  ?s schema:address ?add .
-  ?add schema:addressLocality ?loc .
-  FILTER (LANG(?hostelName) = 'en')
-  FILTER (LANG(?loc) = 'en')}`
+#SELECT * 
+WHERE  {
+?x a :Theater ; rdfs:label ?posLabel ;  schema:location ?city.
+} `
+    },
+    /* Q9 */
+    {
+        question: {
+            en: 'Which of the following wines got the largest number of awards?',
+            de: 'Welcher der folgenden Weine erhielt die meisten Auszeichnungen?',
+            it: 'Quale dei seguenti vini ha ottenuto il maggior numero di premi?',
+        },
+        choices: {
+            'A': 'Südtirol Gewürztraminer Spätlese Terminum',
+            'B': 'Südtirol Vinschgau Riesling Windbichel',
+            'C': 'Südtirol Terlaner I Grande Cuvée',
+            'D': 'Südtirol Lagrein Mirell'
+        },
+        correct: 'A',
+        sparql: `
+${prefixes}
+
+
+CONSTRUCT 
+{?s ?pred ?obj}
+#SELECT * 
+WHERE 
+{
+{ ?s ?pred ?obj . FILTER(?s =  <http://noi.example.org/ontology/odh#data/wine/5A49D073-B707-41C0-B789-B6DB21D8C1C1> )}
+  UNION
+{ ?s ?pred ?obj . FILTER(?s =  <http://noi.example.org/ontology/odh#data/wine/8C26FBD2-0EAF-4506-8113-D07091961B69> )}  
+  UNION
+{ ?s ?pred ?obj . FILTER(?s = <http://noi.example.org/ontology/odh#data/wine/A6CA9C71-2885-450A-8EA0-F4EF409EECA4>  )}  
+  UNION
+{ ?s ?pred ?obj . FILTER(?s = <http://noi.example.org/ontology/odh#data/wine/B4528BF4-F1EE-42FB-AF5F-CD79376F634C> )}  
+}  `
     },
 ];
 
