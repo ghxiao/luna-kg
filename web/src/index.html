@@ -106,7 +106,6 @@
                             :disabled="status==2 || !selected">Submit
                     </button>
                     <button :disabled="showNextDisabled()" @click="next();">Next Question</button>
-                    <button @click="loadKG();">Load Knowledge Graph</button>
                 </div>
             </div>
         </fieldset>
@@ -116,6 +115,7 @@
         <br/>
     </div>
     <div id="kg">
+        <button @click="loadKG();">Reload Knowledge Graph</button>
         <div id="kg-canvas" v-show="status >= 1"></div>
     </div>
     <div id="footer">

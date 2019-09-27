@@ -21,28 +21,28 @@ it: '',
 
 const exercises = [
     /*Q0*/
-    {
-        question: {
-            en: 'Which is a typical summer activity in South Tyrol?',
-            de: 'Was ist eine typische Sommeraktivität in Südtirol?',
-            it: 'Qual è una tipica attività estiva in Alto Adigen',
-        },
-        choices: {
-            'A': 'Eisklettern',
-            'B': 'Radfahren Radtouren',
-            'C': 'Skitouren',
-            'D': 'Rodeln'
-        },
-        correct: 'B',
-        sparql: `
-${prefixes}
-CONSTRUCT {
- ?act :season ?at ; :name ?t.
-}
-WHERE {
-  ?act a :Activity ; rdfs:label ?t ; :activityType ?at . FILTER (?at = 'Winter' || ?at='Sommer')
-}`
-    },
+//     {
+//         question: {
+//             en: 'Which is a typical summer activity in South Tyrol?',
+//             de: 'Was ist eine typische Sommeraktivität in Südtirol?',
+//             it: 'Qual è una tipica attività estiva in Alto Adigen',
+//         },
+//         choices: {
+//             'A': 'Eisklettern',
+//             'B': 'Radfahren Radtouren',
+//             'C': 'Skitouren',
+//             'D': 'Rodeln'
+//         },
+//         correct: 'B',
+//         sparql: `
+// ${prefixes}
+// CONSTRUCT {
+//  ?act :season ?at ; :name ?t.
+// }
+// WHERE {
+//   ?act a :Activity ; rdfs:label ?t ; :activityType ?at . FILTER (?at = 'Winter' || ?at='Sommer')
+// }`
+//     },
     /*Q1*/
     {
         question: {
@@ -150,7 +150,7 @@ ${prefixes}
 
 CONSTRUCT 
 {
- ?s a schema:SkiResort ; rdfs:label ?name ; geo:asWKT ?pos ; schema:elevation ?el ; schema:isPartOf ?a. ?a a :Area.  ?a rdfs:label ?areaName; schema:isPartOf ?r . ?r a :Region; rdfs:label ?regionName .
+ ?s a schema:SkiResort ; rdfs:label ?name ; schema:elevation ?el ; schema:isPartOf ?a. ?a a :Area.  ?a rdfs:label ?areaName; schema:isPartOf ?r . ?r a :Region; rdfs:label ?regionName .
 }
  WHERE {
  {  ?s a schema:SkiResort ; rdfs:label ?name ; geo:asWKT ?pos ; schema:elevation ?el ; schema:isPartOf ?a. ?a a :Area.  ?a rdfs:label ?areaName; schema:isPartOf ?r . ?r a :Region; rdfs:label ?regionName .
